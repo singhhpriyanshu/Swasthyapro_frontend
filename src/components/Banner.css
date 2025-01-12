@@ -1,0 +1,33 @@
+
+.banner{
+    display: flex;
+}
+
+.banner .rightside video{
+    height: 100%;
+}
+
+@media (max-width:480px){
+    .banner{
+        display: flex;
+        flex-direction: column
+    }
+    
+    .leftside{
+        flex-direction: column;
+        justify-content: center;    
+    }
+    .leftside h2{
+        text-align: center;
+        font-size: 10px;
+        font-weight: 200;
+    }
+    .leftside p{
+       font-size: 8px;
+       text-align: center;
+        
+    }
+    .rightside{
+        
+    }
+}

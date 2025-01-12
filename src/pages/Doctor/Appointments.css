@@ -1,0 +1,66 @@
+#list {
+    display: grid;
+    grid-template-columns: 0.5fr 1.5fr 1fr 1fr 0.5fr;
+    gap: 1px;
+    align-items: center;
+    border: 2px solid green;
+    padding: 8px 8px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease-in-out;
+}
+
+#list:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+#list p {
+    margin-bottom: 15px;
+    font-weight: 500;
+    font-size: 17px;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+#list p:hover {
+    color: #007BFF;
+    cursor: pointer;
+}
+
+#list #num {
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #28a745;
+    transition: color 0.3s ease;
+}
+
+#list #num:hover {
+    color: #218838;
+}
+
+@media(max-width: 480px) {
+    #list {
+        padding: 2px 2px;
+    }
+
+    #list p {
+        font-size: 13px;
+        font-weight: 400;
+    }
+}
+
+/* Adding animation for initial appearance */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#list {
+    animation: fadeIn 1s ease-in-out;
+}

@@ -1,0 +1,40 @@
+
+    
+.container {
+    
+    /* display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%; */
+    overflow: hidden;
+  }
+
+  #img1{
+    background-size: cover; /* Ensures the image covers the container */
+    background-position: center; /* Centers the image */
+    height: 100vh; /* Full viewport height */
+    width: 100%; /* Full width */
+  }
+  
+  
+  @media (max-width: 480px) {
+    #img1{
+      display: none;
+    }
+
+    .container #card{
+       display: flex;
+       justify-content: space-between;
+       flex-wrap: wrap;
+       
+         
+    }
+
+  
+   
+    
+  }

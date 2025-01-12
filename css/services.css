@@ -1,0 +1,183 @@
+/* 09 - SERVICES AREA CSS
+<<<<======================================================>>>>*/ 
+/* .single-services {
+  padding: 30px;
+  margin-bottom: 30px;
+  background-color: #ffffff;
+  text-align: center;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  position: relative;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.single-services::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #19ce67;
+  border-radius: 4px;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  z-index: -1;
+}
+
+.single-services i {
+  font-size: 30px;
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #19ce67;
+  margin-bottom: 20px;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  line-height: 1;
+  font-size: 45px;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  border-radius: 50%;
+  background-color: #def5ee;
+  -webkit-box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.05);
+}
+
+.single-services h3 {
+  margin-bottom: 15px;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.single-services p {
+  margin-bottom: 20px;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.single-services .read-more:hover {
+  letter-spacing: 1.5px;
+}
+
+.single-services:hover {
+  -webkit-transform: translateY(-5px);
+          transform: translateY(-5px);
+}
+
+.single-services:hover::before {
+  height: 100%;
+}
+
+.single-services:hover i {
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+}
+
+.single-services:hover h3 {
+  color: #ffffff;
+}
+
+.single-services:hover p {
+  color: #ffffff;
+}
+
+.single-services:hover .read-more {
+  color: #ffffff;
+}
+
+.department-wrap {
+  margin-bottom: 25px;
+}
+
+.department-wrap .single-services {
+  margin-left: 10px;
+  margin-right: 10px;
+} */
+
+.single-services {
+  padding: 30px;
+  margin: 20px;
+  background-color: #ffffff;
+  text-align: center;
+  transition: all 0.5s ease;
+  position: relative;
+  border-radius: 8px; /* Increased for smoother edges */
+  border: 1px solid #e0e0e0; /* Light gray border */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+  z-index: 1;
+}
+
+.single-services::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #19ce67;
+  border-radius: 4px;
+  transition: all 0.5s;
+  z-index: -1;
+}
+
+.single-services i {
+  font-size: 45px;
+  color: #19ce67;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  border-radius: 50%;
+  background-color: #def5ee;
+  box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+  transition: all 0.5s ease;
+}
+
+.single-services h3 {
+  margin-bottom: 15px;
+  transition: color 0.5s;
+}
+
+.single-services p {
+  margin-bottom: 20px;
+  transition: color 0.5s;
+}
+
+.single-services .read-more {
+  color: #19ce67;
+  font-weight: bold;
+  text-decoration: none;
+  transition: letter-spacing 0.5s, color 0.5s;
+}
+
+.single-services:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+.single-services:hover::before {
+  height: 100%;
+}
+
+.single-services:hover i {
+  transform: rotate(360deg);
+}
+
+.single-services:hover h3,
+.single-services:hover p,
+.single-services:hover .read-more {
+  color: #ffffff;
+}
+.services-area .row {
+  margin: 0 -15px; /* Ensures spacing between columns */
+}
+.services-area .container {
+  padding: 0 15px; /* Padding around the container */
+}
+@media (max-width: 768px) {
+  .single-services {
+      margin: 15px;
+  }
+}

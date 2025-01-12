@@ -1,0 +1,20 @@
+.box-doctors {
+    position: relative;
+    overflow: hidden; /* Ensures that the scaled video does not bleed outside the card */
+    height: 375px; /* Adjust height as necessary */
+    transition: transform 0.3s ease-in-out; /* Smooth transition for hover effects */
+    /* background-color: rgb(131, 226, 147); */
+  }
+  
+  .box-doctors video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures video covers the entire area of its container */
+    transition: transform 0.3s ease-in-out; /* Smooth scaling transition */
+  }
+  
+  .box-doctors:hover video {
+    transform: scale(1.1); /* Scales up the video */
+    /* background-color: blue; */
+  }
+  

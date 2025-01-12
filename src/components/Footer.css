@@ -1,0 +1,20 @@
+
+@media(max-width:480px){
+    #contact h4{
+        font-size: larger;
+        font-weight: bold;
+        margin-right: 75px;
+    }
+    #contact{
+        justify-items: center;
+    }
+    #media{
+        justify-content: center;
+    }
+    #media a{
+        margin-right: 5px;
+        justify-items: center;
+        margin-left: 15px;
+        padding-left: 5px;  
+    }
+}

@@ -1,0 +1,139 @@
+/* General form container styling */
+.form-container {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: linear-gradient(to bottom, #f9f9f9, #e6e6e6);
+}
+
+/* Form content styling */
+.form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1), 0 -5px 10px rgba(255, 255, 255, 0.5);
+    min-width: 340px;
+    max-width: 400px;
+    animation: fadeIn 0.8s ease-in-out;
+    transition: box-shadow 0.4s ease, transform 0.3s ease;
+}
+
+.form-content:hover {
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2), 0 -5px 10px #2E8B57;
+    transform: translateY(-10px);
+}
+
+/* Form title and subtitle */
+.form-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333333;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.form-subtitle {
+    font-size: 0.9rem;
+    color: #555555;
+}
+
+/* Input field styling */
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-field p {
+    font-size: 0.9rem;
+    color: #444444;
+}
+
+.form-field input {
+    padding: 12px;
+    border: 1px solid #d1d1d1;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #f9f9f9;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.form-field input:focus {
+    border-color: #2E8B57;
+    background-color: #fff;
+    box-shadow: 0 6px 12px #2E8B57;
+    outline: none;
+}
+
+/* Button styling */
+.form-button {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-button:hover {
+    background: linear-gradient(135deg, #0056b3, #003f7f);
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.form-button:active {
+    background: linear-gradient(135deg, #003f7f, #002a5c);
+    transform: scale(1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Link styling */
+.form-link {
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.form-link:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .form-content {
+        padding: 20px 25px;
+        min-width: 100%;
+    }
+
+    .form-title {
+        font-size: 1.6rem;
+    }
+
+    .form-button {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+}

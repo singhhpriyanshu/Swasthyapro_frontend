@@ -1,0 +1,14 @@
+
+@media(max-width:480px){
+    #circle{
+        flex-wrap: wrap;
+        margin-left: 40px;
+    }
+}
+
+@media(max-width:768px){
+    #circle{
+        width: 90%;
+        overflow: hidden;
+    }
+}
