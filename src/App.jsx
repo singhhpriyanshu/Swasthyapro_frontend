@@ -23,8 +23,30 @@ import DoctorPage from './pages/Doctor/DoctorPage'
 import DoctorAppointments from './pages/Doctor/DoctorAppointments'
 import DoctorAvailability from './pages/Doctor/DoctorAvailability'
 import DoctorLogin from './pages/DoctorLogin'
+import  {  useContext,useEffect } from 'react'
+import { AppContext } from '../src/context/AppContext'
+import { DoctorContext} from '../src/context/DoctorContext'
 
 const App = () => {
+
+
+
+  const { userData, setUserData } = useContext(AppContext)
+  const { profileData, setProfileData } = useContext(DoctorContext);
+  useEffect(() => {
+    const savedUser = localStorage.getItem("userData");
+    const savedDoctor=localStorage.getItem("doctorData")
+    console.log("Saved user data on reload:", savedUser);
+    if (savedUser) {
+      setUserData(JSON.parse(savedUser));
+    }else if(savedDoctor){
+      setProfileData(JSON.parse(savedDoctor));
+    }else{
+      alert("please login")
+    }
+    
+  }, []);
+
   return (
     <div className='mx-4 sm:mx-[10%]' style={{marginLeft:'0',marginRight:'0'}}>
       <ToastContainer />

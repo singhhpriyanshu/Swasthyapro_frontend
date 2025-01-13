@@ -1,14 +1,14 @@
-/* Updated Registration Form Styles */
+/* Updated Registration Form Styles with Icons */
 .registration-container {
-  max-width: 500px;
-  margin: 50px auto;
-  padding: 30px;
-  border-radius: 15px;
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 25px;
+  border-radius: 12px;
   background: linear-gradient(135deg, #e3f2fd, #ffffff);
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2), 0 -10px 15px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 -5px 10px rgba(255, 255, 255, 0.5);
   overflow: hidden;
   position: relative;
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .registration-container::before {
@@ -18,9 +18,9 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.5), transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent 70%);
   transform: rotate(45deg);
-  transition: opacity 0.5s;
+  transition: opacity 0.4s;
   opacity: 0;
   z-index: 0;
 }
@@ -30,21 +30,22 @@
 }
 
 .registration-container:hover {
-  transform: scale(1.03);
-  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3), 0 -10px 20px #2E8B57;
+  transform: scale(1.02);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2), 0 -5px 15px #2E8B57;
 }
 
 .registration-container h2 {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   color: #333;
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   font-family: 'Arial', sans-serif;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
+  position: relative;
 }
 
 .form-group label {
@@ -64,9 +65,8 @@
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 15px;
+  padding: 12px 40px;
   border: 1px solid #ccc;
-  cursor: pointer;
   border-radius: 8px;
   background: #f9f9f9;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -93,13 +93,26 @@
   cursor: pointer;
 }
 
+.form-group i {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #aaa;
+  transition: color 0.3s;
+}
+
+.form-group input:focus + i {
+  color: #007bff;
+}
+
 .submit-button {
   width: 100%;
-  padding: 16px;
+  padding: 14px;
   background: linear-gradient(135deg, #007bff, #0056b3);
   border: none;
   color: white;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
   border-radius: 8px;
   cursor: pointer;
@@ -147,12 +160,12 @@
   }
 
   .registration-container h2 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .submit-button {
-    font-size: 1rem;
-    padding: 14px;
+    font-size: 0.9rem;
+    padding: 12px;
   }
 }
 
@@ -163,11 +176,11 @@
   }
 
   .registration-container h2 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   .submit-button {
-    font-size: 0.9rem;
-    padding: 12px;
+    font-size: 0.8rem;
+    padding: 10px;
   }
 }

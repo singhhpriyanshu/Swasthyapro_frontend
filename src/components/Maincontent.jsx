@@ -72,7 +72,7 @@ const MainContent = () => {
           </div>
           <div style={textStyle}>
             <h3>Genetic Disorder</h3>
-            <p>Empowering your journey to parenthood with advanced reproductive health screenings and compassionate care.</p>
+            <p>Discover your heritage—comprehensive testing for inherited genetic disorders to protect and empower future generations.</p>
           </div>
         </div>
  
@@ -82,8 +82,8 @@ const MainContent = () => {
             <img src={cancer1} alt="Spina" style={imageStyle} />
           </div>
           <div style={textStyle}>
-            <h3>Spina</h3>
-            <p>Discover your heritage—comprehensive testing for inherited genetic disorders to protect and empower future generations.</p>
+            <h3>Cancer Screening</h3>
+            <p>Cancer screening involves checking for cancer before there are any symptoms of the disease.</p>
           </div>
         </div>
  
@@ -93,7 +93,7 @@ const MainContent = () => {
           </div>
           <div style={textStyle}>
             <h3>Oncology</h3>
-            <p>Discover your heritage—comprehensive testing for inherited genetic disorders to protect and empower future generations.</p>
+            <p>Oncology is the branch of medicine dedicated to the study, diagnosis, treatment, and prevention of cancer.</p>
           </div>
         </div>   
       </div>

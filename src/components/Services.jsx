@@ -89,7 +89,7 @@ const Services=()=>{
                 <div class="single-services">
                 <img src={face} alt="" style={{width:"80px",height:"80px" ,marginLeft:"106px",marginBottom:"25px",margin:"auto"}}/>
                     <h3 style={{    fontSize:" 22px", fontWeight: "300"}}>Autoimmune Diseases</h3>
-                    <p>Reveal radiant skin—personalized dermatology services to enhance and protect your natural beauty.</p>
+                    <p>Unlock the Secrets of Your Immune System with Our Autoimmune Test and keep healthy .</p>
  
                     <a href="department-details-right-sidebar.html" class="read-more">
                         Check Now

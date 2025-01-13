@@ -1,126 +1,78 @@
-import React from 'react'
-import { assets } from '../assets/assets'
-import headerVideo from '../assets/header_video.mp4';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Header.css'
-
-// import './css/bootstrap.css'
-// import './css/font-awesome.min.css'
-// import './css/responsive.css'
-// import './css/style.css'
-// import './css/style.css.map'
-                                
-
-
+import './Header.css';
 
 const Header = () => {
-  const navigate=useNavigate();
-    return (
-      <div style ={{marginTop:"-48px"}}class="hero_area">
+  const navigate = useNavigate();
+  const [activeIndex, setActiveIndex] = useState(0);
 
-      <div class="hero_bg_box">
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((currentActiveIndex) => (currentActiveIndex + 1) % 3); // Assuming there are 3 items
+    }, 3000); // Change every 3 seconds, as your comment mentioned 5 seconds but your code is set to 3000ms
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div style={{ marginTop: "-48px" }} className="hero_area">
+      <div className="hero_bg_box">
         <img src="src/images/hero_bg.png" alt=""/>
       </div>
-  
-      {/* <!-- header section strats --> */}
-      <header class="header_section">
-        <div class="container">
-          <nav class="navbar navbar-expand-lg custom_nav-container ">
-            <a class="navbar-brand" href="index.html">
-              <span>
-                SwasthyaPro
-              </span>
+
+      <header className="header_section">
+        <div className="container">
+          <nav className="navbar navbar-expand-lg custom_nav-container">
+            <a className="navbar-brand" href="index.html">
+              <span>SwasthyaPro</span>
             </a>
-  
-            {/* <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class=""> </span>
-            </button> */}
-  
-            {/* <div class="collapse navbar-collapse" id="navbarSupportedContent">
-           
-            </div> */}
           </nav>
         </div>
       </header>
-      {/* <!-- end header section -->
-      <!-- slider section --> */}
-      <section class="slider_section ">
-        <div id="customCarousel1" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="container ">
-                <div class="row">
-                  <div class="col-md-7">
-                    <div class="detail-box">
-                      <h1>
-                      Book Your Appointment Today
-                      </h1>
-                      <p>
-                      Stay on top of your schedule and make time for what matters. Choose a convenient date and time to get started—it's quick and easy!                      </p>
-                      <div class="btn-box">
-                        <button onClick={() => navigate("/doctors")} class="btn1">
-                          Book Appointment
-                        </button>
+
+      <section className="slider_section">
+        <div id="customCarousel1" className="carousel slide" data-ride="carousel">
+          <div className="carousel-inner">
+            {['Book Your Appointment Today', 'Your Health, Your Hands: Schedule Your Lab Test Now!', 'We Provide Best Healthcare'].map((title, index) => (
+              <div className={`carousel-item ${index === activeIndex ? 'active' : ''}`}>
+                <div className="container">
+                  <div className="row">
+                    <div className="col-md-7">
+                      <div className="detail-box">
+                        <h1>{title}</h1>
+                        <p>
+                          {index === 0
+                            ? "Stay on top of your schedule and make time for what matters. Choose a convenient date and time to get started—it's quick and easy!"
+                            : index === 1
+                            ? "Take control of your health with our comprehensive lab tests — easy, fast, and convenient!"
+                            : "Explore comprehensive healthcare solutions tailored for you and your family. Discover more about what we offer."
+                          }
+                        </p>
+                        <div className="btn-box">
+                          {index === 0 || index === 1
+                            ? <button onClick={() => navigate("/doctors")} className="btn1">
+                                {index === 0 ? 'Book Appointment' : 'Book Test'}
+                              </button>
+                            : <a href="" className="btn1">
+                                Read More
+                              </a>
+                          }
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="carousel-item">
-              <div class="container ">
-                <div class="row">
-                  <div class="col-md-7">
-                    <div class="detail-box">
-                      <h1>
-                        We Provide Best Healthcare
-                      </h1>
-                      <p>
-                        Explicabo esse amet tempora quibusdam laudantium, laborum eaque magnam fugiat hic? Esse dicta aliquid error repudiandae earum suscipit fugiat molestias, veniam, vel architecto veritatis delectus repellat modi impedit sequi.
-                      </p>
-                      <div class="btn-box">
-                      <button onClick={() => navigate("/doctors")} class="btn1">
-                          Book Appointment
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="container ">
-                <div class="row">
-                  <div class="col-md-7">
-                    <div class="detail-box">
-                      <h1>
-                        We Provide Best Healthcare
-                      </h1>
-                      <p>
-                        Explicabo esse amet tempora quibusdam laudantium, laborum eaque magnam fugiat hic? Esse dicta aliquid error repudiandae earum suscipit fugiat molestias, veniam, vel architecto veritatis delectus repellat modi impedit sequi.
-                      </p>
-                      <div class="btn-box">
-                        <a href="" class="btn1">
-                          Read More
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
-          <ol class="carousel-indicators">
-            <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
-            <li data-target="#customCarousel1" data-slide-to="1" class="active"></li>
-            <li data-target="#customCarousel1" data-slide-to="2" class="active"></li>
+          <ol className="carousel-indicators">
+            {Array.from({ length: 3 }).map((_, idx) => (
+              <li key={idx} data-target="#customCarousel1" data-slide-to={idx} className={idx === activeIndex ? 'active' : ''}></li>
+            ))}
           </ol>
         </div>
-  
       </section>
-      {/* <!-- end slider section --> */}
     </div>
-    )
-}
+  );
+};
 
-export default Header
+export default Header;

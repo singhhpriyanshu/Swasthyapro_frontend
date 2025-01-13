@@ -58,8 +58,10 @@ const Login = () => {
 
         if (data.success) {
           if (data.loginUser) {
+            localStorage.setItem("userData", JSON.stringify(data.loginUser));
             setUserData(data.loginUser);
           } else {
+            localStorage.setItem("doctorData", JSON.stringify(data.logindoctor));
             setProfileData(data.logindoctor);
           }
           toast.success("Login successful!");

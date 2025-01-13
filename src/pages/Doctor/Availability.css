@@ -1,160 +1,69 @@
-/* General Styles */
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.contain {
-  padding: 20px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background-color: #f9f9f9;
-}
-
-h2 {
-  text-align: center;
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-form:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-label {
-  display: flex;
-  flex-direction: column;
-  font-size: 14px;
-  color: #555;
-}
-
-input {
-  margin-top: 5px;
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  outline: none;
-}
-
-input:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
-  font-size: 14px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-/* Add Clinic Form Styles */
-.add-clinic-container {
-  margin: 20px 0;
+/* Base styles */
+.add-clinic-container,
+.clinic-form {
+    width: 100%; /* Use full width on smaller screens */
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .toggle-form-button {
-  background-color: #28a745;
-  color: white;
-  padding: 10px 20px;
-  font-size: 14px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.toggle-form-button:hover {
-  background-color: #218838;
-}
-
-.clinic-form {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.submit-button {
-  background-color: #17a2b8;
-  padding: 10px;
-  font-size: 16px;
-}
-
-.submit-button:hover {
-  background-color: #138496;
-}
-
-/* Card Styles */
-.card {
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-.card-content {
-  padding: 20px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .contain {
+    width: 100%;
     padding: 10px;
-  }
-
-  form {
-    padding: 15px;
-  }
-
-  button {
-    padding: 8px 12px;
-    font-size: 12px;
-  }
+    margin-bottom: 20px;
 }
 
-@media (max-width: 480px) {
-  form {
-    flex-direction: column;
-  }
+/* Responsive styles for tablets and desktops */
+@media (min-width: 768px) {
+    .add-clinic-container {
+        padding: 20px;
+        max-width: 600px; /* Limit max width for larger screens */
+        margin: auto; /* Center align the form */
+    }
 
-  label {
-    font-size: 12px;
-  }
+    .toggle-form-button {
+        width: auto;
+        padding: 15px 30px;
+    }
 
-  input {
-    font-size: 12px;
-  }
+    .clinic-form {
+        padding: 40px;
+        background-color: #f4f4f4; /* A light grey background */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow */
+    }
+}
+
+/* Styling inputs and labels for readability on all devices */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+input[type="checkbox"] {
+    width: 100%; /* Full width inputs */
+    padding: 10px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+label {
+    display: block;
+    margin-bottom: 20px;
+}
+
+/* Button styling for better touch interaction on mobile */
+button {
+    padding: 15px 30px;
+    font-size: 16px; /* Larger font size for easier reading */
+    cursor: pointer;
+}
+
+/* Handling visibility on smaller screens */
+@media (max-width: 767px) {
+    .sidebar {
+        display: none; /* Optionally hide sidebar on very small screens */
+    }
+
+    .contain, .add-clinic-container {
+        padding: 10px;
+    }
 }

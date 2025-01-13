@@ -163,14 +163,14 @@ const Banner2 = () => {
           </div>
         ))}
       </div>
-      <div style={carouselStyles.controls}>
+      {/* <div style={carouselStyles.controls}>
         <button style={carouselStyles.controlButton} onClick={handlePrev}>
           &#8249;
         </button>
         <button style={carouselStyles.controlButton} onClick={handleNext}>
           &#8250;
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

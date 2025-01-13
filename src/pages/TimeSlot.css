@@ -1,0 +1,218 @@
+/* General Styles */
+.doctor-time-slot-container {
+    font-family: 'Arial', sans-serif;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 12px;
+    background: #f9f9f9;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.doctor-time-slot-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.fetch-clinics-button {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.fetch-clinics-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Clinics List */
+.clinics-list {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.clinic-card {
+    flex: 1 1 calc(50% - 10px);
+    padding: 15px;
+    background: #fff;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.clinic-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.clinic-card.selected {
+    border: 2px solid #007bff;
+}
+
+/* Date Picker */
+.date-picker-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.date-picker-container .react-datepicker-wrapper {
+    display: inline-block;
+    position: relative;
+}
+
+.date-picker-container .react-datepicker-wrapper::before {
+    content: '\1F4C5'; /* Calendar Emoji */
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    pointer-events: none;
+}
+
+.date-picker-container input {
+    padding-left: 40px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+/* Days List */
+.days-list {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.day-card {
+    padding: 10px 15px;
+    background: #e7f0ff;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.day-card:hover {
+    background: #cfe2ff;
+    transform: translateY(-3px);
+}
+
+.day-card.selected {
+    background: #007bff;
+    color: white;
+    border-color: #0056b3;
+}
+
+/* Time Slots */
+.time-slots-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.time-slot-card {
+    padding: 10px 15px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.time-slot-card:hover {
+    background: #ddd;
+    transform: scale(1.05);
+}
+
+.time-slot-card.selected {
+    background: #28a745;
+    color: white;
+    border-color: #1e7e34;
+}
+
+/* Submit Button */
+.submit-button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 15px;
+    background-color: #28a745;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.submit-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.submit-button:hover:not(:disabled) {
+    background: #218838;
+    transform: translateY(-3px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .doctor-time-slot-container {
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    .clinics-list {
+        flex-direction: column;
+    }
+
+    .clinic-card {
+        flex: 1 1 100%;
+    }
+
+    .days-list {
+        flex-wrap: wrap;
+    }
+
+    .time-slots-list {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .doctor-time-slot-container {
+        max-width: 95%;
+        padding: 10px;
+    }
+
+    .title {
+        font-size: 20px;
+    }
+
+    .submit-button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}

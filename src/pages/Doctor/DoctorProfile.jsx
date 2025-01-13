@@ -4,8 +4,6 @@ import { AppContext } from "../../context/AppContext";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Sidebar from "../../components/Sidebar";
-import { FaEdit, FaSave, FaTimes } from "react-icons/fa";
-import { MdCheckCircle } from "react-icons/md";
 
 const DoctorProfile = () => {
   const { profileData, setProfileData } = useContext(DoctorContext);
@@ -60,30 +58,36 @@ const DoctorProfile = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row">
-      <Sidebar />
+    <div style={{ display: 'flex' }}>
+      <Sidebar className="w-full lg:w-64 transition-all duration-300" />
       <div className="flex-1 p-5 bg-gray-100 min-h-screen">
-        <div className="flex flex-col lg:flex-row gap-6">
-          <div className="flex-shrink-0">
+        <div className="flex flex-col sm:flex-row items-center gap-6">
+          <div
+            className={`relative group transform transition duration-300 hover:scale-105 hover:shadow-2xl`}
+          >
             <img
-              className="w-full lg:w-64 h-auto rounded-lg shadow-md hover:shadow-lg transition-shadow"
+              className="w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64 rounded-full object-cover shadow-lg transition-transform duration-300"
               src={profileData.image_url}
               alt={`${profileData.firstName} ${profileData.last_name}`}
             />
+            <div className="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 rounded-full transition-opacity duration-300"></div>
           </div>
-          <div className="flex-1 bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-            <p className="text-2xl font-bold text-gray-700 flex items-center gap-2">
+          <div className="w-full sm:flex-1 bg-white p-4 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+            <p className="text-xl sm:text-2xl font-bold text-gray-700 flex items-center gap-2">
               {profileData.firstName} {profileData.last_name}
             </p>
-            <p className="text-gray-600 mt-1">{profileData.specialization}</p>
-            <p className="mt-1 flex items-center gap-2 text-gray-600">
+            <p className="text-gray-600 mt-1 text-sm sm:text-base">
+              {profileData.specialization}
+            </p>
+            <p className="mt-1 flex items-center gap-2 text-gray-600 text-sm sm:text-base">
               <span className="py-1 px-3 bg-primary/20 text-primary text-xs rounded-full">
                 {profileData.yearsOfExperience} Years
               </span>
             </p>
 
+            {/* Editable Fields */}
             <div className="mt-4">
-              <label className="block text-gray-700 font-medium">
+              <label className="block text-gray-700 font-medium text-sm sm:text-base">
                 Alternate Contact
               </label>
               {isEdit ? (
@@ -95,12 +99,12 @@ const DoctorProfile = () => {
                   className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-primary/40 outline-none"
                 />
               ) : (
-                <p className="text-gray-600">{profileData.alternate_contact}</p>
+                <p className="text-gray-600 text-sm sm:text-base">{profileData.alternate_contact}</p>
               )}
             </div>
 
             <div className="mt-4">
-              <label className="block text-gray-700 font-medium">
+              <label className="block text-gray-700 font-medium text-sm sm:text-base">
                 Clinic Address
               </label>
               {isEdit ? (
@@ -112,13 +116,13 @@ const DoctorProfile = () => {
                   className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-primary/40 outline-none"
                 />
               ) : (
-                <p className="text-gray-600">{profileData.clinic_address}</p>
+                <p className="text-gray-600 text-sm sm:text-base">{profileData.clinic_address}</p>
               )}
             </div>
 
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-gray-700 font-medium">
+                <label className="block text-gray-700 font-medium text-sm sm:text-base">
                   Clinic Pincode
                 </label>
                 {isEdit ? (
@@ -130,11 +134,11 @@ const DoctorProfile = () => {
                     className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-primary/40 outline-none"
                   />
                 ) : (
-                  <p className="text-gray-600">{profileData.clinic_pincode}</p>
+                  <p className="text-gray-600 text-sm sm:text-base">{profileData.clinic_pincode}</p>
                 )}
               </div>
               <div>
-                <label className="block text-gray-700 font-medium">
+                <label className="block text-gray-700 font-medium text-sm sm:text-base">
                   State
                 </label>
                 {isEdit ? (
@@ -146,7 +150,7 @@ const DoctorProfile = () => {
                     className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-primary/40 outline-none"
                   />
                 ) : (
-                  <p className="text-gray-600">{profileData.state}</p>
+                  <p className="text-gray-600 text-sm sm:text-base">{profileData.state}</p>
                 )}
               </div>
             </div>
@@ -159,24 +163,22 @@ const DoctorProfile = () => {
                 onChange={handleChange}
                 className="w-5 h-5"
               />
-              <label className="text-gray-700 font-medium">Available</label>
+              <label className="text-gray-700 font-medium text-sm sm:text-base">Available</label>
             </div>
 
-            <div className="mt-6 flex gap-4">
+            <div className="mt-6 flex flex-wrap gap-4">
               {isEdit ? (
                 <>
                   <button
                     onClick={updateProfile}
                     className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg shadow hover:bg-primary/80 transition-all"
                   >
-                    <FaSave />
                     Save
                   </button>
                   <button
                     onClick={cancelEdit}
                     className="flex items-center gap-2 px-4 py-2 bg-gray-300 text-gray-700 rounded-lg shadow hover:bg-gray-400 transition-all"
                   >
-                    <FaTimes />
                     Cancel
                   </button>
                 </>
@@ -185,7 +187,6 @@ const DoctorProfile = () => {
                   onClick={() => setIsEdit(true)}
                   className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg shadow hover:bg-primary/80 transition-all"
                 >
-                  <FaEdit />
                   Edit
                 </button>
               )}

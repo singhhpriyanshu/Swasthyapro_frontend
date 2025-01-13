@@ -30,12 +30,14 @@ const Navbar = () => {
       
 
         <div className='flex items-center gap-4 ' id=''>
+          <div className='flex items-center justify-around  gap-96 px-4 py-2'>
+         <img className=' pl-4 ml-4 h-9 absolute left-0 gap-4'  to='/' src={Swasthya} alt="" />
 
 
 
           <button  onClick={logout} class="bg-cadetblue text-white text-sm px-10 py-2 rounded-full">Logout</button>
 
-
+          </div>
 
 
           <img onClick={() => setShowMenu(true)} className='w-6 md:hidden' src={assets.menu_icon} alt="" />
@@ -68,10 +70,10 @@ const Navbar = () => {
             <li className='py-1'>APPOINTMENTS</li>
             <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
           </NavLink>
-          <NavLink to='/findtests' >
+          {/* <NavLink to='/findtests' >
             <li className='py-1'>FIND TESTS</li>
             <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
-          </NavLink>
+          </NavLink> */}
           <NavLink to='/doctors' >
             <li className='py-1'> FIND DOCTORS</li>
             <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
@@ -89,17 +91,38 @@ const Navbar = () => {
         <div className='flex items-center gap-4 '>
           {
             userData
-              ? <div className='flex items-center gap-2 cursor-pointer group relative'>
-                <img className='w-8 rounded-full' src={userData.image} alt="" />
-                <img className='w-2.5 m-6' src={assets.dropdown_icon} alt="" />
-                <div className='absolute top-0 right-0 pt-14 text-base font-medium text-gray-600 z-20 hidden group-hover:block'>
-                  <div className='min-w-48 bg-gray-50 rounded flex flex-col gap-4 p-4'>
-                    <p onClick={() => navigate('/my-profile')} className='hover:text-black cursor-pointer'>My Profile</p>
-                    <p onClick={() => navigate('/my-appointments')} className='hover:text-black cursor-pointer'>My Appointments</p>
-                    <p onClick={logout} className='hover:text-black cursor-pointer'>Logout</p>
-                  </div>
+              ? <div className='flex items-center gap-3 cursor-pointer group relative p-3'>
+              <img 
+                className='w-8 rounded-full transition-transform transform hover:scale-110 hover:shadow-lg duration-300 ease-in-out' 
+                src={userData.image} 
+                alt="User Avatar" 
+              />
+              <i 
+                className='fa-solid fa-circle-chevron-down text-xl transition-transform transform hover:rotate-180 duration-300 ease-in-out' 
+                aria-hidden='true'>
+              </i>
+              <div className='absolute top-0 right-0 pt-14 text-base font-medium text-gray-600 z-20 hidden group-hover:block'>
+                <div className='min-w-48 bg-gray-50 rounded flex flex-col gap-4 p-4 shadow-lg'>
+                  <p 
+                    onClick={() => navigate('/my-profile')} 
+                    className='hover:text-black cursor-pointer transition-transform transform hover:scale-105 hover:shadow-md duration-200 ease-in-out'>
+                    My Profile
+                  </p>
+                  <p 
+                    onClick={() => navigate('/my-appointments')} 
+                    className='hover:text-black cursor-pointer transition-transform transform hover:scale-105 hover:shadow-md duration-200 ease-in-out'>
+                    My Appointments
+                  </p>
+                  <p 
+                    onClick={logout} 
+                    className='hover:text-black cursor-pointer transition-transform transform hover:scale-105 hover:shadow-md duration-200 ease-in-out'>
+                    Logout
+                  </p>
                 </div>
               </div>
+            </div>
+            
+            
               : <button onClick={() => navigate('/login')} className='bg-green-500 text-white px-1 py-2 mr-4 rounded-full font-light hidden md:block'>Create account</button>
           }
           <img onClick={() => setShowMenu(true)} className='w-6 md:hidden' src={assets.menu_icon} alt="" />
@@ -113,8 +136,8 @@ const Navbar = () => {
             <ul className='flex flex-col mx-36  gap-2 mt-3  text-lg font-medium'>
               <NavLink onClick={() => setShowMenu(false)} to='/'><p className='px-4 py-2 rounded full inline-block'>HOME</p></NavLink>
               <NavLink onClick={() => setShowMenu(false)} to='/doctors' ><p className='px-4 py-2 rounded full inline-block'>FIND DOCTORS</p></NavLink>
-              <NavLink onClick={() => setShowMenu(false)} to='/findtests' ><p className='px-4 py-2 rounded full inline-block'>FIND
-              TEST</p></NavLink>
+              {/* <NavLink onClick={() => setShowMenu(false)} to='/findtests' ><p className='px-4 py-2 rounded full inline-block'>FIND
+              TEST</p></NavLink> */}
               <NavLink onClick={() => setShowMenu(false)} to='/about' ><p className='px-4 py-2 rounded full inline-block'>ABOUT</p></NavLink>
               <NavLink onClick={() => setShowMenu(false)} to='/contact' ><p className='px-4 py-2 rounded full inline-block'>CONTACT</p></NavLink>
               <NavLink onClick={()=> setShowMenu(false)} to='/login'><p className='px-4 py-2 font-bold rounded full inline-block'>CREATE ACCOUNT</p></NavLink>

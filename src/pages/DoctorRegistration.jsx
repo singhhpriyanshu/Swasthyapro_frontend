@@ -209,14 +209,21 @@ const DoctorRegistration = () => {
         {/* Specialization */}
         <div className="form-group">
           <label htmlFor="specialization">Specialization<span className="required">*</span></label>
-          <input
-            type="text"
+          <select
             id="specialization"
             name="specialization"
             value={formData.specialization}
             onChange={handleChange}
             required
-          />
+          >
+            <option value="" disabled>
+              Select Specialization
+            </option>
+            <option value="Gynecologist">Gynecologist</option>
+            <option value="General Physician">General Physician</option>
+            <option value="Neurologist">Neurologist</option>
+            <option value="Oncologist">Oncologist</option>
+          </select>
         </div>
 
         {/* Years of Experience */}

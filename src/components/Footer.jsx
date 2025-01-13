@@ -22,7 +22,7 @@ const Footer = () => {
                 </a>
                 <a href="">
                   <i class="fa fa-envelope" aria-hidden="true"></i>
-                  <span>demo@gmail.com</span>
+                  <span>Info@swasthyapro.com</span>
                 </a>
               </div>
             </div>
