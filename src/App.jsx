@@ -26,6 +26,8 @@ import DoctorLogin from './pages/DoctorLogin'
 import  {  useContext,useEffect } from 'react'
 import { AppContext } from '../src/context/AppContext'
 import { DoctorContext} from '../src/context/DoctorContext'
+import UpdataClinic from '../src/pages/Doctor/UpdataClinic'
+import DeleteClinic from '../src/pages/Doctor/DeleteClinic'
 
 const App = () => {
 
@@ -72,6 +74,9 @@ const App = () => {
         <Route path='/my-profile' element={<MyProfile />} />
         <Route path='/verify' element={<Verify />} />
         <Route path='/doctor-profile' element={<DoctorProfile/>} />
+        <Route path='/updata-clinic' element={<UpdataClinic/>} />
+        <Route path='/delete-clinic' element={<DeleteClinic/>} />
+
       </Routes>
       <Footer />
     </div>

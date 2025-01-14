@@ -45,7 +45,15 @@ const Sidebar = () => {
         </NavLink>
         <NavLink to={'/doctor-availability'} className={({ isActive }) => `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''}`}>
           <img className='min-w-5' src={clockalert} alt='' />
-          <p className='hidden md:block'>Manage Availability</p>
+          <p className='hidden md:block'>Add Clinic</p>
+        </NavLink>
+        <NavLink to={'/delete-clinic'} className={({ isActive }) => `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''}`}>
+          <img className='min-w-5' src={people_icon} alt='' />
+          <p className='hidden md:block'>Delete Clinic</p>
+        </NavLink>
+        <NavLink to={'/updata-clinic'} className={({ isActive }) => `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''}`}>
+          <img className='min-w-5' src={people_icon} alt='' />
+          <p className='hidden md:block'>UpdateClinic</p>
         </NavLink>
         <NavLink to={'/doctor-profile'} className={({ isActive }) => `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary' : ''}`}>
           <img className='min-w-5' src={people_icon} alt='' />

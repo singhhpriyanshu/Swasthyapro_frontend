@@ -7,8 +7,8 @@ import { assets } from '../../assets/assets'
 import { AppContext } from '../../context/AppContext'
 import Sidebar from '../../components/Sidebar'
 // import "./AddClinic.css"
-import UpdateClinic from '../Doctor/UpdataClinic'
-import DeleteClinic from '../Doctor/DeleteClinic'
+// import UpdateClinic from '../Doctor/UpdataClinic'
+// import DeleteClinic from '../Doctor/DeleteClinic'
 import './Availability.css'
 import AddTimeSlot from './AddTimeSlot'
 
@@ -240,10 +240,10 @@ const DoctorAvailability = () => {
                 </form>
             )}
         </div>
-    </div>
-        <UpdateClinic/>
-        <DeleteClinic/>
         <AddTimeSlot/>
+    </div>
+        {/* <UpdateClinic/> */}
+        {/* <DeleteClinic/> */}
  </>
   )
 }
