@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { DoctorContext } from '../../context/DoctorContext';
 import './UpdateClinic.css';  // Ensure to import the CSS file
-
+import Sidebar from '../../components/Sidebar'
 const UpdateClinic = () => {
   const [doctorId, setDoctorId] = useState('');
   const [clinics, setClinics] = useState([]);
@@ -64,14 +64,18 @@ const UpdateClinic = () => {
   };
 
   return (
+    <>
+    <div style={{display:"flex"}}>
+      <Sidebar/>
     <div className="update-clinic-container p-4 md:p-8 bg-gray-100 min-h-screen">
+      
       <h1 className="text-2xl md:text-4xl font-bold text-center mb-6">Update Clinic Information</h1>
 
       <button
         onClick={fetchClinics}
         className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition-all duration-300"
       >
-        Fetch Clinics
+        Select Clinics
       </button>
 
       {clinics.length > 0 && (
@@ -172,7 +176,10 @@ const UpdateClinic = () => {
         </div>
       )}
     </div>
+    </div>
+    </>
   );
 };
+
 
 export default UpdateClinic;

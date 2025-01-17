@@ -11,6 +11,8 @@ const Sidebar = () => {
 
   const { profileData } = useContext(DoctorContext)
   // const { aToken } = useContext(AdminContext)
+  console.log(profileData,'klklk');
+  
 
   return (
     <div className='min-h-screen  border-r' style={{width: "26%", backgroundColor: "#5ea093", color:" white", marginTop: "-48px", fontSize: "larger",  fontWeight: "500"}}>

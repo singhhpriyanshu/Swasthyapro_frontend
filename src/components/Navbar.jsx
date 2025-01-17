@@ -15,8 +15,8 @@ const Navbar = () => {
   const { profileData, setProfileData } = useContext(DoctorContext)
 
   const logout = () => {
-    localStorage.removeItem('token')
-    setToken(false)
+    sessionStorage.removeItem("userData");
+    sessionStorage.removeItem("doctorData");    setToken(false)
     setUserData(false)
     setProfileData(false)
     navigate('/login')
@@ -66,16 +66,16 @@ const Navbar = () => {
             <li className='py-1'>HOME</li>
             <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
           </NavLink>
-          <NavLink to='/my-appointments' >
-            <li className='py-1'>APPOINTMENTS</li>
-            <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
-          </NavLink>
-          {/* <NavLink to='/findtests' >
-            <li className='py-1'>FIND TESTS</li>
-            <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
-          </NavLink> */}
           <NavLink to='/doctors' >
             <li className='py-1'> FIND DOCTORS</li>
+            <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
+          </NavLink>
+          <NavLink to='/findtests' >
+            <li className='py-1'>FIND TESTS</li>
+            <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
+          </NavLink>
+          <NavLink to='/my-appointments' >
+            <li className='py-1'>APPOINTMENTS</li>
             <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
           </NavLink>
           <NavLink to='/about' >
@@ -92,11 +92,11 @@ const Navbar = () => {
           {
             userData
               ? <div className='flex items-center gap-3 cursor-pointer group relative p-3'>
-              <img 
+              {/* <img 
                 className='w-8 rounded-full transition-transform transform hover:scale-110 hover:shadow-lg duration-300 ease-in-out' 
                 src={userData.image} 
                 alt="User Avatar" 
-              />
+              /> */}
               <i 
                 className='fa-solid fa-circle-chevron-down text-xl transition-transform transform hover:rotate-180 duration-300 ease-in-out' 
                 aria-hidden='true'>
@@ -136,8 +136,8 @@ const Navbar = () => {
             <ul className='flex flex-col mx-36  gap-2 mt-3  text-lg font-medium'>
               <NavLink onClick={() => setShowMenu(false)} to='/'><p className='px-4 py-2 rounded full inline-block'>HOME</p></NavLink>
               <NavLink onClick={() => setShowMenu(false)} to='/doctors' ><p className='px-4 py-2 rounded full inline-block'>FIND DOCTORS</p></NavLink>
-              {/* <NavLink onClick={() => setShowMenu(false)} to='/findtests' ><p className='px-4 py-2 rounded full inline-block'>FIND
-              TEST</p></NavLink> */}
+              <NavLink onClick={() => setShowMenu(false)} to='/findtests' ><p className='px-4 py-2 rounded full inline-block'>FIND
+              TEST</p></NavLink>
               <NavLink onClick={() => setShowMenu(false)} to='/about' ><p className='px-4 py-2 rounded full inline-block'>ABOUT</p></NavLink>
               <NavLink onClick={() => setShowMenu(false)} to='/contact' ><p className='px-4 py-2 rounded full inline-block'>CONTACT</p></NavLink>
               <NavLink onClick={()=> setShowMenu(false)} to='/login'><p className='px-4 py-2 font-bold rounded full inline-block'>CREATE ACCOUNT</p></NavLink>

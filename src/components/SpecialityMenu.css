@@ -1,14 +1,96 @@
+/* SpecialityMenu.css */
 
-@media(max-width:480px){
-    #circle{
-        flex-wrap: wrap;
-        margin-left: 40px;
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f0f0; /* Consistent background color */
+}
+
+#speciality {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 0;
+    color: #262626;
+}
+
+#speciality h2 {
+    font-size: 2rem; /* Responsive font size */
+    font-weight: normal;
+    color: #262626;
+}
+
+#speciality h2 span {
+    color: #178066;
+}
+
+#circle {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 20px;
+    width: 100%;
+    overflow-x: auto; /* Ensures horizontal scrolling on smaller screens */
+    scrollbar-width: thin; /* For supporting browsers */
+}
+
+#circle a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    flex-shrink: 0; /* Prevents shrinking of items in flex container */
+    transition: transform 0.3s ease;
+}
+
+#circle a:hover {
+    transform: translateY(-10px);
+}
+
+#circle .rounded-full {
+    width: 150px;
+    height: 150px;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: border-color 0.3s ease;
+}
+
+#circle .rounded-full:hover {
+    border-color: #888;
+}
+
+#circle img {
+    width: 100%; /* Make image responsive within container */
+    height: auto;
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+}
+
+@media (max-width: 768px) {
+    #circle {
+        width: 90%;
+        overflow-x: hidden; /* Stops horizontal scrolling */
+        justify-content: start; /* Align items to the start */
     }
 }
 
-@media(max-width:768px){
-    #circle{
-        width: 90%;
-        overflow: hidden;
+@media (max-width: 480px) {
+    #circle {
+        flex-wrap: wrap;
+        justify-content: center; /* Centers items when wrapped */
+        gap: 10px;
+        margin-left: 0; /* Removes extra margin */
+    }
+
+    #circle .rounded-full {
+        width: 120px; /* Smaller size for smaller screens */
+        height: 120px;
+    }
+
+    #speciality h2 {
+        font-size: 1.5rem; /* Smaller font size for readability */
     }
 }

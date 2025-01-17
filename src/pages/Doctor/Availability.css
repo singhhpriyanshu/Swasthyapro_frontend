@@ -1,69 +1,124 @@
-/* Base styles */
-.add-clinic-container,
-.clinic-form {
-    width: 100%; /* Use full width on smaller screens */
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f4f4f9;
+}
+
+/* Container Styles */
+.add-clinic-container {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
     padding: 20px;
-    box-sizing: border-box;
-}
-
-.toggle-form-button {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px #2E8B57;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
+    max-width: 600px;
 }
 
-/* Responsive styles for tablets and desktops */
-@media (min-width: 768px) {
-    .add-clinic-container {
-        padding: 20px;
-        max-width: 600px; /* Limit max width for larger screens */
-        margin: auto; /* Center align the form */
-    }
-
-    .toggle-form-button {
-        width: auto;
-        padding: 15px 30px;
-    }
-
-    .clinic-form {
-        padding: 40px;
-        background-color: #f4f4f4; /* A light grey background */
-        border-radius: 8px; /* Rounded corners */
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow */
-    }
+.add-clinic-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px #2E8B57;
 }
 
-/* Styling inputs and labels for readability on all devices */
-input[type="text"],
-input[type="number"],
-input[type="date"],
-input[type="time"],
-input[type="checkbox"] {
-    width: 100%; /* Full width inputs */
-    padding: 10px;
-    margin-top: 5px;
-    box-sizing: border-box;
+/* Card Styles */
+.clinic-form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px #2E8B57;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 500px;
 }
 
-label {
+.clinic-form:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px #2E8B57;
+}
+
+/* Form Input Styles */
+.clinic-form label {
     display: block;
+    margin-bottom: -15px;
+    font-weight: bold;
+    color: #333;
+    margin-top: -20px;
+}
+
+.clinic-form input {
+    width: calc(100% - 30px);
+    padding: 6px;
+    margin-bottom: -25px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.clinic-form input:hover {
+    border-color: #2E8B57;
+    box-shadow: 0 0 9px #2E8B57;
+}
+
+.clinic-form input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+/* Submit Button Styles */
+#submit{
+    background: #007bff;
+    color: #fff;
+    padding: 8px;
+    margin-top: -5px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#submit:hover{
+    background-color: #0056b3;
+}
+
+/* Toggle Button Styles */
+.toggle-form-button {
+    background: #28a745;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
     margin-bottom: 20px;
 }
 
-/* Button styling for better touch interaction on mobile */
-button {
-    padding: 15px 30px;
-    font-size: 16px; /* Larger font size for easier reading */
-    cursor: pointer;
+.toggle-form-button:hover {
+    background-color: #218838;
 }
 
-/* Handling visibility on smaller screens */
-@media (max-width: 767px) {
-    .sidebar {
-        display: none; /* Optionally hide sidebar on very small screens */
+/* Responsive Design */
+@media (max-width: 768px) {
+    .clinic-form {
+        padding: 15px;
     }
 
-    .contain, .add-clinic-container {
-        padding: 10px;
+    .submit-button, .toggle-form-button {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .clinic-form {
+        width: 90%;
     }
 }

@@ -5,12 +5,11 @@ import { useEffect } from 'react'
 import { DoctorContext } from '../../context/DoctorContext'
 import { assets } from '../../assets/assets'
 import { AppContext } from '../../context/AppContext'
-import Sidebar from '../../components/Sidebar'
-// import "./AddClinic.css"
-// import UpdateClinic from '../Doctor/UpdataClinic'
-// import DeleteClinic from '../Doctor/DeleteClinic'
 import './Availability.css'
 import AddTimeSlot from './AddTimeSlot'
+import Sidebar from '../../components/Sidebar'
+import DeleteClinic from './DeleteClinic'
+import UpdateClinic from './UpdataClinic'
 
 const DoctorAvailability = () => {
 
@@ -109,39 +108,6 @@ const DoctorAvailability = () => {
     <>
     <div style={{display:"flex"}}>
     <Sidebar/>
-    {/* <div className='contain'>
-            <h2>Manage Availability</h2>
-            <form id='form' onSubmit={handleSubmit}>
-                <label style={{marginLeft:"15px",marginRight:"35px"}}>
-                    Date:
-                    <input
-                        type="date"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                        required
-                    />
-                </label>
-                <label style={{marginLeft:"15px",marginRight:"35px"}}>
-                    Start Time:
-                    <input
-                        type="time"
-                        value={startTime}
-                        onChange={(e) => setStartTime(e.target.value)}
-                        required
-                    />
-                </label>
-                <label style={{marginLeft:"15px",marginRight:"35px"}}>
-                    End Time:
-                    <input
-                        type="time"
-                        value={endTime}
-                        onChange={(e) => setEndTime(e.target.value)}
-                        required
-                    />
-                </label>
-                <button class="bg-primary text-white px-8 py-3 rounded-full font-light hidden md:block mt-5">Update Availability</button>
-            </form>
-        </div> */}
     <div className="add-clinic-container">
             <button className="toggle-form-button" onClick={() => setIsFormVisible(!isFormVisible)}>
                 {isFormVisible ? 'Close Form' : 'Add Clinic Info'}
@@ -153,7 +119,7 @@ const DoctorAvailability = () => {
                     
                     <br /><br />
 
-                    <label id='lb1'>
+                    <label>
                         Active Status:
                         <input
                             type="checkbox"
@@ -176,7 +142,7 @@ const DoctorAvailability = () => {
                     </label>
                     <br /><br />
 
-                    <label id='lb3'>
+                    <label>
                         City:
                         <input
                             type="text"
@@ -188,7 +154,7 @@ const DoctorAvailability = () => {
                     </label>
                     <br /><br />
 
-                    <label id='lb4'>
+                    <label>
                         Pincode:
                         <input
                             type="text"
@@ -200,7 +166,7 @@ const DoctorAvailability = () => {
                     </label>
                     <br /><br />
 
-                    <label id='lb5'>
+                    <label>
                         State:
                         <input
                             type="text"
@@ -212,7 +178,7 @@ const DoctorAvailability = () => {
                     </label>
                     <br /><br />
 
-                    <label id='lb6'>
+                    <label>
                         Fees:
                         <input
                             type="number"
@@ -224,7 +190,7 @@ const DoctorAvailability = () => {
                     </label>
                     <br /><br />
 
-                    <label id='lb7'>
+                    <label>
                         Discount Percentage:
                         <input
                             type="number"
@@ -239,11 +205,11 @@ const DoctorAvailability = () => {
                     <button id='submit' className="submit-button" type="submit">Submit</button>
                 </form>
             )}
-        </div>
         <AddTimeSlot/>
+        </div>
+        {/* <DeleteClinic/>
+        <UpdateClinic/> */}
     </div>
-        {/* <UpdateClinic/> */}
-        {/* <DeleteClinic/> */}
  </>
   )
 }

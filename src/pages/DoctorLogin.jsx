@@ -21,6 +21,8 @@ const DoctorLogin = () => {
             const data = response.data;
 
             if (data.success) {
+                sessionStorage.setItem("userType", "doctor");
+                sessionStorage.setItem("doctorData", JSON.stringify(data.logindoctor));
                 setProfileData(data.logindoctor);
                 toast.success('Login successful!');
                 setEmail('');

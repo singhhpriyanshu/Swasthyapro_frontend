@@ -36,19 +36,20 @@ const App = () => {
   const { userData, setUserData } = useContext(AppContext)
   const { profileData, setProfileData } = useContext(DoctorContext);
   useEffect(() => {
-    const savedUser = localStorage.getItem("userData");
-    const savedDoctor=localStorage.getItem("doctorData")
-    console.log("Saved user data on reload:", savedUser);
-    if (savedUser) {
-      setUserData(JSON.parse(savedUser));
-    }else if(savedDoctor){
-      setProfileData(JSON.parse(savedDoctor));
+    
+    window.scrollTo(0, 0);
+    const userType = sessionStorage.getItem("userType");
+    if (userType==="user") {
+      setUserData(JSON.parse(sessionStorage.getItem("userData")));
+    }
+    else if(userType==="doctor"){
+      setProfileData(JSON.parse(sessionStorage.getItem("doctorData")));
+      
     }else{
-      alert("please login")
+      
     }
     
   }, []);
-
   return (
     <div className='mx-4 sm:mx-[10%]' style={{marginLeft:'0',marginRight:'0'}}>
       <ToastContainer />

@@ -22,8 +22,8 @@ const Services=()=>{
     <div class="container">
         <div id="services" data-aos="fade-up" data-aos-duration="1200" class="section-title aos-init aos-animate">
             {/* <span class="top-title" style={{marginLeft: "423px",color: "black",fontSize: "xx-large",fontWeight: 400}}>Our Services</span> */}
-            <h2 style={{    marginLeft: "481px",fontSize: "xxx-large",fontWeight:" normal"}}> Our <span style={{color:"#178066"}}>Services</span></h2>
-            <p style={{marginLeft:'300px'}}>Your pathway to health and healing—modern solutions for every ailment, tailored to keep you thriving.</p>
+            <h2 style={{ fontSize: "xxx-large",fontWeight:" normal"}}> Our <span style={{color:"#2E8B57"}}>Services</span></h2>
+            {/* <p style={{marginLeft:'300px'}}>Your pathway to health and healing—modern solutions for every ailment, tailored to keep you thriving.</p> */}
         </div>
         
         <div id="cards" class="row">
@@ -54,8 +54,8 @@ const Services=()=>{
             <div data-aos="fade-up" data-aos-duration="1800" class="col-lg-4 col-sm-6 aos-init aos-animate">
                 <div class="single-services">
                 <img src={geneticdisorder} alt="" style={{width:"80px",height:"80px" ,marginLeft:"106px",marginBottom:"25px",margin:"auto"}}/>
-                    <h3 style={{    fontSize:" 22px", fontWeight: "300"}}>Inherited Genetic Disorders</h3>
-                    <p>Discover your heritage—comprehensive testing for inherited genetic disorders to protect and empower future generations.</p>
+                    <h3 style={{    fontSize:" 22px", fontWeight: "300"}}>Genetic Disorders</h3>
+                    <p>Discover your heritage with comprehensive tests for genetic disorders, protecting generations.</p>
                     <a href="department-details-right-sidebar.html" class="read-more">
                         Check Now
                     </a>
@@ -66,7 +66,7 @@ const Services=()=>{
                 <div class="single-services">
                 <img src={reproductive} alt="" style={{width:"80px",height:"80px" ,marginLeft:"106px",marginBottom:"25px",margin:"auto"}}/>
                     <h3 style={{    fontSize:" 22px", fontWeight: "300"}}>Reproductive Health</h3>
-                    <p>Empowering your journey to parenthood with advanced reproductive health screenings and compassionate care.</p>
+                    <p>Empowering your journey to parenthood with advanced reproductive screenings and compassionate care.</p>
  
                     <a href="department-details-right-sidebar.html" class="read-more">
                         Check Now
@@ -89,7 +89,7 @@ const Services=()=>{
                 <div class="single-services">
                 <img src={face} alt="" style={{width:"80px",height:"80px" ,marginLeft:"106px",marginBottom:"25px",margin:"auto"}}/>
                     <h3 style={{    fontSize:" 22px", fontWeight: "300"}}>Autoimmune Diseases</h3>
-                    <p>Unlock the Secrets of Your Immune System with Our Autoimmune Test and keep healthy .</p>
+                    <p>Unlock the secrets of your body's defenses against autoimmune diseases.</p>
  
                     <a href="department-details-right-sidebar.html" class="read-more">
                         Check Now

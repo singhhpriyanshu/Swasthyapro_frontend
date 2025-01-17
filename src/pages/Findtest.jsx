@@ -1,204 +1,121 @@
 import React, { useState, useEffect } from 'react';
-import cromosomes from '../assets/cromosomes.mp4';
-import dnawork from '../assets/dnawork.mp4';
+import test1 from '../assets/test1.jpg';
+import test2 from '../assets/test2.jpg';
+import test3 from '../assets/test3.png';
 
-// Test Data
 const testData = [
-  {
-    name: 'Brain Anomalies',
-    subTests: [{ name: 'Ultrasound', minCost: 1500, maxCost: 5000 }],
-  },
-  {
-    name: 'Congenital Heart Defects',
-    subTests: [{ name: 'Fetal ECG', minCost: 2000, maxCost: 8000 }],
-  },
-  {
-    name: 'Cystic Fibrosis',
-    subTests: [
-      { name: 'Carrier Screening', minCost: 2000, maxCost: 7000 },
-      { name: 'Amniocentesis or CVs', minCost: 12000, maxCost: 20000 },
-    ],
-  },
-  {
-    name: 'Spinal Bifida',
-    subTests: [
-      { name: 'Alpha-Fetoprotein', minCost: 500, maxCost: 2000 },
-      { name: 'Ultrasound', minCost: 1500, maxCost: 5000 },
-    ],
-  },
-  {
-    name: 'Trisomy (Down Syndrome)',
-    subTests: [
-      { name: 'NIPT', minCost: 8000, maxCost: 20000 },
-      { name: 'Amniocentesis or CVs', minCost: 12000, maxCost: 20000 },
-      { name: 'Ultrasound', minCost: 1500, maxCost: 5000 },
-    ],
-  },
-  {
-    name: 'Bloom Syndrome',
-    subTests: [
-      { name: 'Gene Mutation Analysis (Swab)', minCost: 20000, maxCost: 40000 },
-      { name: 'Blood', minCost: 25000, maxCost: 50000 },
-      { name: 'Chromosomal Breakage Test (Blood)', minCost: 15000, maxCost: 30000 },
-      { name: 'Fibroblast Culture Test', minCost: 30000, maxCost: 60000 },
-      { name: 'Whole Genome Sequencing', minCost: 150000, maxCost: 300000 },
-      { name: 'Whole Exome Sequencing', minCost: 80000, maxCost: 150000 },
-      { name: 'Panel Testing (Includes BLM Gene)', minCost: 50000, maxCost: 100000 },
-    ],
-  },
+  { name: 'GENETIC DISORDERS' },
+  { name: 'Preimplantation Genetic Analysis ' },
+  { name: 'Breast and Ovarian cancer' },
+  { name: 'CERVICAL Cancer' },
+  { name: 'Cystic Fibrosis' },
+  { name: 'Duchenne muscular dystrophy' },
+  { name: 'Brain Anomalies' },
+  { name: 'Achondroplasia' },
+  { name: 'Sperm DNA Fragmentation Test ' },
+  { name: 'Y chromosome microdeletion ' },
+  { name: 'Blood Test' },
+  { name: 'Kidney Checkup' },
 ];
 
-const Modal = ({ isOpen, onClose, content }) => {
-  if (!isOpen) return null;
-
-  // Set the original price and calculate the discounted price
-  const originalPrice = content.name === "Ultrasound" ? 5000 : content.minCost;
-  const discount = content.name === "Ultrasound" ? 0.2 * originalPrice : 0;
-  const discountedPrice = originalPrice - discount;
-
-  return (
-    <div style={styles.modalOverlay}>
-      <div style={styles.modalContent}>
-        <h3 style={{ fontSize: 20, fontWeight: 'bold', alignSelf: 'center' }}>SubTest</h3>
-      <h2>  {content.name}</h2>
-      {/* {content.name === "Ultrasound" ? ( */}
-      <div style={styles.modalText}>
-        <p>Original Price: ₹{originalPrice}</p>
-        <p>Discount: 20%</p>
-        <p>Discounted Price: ₹{discountedPrice}</p>
-      </div>
-      {/* ) : ( */}
-      <p style={styles.modalText}>Cost range: ₹{content.minCost} - ₹{content.maxCost}</p>
-      {/* )} */}
-      <button onClick={onClose} style={styles.closeButton}>Close</button>
-    </div>
-    </div >
-  );
-};
-
 const FindTest = () => {
-  const [selectedTest, setSelectedTest] = useState(testData[0]);
-  const [modalContent, setModalContent] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [hoverIndex, setHoverIndex] = useState(null);
 
-  const videos = [
-    { src: cromosomes, title: 'DNA Test Video' },
-    { src: dnawork, title: 'Cell Test Video' },
+  const images = [
+    { src: test1 },
+    { src: test2 },
+    { src: test3 },
   ];
-
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length);
-    }, 10000); // Change video every 10 seconds
+      setCurrentImageIndex(prevIndex => (prevIndex + 1) % images.length);
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
 
   const handlePrev = () => {
-    setCurrentVideoIndex((prevIndex) => (prevIndex - 1 + videos.length) % videos.length);
+    setCurrentImageIndex(prevIndex => (prevIndex - 1 + images.length) % images.length);
   };
 
   const handleNext = () => {
-    setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length);
+    setCurrentImageIndex(prevIndex => (prevIndex + 1) % images.length);
   };
 
-  const openModal = (subTest) => {
-    setModalContent(subTest);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  const getCardStyle = (index) => ({
+    width: '150px',
+    height: '130px',
+    backgroundColor: hoverIndex === index ? 'seagreen' : '#f8f9fa',
+    padding: '20px',
+    borderRadius: '10px',
+    boxShadow: hoverIndex === index ? '0 10px 15px rgba(0, 0, 0, 0.3)' : '0 4px 8px rgba(0, 0, 0, 0.2)',
+    transition: 'transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transform: hoverIndex === index ? 'scale(1.1)' : 'scale(1)',
+    overflow: 'hidden',
+    // fontsize: '10px',
+  });
 
   return (
     <div style={styles.pageContainer}>
       <div style={styles.banner}>
-        <video
-          src={videos[currentVideoIndex].src}
-          autoPlay
-          loop
-          muted
+        <img
+          src={images[currentImageIndex].src}
+          alt={`Display Image ${currentImageIndex + 1}`}
           style={styles.bannerMedia}
-        ></video>
+        />
         <div style={styles.carouselControls}>
           <button onClick={handlePrev} style={styles.controlButton}>&#8249;</button>
           <button onClick={handleNext} style={styles.controlButton}>&#8250;</button>
         </div>
-        <h1 style={styles.bannerText}>{videos[currentVideoIndex].title}</h1>
       </div>
 
-      <div style={styles.testSections}>
-        <div style={styles.leftSide}>
-          <h2 style={styles.majorTestsHeader}>Major Tests</h2>
-          <ul style={styles.testList}>
-            {testData.map((test, index) => (
-              <li
-                key={index}
-                style={{
-                  ...styles.testItem,
-                  backgroundColor: test.name === selectedTest.name ? '#d4edda' : 'white',
-                }}
-                onClick={() => setSelectedTest(test)}
-              >
-                {test.name}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div style={styles.rightSide}>
-         <h2> Sub-Tests for {selectedTest.name}</h2>
-        <ul style={styles.subTestList}>
-          {selectedTest.subTests.map((subTest, index) => (
-              <li
-                key={index}
-                style={styles.subTestItem}
-                onClick={() => openModal(subTest)}
-              >
-<strong>{subTest.name}</strong>
-                <p>Cost: ₹{subTest.minCost} - ₹{subTest.maxCost}</p>
-              </li>
-            ))}
-      </ul>
+      <div style={styles.testContainer}>
+        {testData.map((test, index) => (
+          <div
+            key={index}
+            style={getCardStyle(index)}
+            onMouseEnter={() => setHoverIndex(index)}
+            onMouseLeave={() => setHoverIndex(null)}
+          >
+            <div style={styles.testInfo}>
+              <h3>{test.name.toUpperCase()}</h3>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
-      </div >
-
-  <Modal isOpen={isModalOpen} onClose={closeModal} content={modalContent} />
-    </div >
   );
 };
 
-// Style definitions
 const styles = {
-  // Add the styles from the original snippet here...
   pageContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
     width: '100%',
     padding: '20px',
     boxSizing: 'border-box',
+    backgroundColor: '#74c69d',
   },
   banner: {
     position: 'relative',
     marginBottom: '30px',
+    width: '100%',
     textAlign: 'center',
   },
   bannerMedia: {
     width: '100%',
-    height: '300px',
-    objectFit: 'cover',
-    borderRadius: '10px',
-    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
-  },
-  bannerText: {
-    position: 'absolute',
-    bottom: '10%',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    color: 'white',
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    textShadow: '2px 2px 5px rgba(0, 0, 0, 0.7)',
+    height: '450px',
+    objectFit: 'contain',
+    borderRadius: '20px',
+    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
+    animation: 'fadeIn 1.5s ease-in-out',
   },
   carouselControls: {
     position: 'absolute',
@@ -212,91 +129,31 @@ const styles = {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     color: '#fff',
     border: 'none',
-    padding: '10px',
+    padding: '20px',
     cursor: 'pointer',
     borderRadius: '50%',
-    fontSize: '20px',
-  },
-  testSections: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    height: '100vh',
-  },
-  leftSide: {
-    flex: 1,
-    padding: '20px',
-    backgroundColor: '#ffffff',
-    borderRight: '1px solid #ccc',
-    overflowY: 'auto',
-  },
-  rightSide: {
-    flex: 2,
-    padding: '20px',
-    backgroundColor: '#f8f9fa',
-    overflowY: 'auto',
-  },
-  majorTestsHeader: {
-    fontSize: '1.5rem',
-    marginBottom: '10px',
-    color: '#178066',
-  },
-  subTestsHeader: {
-    fontSize: '1.5rem',
-    marginBottom: '10px',
-    color: '#178066',
-  },
-  testList: {
-    listStyleType: 'none',
-    padding: 0,
-    margin: 0,
-  },
-  testItem: {
-    padding: '10px',
-    margin: '5px 0',
-    cursor: 'pointer',
-    borderRadius: '5px',
-    transition: 'background-color 0.3s ease',
-  },
-  subTestList: {
-    listStyleType: 'none',
-    padding: 0,
-    margin: 0,
-  },
-  subTestItem: {
-    padding: '10px',
-    marginBottom: '10px',
-    backgroundColor: '#e9ecef',
-    borderRadius: '5px',
-  },
-  modalOverlay: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  modalContent: {
-    backgroundColor: 'white',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    width: '90%',
-    // maxWidth: '600px',
-    height: '90%',
-    borderRadius: '10px',
-    overflow: 'auto',
-    padding: '20px',
-    borderRadius: '10px',
+    fontSize: '30px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+    transition: 'transform 0.4s',
   },
-  closeButton: {
-    marginTop: '10px',
-    padding: '5px 10px',
-    cursor: 'pointer',
+  testContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: '70px',
+  },
+  testInfo: {
+    textAlign: 'center',
+    color: '#333',
+    animation: 'slideIn 0.4s ease',
+  },
+  '@keyframes fadeIn': {
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+  },
+  '@keyframes slideIn': {
+    from: { transform: 'translateY(30px)' },
+    to: { transform: 'translateY(0)' },
   },
 };
 

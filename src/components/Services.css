@@ -1,46 +1,72 @@
+/* Base styles */
+body {
+  font-family: Arial, sans-serif;
+}
 
+img {
+  max-width: 100%;
+  height: auto;
+}
 
+.container {
+  width: 95%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.main-content-card-item {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .main-content-card-item {
+      width: 25%; /* Four items per row */
+  }
+}
+
+@media (max-width: 992px) {
+  .main-content-card-item {
+      width: 33.33%; /* Three items per row */
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content-card-item {
+      width: 50%; /* Two items per row */
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+      font-size: 14px;
+  }
+  .main-content-card-item {
+      width: 100%; /* Full width */
+  }
+}
+
+/* Section title responsive adjustments */
+#services, #services h2, #services p {
+  text-align: center; /* Centers text on small devices */
+}
+
+@media (max-width: 768px) {
+  #services h2, #services p {
+    margin-left: 0; /* Remove margin for smaller screens */
+    font-size: smaller; /* Adjust font size */
+  }
+}
 
 @media (max-width: 480px) {
-    #services p {  
-      margin-left: 20px; /* Adjust margin for smaller screens */
-       /* Smaller font size */
-       text-align: center;
-    }
+  #cards {
+    margin-top: 0; /* Adjust top margin */
   }
-  
-  @media (max-width: 480px) {
-    #services{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-       /* Further reduce font size */
-       margin-right: 100px;
-       margin-top: -180px;
-     
-    }
+  #services {
+    margin-top: 0; /* Adjust section title margin */
   }
-
-  @media (max-width: 768px) {
-    #services h2 {  
-      margin-left: 20px; /* Adjust margin for smaller screens */
-       /* Smaller font size */
-    }
-  }
-  
-  @media (max-width: 480px) {
-    #services h2{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      
-      
-    }
-  }
-
-  @media(max-width:480px){
-    #cards{
-        margin-top: -140px;
-    }
-  }
-  
+}

@@ -1,134 +1,168 @@
-/* ManageClinicTimeSlots.css */
+/* Availability.css
 
-/* Main container */
-.conatiner1 {
-  
-  max-width: 400px;
-  padding: 50px;
+/* Global Styles */
+body {
   font-family: Arial, sans-serif;
-  background-color: white; /* Light background for a fresh look */
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-  transition: all 0.3s ease;
-}
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f4f4f9;
+} */
+/* AddTimeSlot.css */
 
-.conatiner1:hover {
-  transform: scale(1.02);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-  transform: translateY(-10px);
-}
-
-/* Header styles */
-h1 {
-  color: #333;
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 2rem;
-}
-
-/* Button styles */
-button {
-  background-color: #007bff;
-  color: white;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-bottom: 20px;
-  font-size: 1rem;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-button:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px); /* Slight hover effect */
-}
-
-/* Clinic card styles */
-.clinic-card {
-  margin: 15px 0;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-  background-color: white;
-}
-
-.clinic-card:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  transform: scale(1.02); /* Slight scale effect on hover */
-}
-
-/* Modal overlay styles */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+/* General container styling */
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  padding: 20px;
 }
 
-/* Modal box styles */
-.modal {
-  background-color: #fff;
-  padding: 25px;
+.manage-clinic-container {
+  margin-top: 20px;
+  background-color: #ffffff;
   border-radius: 12px;
-  width: 450px;
+  box-shadow: 0 4px 10px #2E8B57;
+  padding: 30px;
+  width: 100%;
+  max-width: 600px;
   text-align: center;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.modal:hover {
-  transform: scale(1.02); /* Subtle scaling effect on hover */
+.manage-clinic-container:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.modal h2 {
-  margin-bottom: 20px;
-  color: #444;
-  font-size: 1.5rem;
+.manage-clinic-container button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: -2px;
+  transition: background-color 0.3s ease;
 }
 
-/* Modal form styles */
+.manage-clinic-container button:hover {
+  background-color: #45a049;
+}
+
+.clinic-card {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.clinic-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Modal styling */
+/* .modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  z-index: 1000;
+} */
+
+ #time-slot h2{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 24px;
+  color: #333333;
+}
+
 .modal form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
 }
 
-/* Modal buttons */
-.modal button {
+label {
+  margin-bottom: 5px;
+  font-size: 15px;
+  color: #555555;
+}
+
+ input, select {
+  margin-bottom: 15px;
+  padding: 15px;
+  font-size: 16px;
+  border: 1px solid black;
+  border-radius: 8px;
+  width: 100%;
+  
+}
+
+select:hover{
+  border: 2px solid #2E8B57;
+}
+input:hover{
+  border: 2px solid #2E8B57;
+}
+
+ #btn{
   background-color: #007bff;
   color: white;
-  padding: 12px;
   border: none;
-  border-radius: 8px;
+  padding: 10px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease;
+  margin-top: 8px;
 }
 
-.modal button:hover {
+ #btn:hover {
   background-color: #0056b3;
-  transform: translateY(-2px); /* Hover effect */
 }
 
-/* Cancel button styles */
-.cancel-button {
+#btn-cancel{
+  background-color: #f44336;
   margin-top: 10px;
-  color: red;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
 }
 
-.cancel-button:hover {
-  text-decoration: underline;
+#btn-cancel:hover {
+  background-color: #d32f2f;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .manage-clinic-container {
+      width: 90%;
+  }
+
+  .modal {
+      width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+   h2 {
+      font-size: 10px;
+  }
+
+  input, .modal select {
+      font-size: 12px;
+  }
+
+  .modal button {
+      font-size: 14px;
+  }
 }

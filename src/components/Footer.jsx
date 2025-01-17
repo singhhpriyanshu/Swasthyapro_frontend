@@ -18,7 +18,7 @@ const Footer = () => {
                 </a>
                 <a href="">
                   <i class="fa fa-phone" aria-hidden="true"></i>
-                  <span>Call +01 1234567890</span>
+                  <span>Call +91 7827509029</span>
                 </a>
                 <a href="">
                   <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -45,14 +45,13 @@ const Footer = () => {
             <div class="footer_detail">
               <h4>About</h4>
               <p>
-                Beatae provident nobis mollitia magnam voluptatum, unde dicta facilis minima veniam
-                corporis laudantium alias tenetur eveniet illum reprehenderit fugit a delectus
-                officiis blanditiis ea.
+              At SwasthyaPro, we are committed to enhancing the well-being of our community by providing seamless access to quality healthcare services. 
+              Our platform simplifies the process of scheduling appointments with qualified doctors and arranging necessary medical tests, ensuring that you receive timely and efficient care.
               </p>
             </div>
           </div>
           <div class="col-md-6 col-lg-2 mx-auto footer_col">
-            <div class="footer_link_box">
+            {/* <div class="footer_link_box">
               <h4>Links</h4>
               <div class="footer_links">
                 <a class="active" href="index.html">
@@ -71,7 +70,7 @@ const Footer = () => {
                   Contact Us
                 </a>
               </div>
-            </div>
+            </div> */}
           </div>
           <div class="col-md-6 col-lg-3 footer_col ">
             <h4>Newsletter</h4>

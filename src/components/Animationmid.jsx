@@ -1,5 +1,5 @@
 import React from 'react';
-import Alllabtest from '../assets/Alllabtest.mp4';
+// import Alllabtest from '../assets/Alllabtest.mp4';
 import './Findtest.css' // Verify the path and file extension
 
 const Animationmid = () => {

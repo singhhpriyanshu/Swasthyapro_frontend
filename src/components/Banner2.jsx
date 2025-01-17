@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import animeappoinment from '../assets/animeappoinment.mp4';
-import videoconsult from '../assets/videoconsult.mp4';
+import bookAppoinment from '../assets/bookAppoinment.mp4';
+import videocall from '../assets/videocall.mp4';
 import header_2_video from '../assets/header_2_video.mp4';
 import'./Banner2.css'
 
@@ -12,8 +12,8 @@ const slides = [
       "Find the best doctors near you for your specific health needs. Convenient scheduling and trusted professionals for every patient.",
     buttonText: "Book Appointment",
     buttonColor: "#007bff",
-    videoSrc: animeappoinment,
-    textOnLeft: true, // Text on the left for this slide
+    videoSrc: bookAppoinment,
+    textOnLeft: false, // Text on the left for this slide
   },
   {
     id: 2,
@@ -32,8 +32,8 @@ const slides = [
       "Connect with healthcare professionals via video consultations. Safe, secure, and convenient consultations anytime, anywhere.",
     buttonText: "Start Consultation",
     buttonColor: "#17a2b8",
-    videoSrc: videoconsult,
-    textOnLeft: true, // Text on the left for this slide
+    videoSrc: videocall,
+    textOnLeft: false, // Text on the left for this slide
   },
 ];
 

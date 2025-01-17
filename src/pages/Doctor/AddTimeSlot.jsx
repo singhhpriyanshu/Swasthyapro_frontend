@@ -85,27 +85,18 @@ const AddTimeSlot = () => {
     return (
         
           <div className="container">
-            <div className="conatiner1">
-            <h1>Manage Clinic Time Slots</h1>
+            <div className="manage-clinic-container">
 
             {/* Button to fetch and display clinics */}
             <button
                 onClick={fetchClinics}
-                style={{
-                    backgroundColor: "#007BFF",
-                    color: "white",
-                    padding: "10px 20px",
-                    border: "none",
-                    borderRadius: "5px",
-                    cursor: "pointer",
-                }}
             >
                 Manage Clinic Time Slots
             </button>
 
             {/* Show clinics after fetching */}
             {isClinicsVisible && (
-                <div>
+                <div id="time-slot">
                     <h2>Select a clinic to manage time slots:</h2>
                     {clinics.length === 0 ? (
                         <p>No clinics available.</p>
@@ -125,8 +116,8 @@ const AddTimeSlot = () => {
 
             {/* Modal for adding time slots */}
             { showModal && (
-                <div >
-                    <div >
+                <div>
+                    <div className="">
                         <h2>Add Time Slot</h2>
                         <form>
                             <div>
@@ -168,11 +159,11 @@ const AddTimeSlot = () => {
                                     <option value="Not Available">Not Available</option>
                                 </select>
                             </div>
-                            <button type="button" onClick={handleSubmit}>
+                            <button  id="btn" type="button" onClick={handleSubmit}>
                                 Submit
                             </button>
                         </form>
-                        <button className="cancel-button" onClick={() => setShowModal(false)}>
+                        <button id="btn-cancel" className="cancel-button" onClick={() => setShowModal(false)}>
                             Cancel
                         </button>
                     </div>

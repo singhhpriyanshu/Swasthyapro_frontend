@@ -8,7 +8,7 @@ import MainContent2 from '../components/Maincontent'
 import Banner2 from '../components/Banner2'
 import Support from '../components/Support'
 import Services from '../components/Services'
-import Animationmid from '../components/Animationmid';
+// import Animationmid from '../components/Animationmid';
 
 const Home = () => {
   return (
