@@ -18,9 +18,7 @@ const DoctorContextProvider = (props) => {
     const getAppointments = async () => {
         try {
 
-            const { data } = await axios.get(backendUrl + '/api/doctor/appointments', {
-                params: { doctorId: profileData.doctorId }
-            })
+            const { data } = await axios.get(`${backendUrl}/api/doctor/appointments/${profileData.doctorId}` )
 
             if (data.success) {
                 setAppointments(data.appointments.reverse())

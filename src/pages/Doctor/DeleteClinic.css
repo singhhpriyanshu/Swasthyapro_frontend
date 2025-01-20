@@ -1,105 +1,92 @@
+/* Updated DeleteClinic.css */
+
+/* General container styles */
 .delete-clinic-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  min-height: 55vh;
-  background: linear-gradient(to bottom right, #f7faff, #e3ebf5);
-  padding: 20px;
-  max-width: 500px;
-  /* margin-left: 480px; */
-  border-radius: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  margin: 0 auto;
+  background: linear-gradient(to bottom right, #e0f7fa, #80deea);
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  color: #006064;
+  font-family: Arial, sans-serif;
+  transition: all 0.3s ease;
 }
-.delete-clinic-container h1{
-  font-size: large;
+
+.delete-clinic-container h1 {
+  font-size: 24px;
   font-weight: 600;
+  margin-bottom: 15px;
+  color: #004d40;
 }
 
-.delete-clinic-container:hover{
-  transform: translateY(-10px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
+/* Card styles */
 .delete-clinic-card {
   background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 80px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #b2dfdb;
+  border-radius: 12px;
   padding: 20px;
   width: 80%;
   max-width: 600px;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin: 20px 0;
-}
-
-.delete-clinic-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.fetch-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.fetch-button:hover {
-  background-color: #45a049;
-  transform: scale(1.05);
 }
 
 .clinic-cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 5px;
+  gap: 10px;
   margin-top: 20px;
 }
 
 .clinic-card {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
+  background-color: #e0f2f1;
+  border: 1px solid #b2dfdb;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 15px;
   width: 250px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.clinic-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  text-align: left;
 }
 
 .clinic-address {
   font-size: 0.9rem;
   margin-bottom: 10px;
+  color: #004d40;
+}
+
+/* Buttons */
+.fetch-button {
+  background-color: #004d40;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.fetch-button:hover {
+  background-color: #006064;
 }
 
 .delete-button {
-  background-color: #e74c3c;
+  background-color: #e57373;
   color: white;
-  padding: 8px 12px;
+  padding: 10px 15px;
   border: none;
   border-radius: 5px;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .delete-button:hover {
-  background-color: #c0392b;
-  transform: scale(1.05);
+  background-color: #d32f2f;
 }
 
+/* Responsiveness */
 @media (max-width: 480px) {
   .delete-clinic-card {
     width: 95%;
@@ -114,7 +101,7 @@
   }
 
   .delete-button {
-    font-size: 0.7rem;
-    padding: 6px 10px;
+    font-size: 0.8rem;
+    padding: 8px 12px;
   }
 }

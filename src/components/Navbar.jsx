@@ -78,6 +78,10 @@ const Navbar = () => {
             <li className='py-1'>APPOINTMENTS</li>
             <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
           </NavLink>
+          <NavLink to='/my-appointments' >
+            <li className='py-1'>MY TESTS</li>
+            <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
+          </NavLink>
           <NavLink to='/about' >
             <li className='py-1'>ABOUT</li>
             <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
@@ -90,7 +94,7 @@ const Navbar = () => {
 
         <div className='flex items-center gap-4 '>
           {
-            userData
+            userData 
               ? <div className='flex items-center gap-3 cursor-pointer group relative p-3'>
               {/* <img 
                 className='w-8 rounded-full transition-transform transform hover:scale-110 hover:shadow-lg duration-300 ease-in-out' 

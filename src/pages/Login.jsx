@@ -56,11 +56,11 @@ const Login = () => {
         const response = await axios.post(`${backendUrl}/auth/login`, { email, password });
         const data = response.data;
 
-        if (data.success) {
-          if (data.loginUser) {
+        if (data) {
+          if (data.loginuser) {
             sessionStorage.setItem("userType", "user");
-            sessionStorage.setItem("userData", JSON.stringify(data.loginUser));
-            setUserData(data.loginUser)
+            sessionStorage.setItem("userData", JSON.stringify(data.loginuser));
+            setUserData(data.loginuser)
             console.log(userData);
           }
           else {
@@ -85,12 +85,14 @@ const Login = () => {
   useEffect(() => {
     if (userData) {
       navigate('/');
+      window.scrollTo(0, 0);
     }
   }, [userData]);
 
   useEffect(() => {
     if (profileData) {
       navigate('/doctor-appointments');
+      window.scrollTo(0, 0);
     }
   }, [profileData]);
 

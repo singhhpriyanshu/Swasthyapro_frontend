@@ -51,7 +51,7 @@ const App = () => {
     
   }, []);
   return (
-    <div className='mx-4 sm:mx-[10%]' style={{marginLeft:'0',marginRight:'0'}}>
+    <div style={{marginLeft:'0',marginRight:'0'}}>
       <ToastContainer />
       <Navbar />
       <Routes>

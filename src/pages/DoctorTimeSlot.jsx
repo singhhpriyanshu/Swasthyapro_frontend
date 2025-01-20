@@ -9,7 +9,7 @@ const DoctorTimeSlot = ({ docId }) => {
   const [clinics, setClinics] = useState([]);
   const [selectedClinic, setSelectedClinic] = useState(null);
   const [availability, setAvailability] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [slot_date, setslot_date] = useState(null);
   const [timeSlots, setTimeSlots] = useState([]);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const [days, setDays] = useState([]);
@@ -30,12 +30,19 @@ const DoctorTimeSlot = ({ docId }) => {
     }
   };
 
-  const fetchAvailability = async (clinicId) => {
+  const fetchAvailability = async (clinicId,slot_date) => {
     try {
-      const response = await axios.get(`http://localhost:5000/doctor/gettime/${clinicId}`);
+      const response = await axios.get(`http://localhost:5000/doctor/gettime/${clinicId}`,{
+        params: { slot_date: slot_date },  // Sending slot_date as a query parameter
+        headers: {
+          'Content-Type': 'application/json'  // Correct content type for GET requests
+        }
+      });
       if (response.data) {
-        setAvailability(response.data);
-        setDays(getDaysOfWeek());
+        
+        setTimeSlots(response.data);
+        console.log(response.data,'kll');
+        // setDays(getDaysOfWeek());
       } else {
         alert("No availability found for this clinic.");
       }
@@ -58,72 +65,72 @@ const DoctorTimeSlot = ({ docId }) => {
     return daysOfWeek;
   };
 
-  const generateTimeSlots = (availability) => {
-    const allSlots = [];
-    availability.forEach(({ slot_start_time, slot_end_time }) => {
-      if (slot_start_time && slot_end_time) {
-        const slots = [];
-        let currentTime = new Date(`1970-01-01T${slot_start_time}`);
-        const endTime = new Date(`1970-01-01T${slot_end_time}`);
+  // const generateTimeSlots = (availability) => {
+  //   const allSlots = [];
+  //   availability.forEach(({ slot_start_time, slot_end_time }) => {
+  //     if (slot_start_time && slot_end_time) {
+  //       const slots = [];
+  //       let currentTime = new Date(`1970-01-01T${slot_start_time}`);
+  //       const endTime = new Date(`1970-01-01T${slot_end_time}`);
 
-        while (currentTime < endTime) {
-          const nextTime = new Date(currentTime);
-          nextTime.setMinutes(currentTime.getMinutes() + 30);
-          if (nextTime <= endTime) {
-            slots.push({
-              start: currentTime.toTimeString().slice(0, 5),
-              end: nextTime.toTimeString().slice(0, 5),
-            });
-          }
-          currentTime = nextTime;
-        }
+  //       while (currentTime < endTime) {
+  //         const nextTime = new Date(currentTime);
+  //         nextTime.setMinutes(currentTime.getMinutes() + 30);
+  //         if (nextTime <= endTime) {
+  //           slots.push({
+  //             start: currentTime.toTimeString().slice(0, 5),
+  //             end: nextTime.toTimeString().slice(0, 5),
+  //           });
+  //         }
+  //         currentTime = nextTime;
+  //       }
 
-        allSlots.push(...slots);
-      }
-    });
+  //       allSlots.push(...slots);
+  //     }
+  //   });
 
-    return allSlots;
-  };
+  //   return allSlots;
+  // };
 
   const handleClinicClick = (clinic) => {
     setSelectedClinic(clinic);
-    fetchAvailability(clinic.clinicId);
+    // fetchAvailability(clinic.clinicId);
+    setDays(getDaysOfWeek())
   };
 
   const handleDayClick = (day) => {
-    setSelectedDate(day.date);
-    if (availability) {
-      setTimeSlots(generateTimeSlots(availability));
-    }
+    // console.log('jhj');
+    
+    setslot_date(day.date);
+   fetchAvailability(selectedClinic.clinicId,slot_date);
+
   };
 
   const handleCalendarClick = (date) => {
     const formattedDate = date.toISOString().split("T")[0];
-    setSelectedDate(formattedDate);
-    if (availability) {
-      setTimeSlots(generateTimeSlots(availability));
-    }
+    setslot_date(formattedDate);
+   
   };
 
-  const handleTimeSlotClick = (slot) => {
-    setSelectedTimeSlot(slot);
+  const handleTimeSlotClick = (slot_time) => {
+    setSelectedTimeSlot(slot_time);
   };
 
   const handleSubmit = async () => {
     if (!userData) {
       alert("Login Required");
     } else {
-      if (!selectedDate || !selectedTimeSlot) {
+      if (!slot_date || !selectedTimeSlot) {
         alert("Please select a date and time slot.");
         return;
       }
 
       const data = {
-        appointment_time: `${selectedDate} ${selectedTimeSlot.start}:00`,
-        doctorId: docId,
+        appointment_time: `${slot_date} ${selectedTimeSlot}:00`,
+        slot_time:selectedTimeSlot,
+        doctorId: parseInt(docId),
         userId: userData.userId,
-        clinicId: selectedClinic.clinicId,
-        appointment_location: selectedClinic.address,
+        appointment_location: selectedClinic.clinicId
       };
 
       try {
@@ -178,7 +185,7 @@ const DoctorTimeSlot = ({ docId }) => {
               <button
                 key={day.date}
                 onClick={() => handleDayClick(day)}
-                className={`day-card ${selectedDate === day.date ? "selected" : ""}`}
+                className={`day-card ${slot_date === day.date ? "selected" : ""}`}
               >
                 {new Date(day.date).toLocaleDateString("en-US", { weekday: "short", day: "2-digit" })}
               </button>
@@ -189,13 +196,14 @@ const DoctorTimeSlot = ({ docId }) => {
           {timeSlots.length > 0 && (
             <div className="time-slots-list">
               {timeSlots.map((slot, index) => (
-                <button
+                (slot.status ? <button
                   key={index}
-                  onClick={() => handleTimeSlotClick(slot)}
+                  onClick={() => handleTimeSlotClick(slot.slot_time)}
                   className={`time-slot-card ${selectedTimeSlot === slot ? "selected" : ""}`}
                 >
-                  {slot.start}
-                </button>
+                  {slot.slot_time}
+                </button>:<></>)
+                
               ))}
             </div>
           )}
@@ -203,7 +211,7 @@ const DoctorTimeSlot = ({ docId }) => {
           <button
             className="submit-button"
             onClick={handleSubmit}
-            disabled={!selectedDate || !selectedTimeSlot}
+            disabled={!slot_date || !selectedTimeSlot}
           >
             Book Appointment
           </button>

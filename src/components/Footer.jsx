@@ -86,7 +86,7 @@ const Footer = () => {
  
         <div class="footer-info">
           <p>
-            &copy; <span id="displayYear"></span> All Rights Reserved By https://themewagon.com/"ThemeWagon
+            &copy; <span id="displayYear"></span> 2025 SwasthyaPro. All rights reserved
           </p>
         </div>
       </div>

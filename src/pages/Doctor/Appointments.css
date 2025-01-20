@@ -1,66 +1,121 @@
-#list {
-    display: grid;
-    grid-template-columns: 0.5fr 1.5fr 1fr 1fr 0.5fr;
-    gap: 1px;
-    align-items: center;
-    border: 2px solid green;
-    padding: 8px 8px;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    transition: all 0.3s ease-in-out;
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f4f4f9;
 }
 
-#list:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+/* Container Styles */
+.add-clinic-container {
+    max-width: 700px;
+    margin: 0 auto;
+    background: linear-gradient(to bottom right, #e0f7fa, #80deea);
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    color: #006064;
+    font-family: Arial, sans-serif;
+    transition: all 0.3s ease;
+}
+
+/* .add-clinic-container:hover {
     transform: translateY(-5px);
+    box-shadow: 0 8px 16px #2E8B57;
+} */
+
+/* Card Styles */
+.clinic-form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px #2E8B57;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 500px;
 }
 
-#list p {
-    margin-bottom: 15px;
-    font-weight: 500;
-    font-size: 17px;
+.clinic-form:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px #2E8B57;
+}
+
+/* Form Input Styles */
+.clinic-form label {
+    display: block;
+    margin-bottom: -15px;
+    font-weight: bold;
     color: #333;
-    transition: color 0.3s ease;
+    margin-top: -20px;
 }
 
-#list p:hover {
-    color: #007BFF;
+.clinic-form input {
+    width: calc(100% - 30px);
+    padding: 6px;
+    margin-bottom: -25px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.clinic-form input:hover {
+    border-color: #2E8B57;
+    box-shadow: 0 0 9px #2E8B57;
+}
+
+.clinic-form input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+/* Submit Button Styles */
+#submit{
+    background: #007bff;
+    color: #fff;
+    padding: 8px;
+    margin-top: -5px;
+    border: none;
+    border-radius: 7px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-#list #num {
-    margin-top: 15px;
-    font-size: 14px;
-    font-weight: 700;
-    color: #28a745;
-    transition: color 0.3s ease;
+#submit:hover{
+    background-color: #0056b3;
 }
 
-#list #num:hover {
-    color: #218838;
+/* Toggle Button Styles */
+.toggle-form-button {
+    background: #28a745;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
 }
 
-@media(max-width: 480px) {
-    #list {
-        padding: 2px 2px;
+.toggle-form-button:hover {
+    background-color: #218838;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .clinic-form {
+        padding: 15px;
     }
 
-    #list p {
-        font-size: 13px;
-        font-weight: 400;
+    .submit-button, .toggle-form-button {
+        padding: 8px 10px;
+        font-size: 14px;
     }
 }
 
-/* Adding animation for initial appearance */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
+@media (max-width: 480px) {
+    .clinic-form {
+        width: 90%;
     }
-    to {
-        opacity: 1;
-    }
-}
-
-#list {
-    animation: fadeIn 1s ease-in-out;
 }

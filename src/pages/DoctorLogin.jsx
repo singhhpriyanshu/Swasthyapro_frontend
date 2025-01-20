@@ -20,7 +20,7 @@ const DoctorLogin = () => {
 
             const data = response.data;
 
-            if (data.success) {
+            if (data) {
                 sessionStorage.setItem("userType", "doctor");
                 sessionStorage.setItem("doctorData", JSON.stringify(data.logindoctor));
                 setProfileData(data.logindoctor);

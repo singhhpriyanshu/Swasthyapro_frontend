@@ -21,21 +21,21 @@ body {
 }
 
 .manage-clinic-container {
-  margin-top: 20px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px #2E8B57;
-  padding: 30px;
-  width: 100%;
-  max-width: 600px;
+  max-width: 700px;
+  margin: 0 auto;
+  /* background: linear-gradient(to bottom right, #e0f7fa, #80deea); */
+  border-radius: 16px;
+  padding: 40px;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #006064;
+  font-family: Arial, sans-serif;
+  transition: all 0.3s ease;
 }
 
-.manage-clinic-container:hover {
+/* .manage-clinic-container:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
+} */
 
 .manage-clinic-container button {
   background-color: #4caf50;

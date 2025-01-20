@@ -21,7 +21,7 @@ const Appointment = () => {
   const navigate = useNavigate();
 
   const fetchDocInfo = async () => {
-    const docInfo = doctors.find((doc) => doc.id === docId);
+    const docInfo = doctors.find((doc) => doc.id === parseInt(docId));
     setDocInfo(docInfo);
   };
 
@@ -147,11 +147,11 @@ const Appointment = () => {
             <strong>Appointment Fee:</strong> {currencySymbol} 500
           </p>
         </div>
+        <DoctorTimeSlot docId={docId} />
       </div>
 
       <div className='mt-8'>
-        <h3 className='text-2xl font-semibold text-gray-700 text-center'>Booking Slots</h3>
-        <DoctorTimeSlot docId={docId} />
+        {/* <h3 className='text-2xl font-semibold text-gray-700 text-center'>Booking Slots</h3> */}
       </div>
     </div>
   ) : null;

@@ -205,8 +205,8 @@ const DoctorAvailability = () => {
                     <button id='submit' className="submit-button" type="submit">Submit</button>
                 </form>
             )}
-        <AddTimeSlot/>
         </div>
+        <AddTimeSlot/>
         {/* <DeleteClinic/>
         <UpdateClinic/> */}
     </div>

@@ -26,8 +26,7 @@ const DoctorRegistration = () => {
     alternate_contact: '',
     specialization: '',
     years_of_experience: '',
-    clinic_address: '',
-    clinic_pincode: '',
+    is_active:'',
     state: '',
     available_time_start: '',
     available_time_end: '',
@@ -36,7 +35,7 @@ const DoctorRegistration = () => {
 
   // Handle input changes
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
+    const { name, value, files ,type,checked} = e.target;
     if (name === 'image') {
       setFormData((prevData) => ({
         ...prevData,
@@ -45,7 +44,7 @@ const DoctorRegistration = () => {
     } else {
       setFormData((prevData) => ({
         ...prevData,
-        [name]: value,
+        [name]: type === 'checkbox' ? checked : value
       }));
     }
   };
@@ -63,8 +62,7 @@ const DoctorRegistration = () => {
       'contact',
       'specialization',
       'years_of_experience',
-      'clinic_address',
-      'clinic_pincode',
+      'is_active',
       'state',
       'available_time_start',
       'available_time_end',
@@ -105,8 +103,7 @@ const DoctorRegistration = () => {
           alternate_contact: '',
           specialization: '',
           years_of_experience: '',
-          clinic_address: '',
-          clinic_pincode: '',
+          is_active:'',
           state: '',
           available_time_start: '',
           available_time_end: '',
@@ -240,31 +237,6 @@ const DoctorRegistration = () => {
           />
         </div>
 
-        {/* Clinic Address */}
-        <div className="form-group">
-          <label htmlFor="clinic_address">Clinic Address<span className="required">*</span></label>
-          <textarea
-            id="clinic_address"
-            name="clinic_address"
-            value={formData.clinic_address}
-            onChange={handleChange}
-            required
-          ></textarea>
-        </div>
-
-        {/* Clinic Pincode */}
-        <div className="form-group">
-          <label htmlFor="clinic_pincode">Clinic Pincode<span className="required">*</span></label>
-          <input
-            type="text"
-            id="clinic_pincode"
-            name="clinic_pincode"
-            value={formData.clinic_pincode}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
         {/* State */}
         <div className="form-group">
           <label htmlFor="state">State<span className="required">*</span></label>
@@ -273,6 +245,18 @@ const DoctorRegistration = () => {
             id="state"
             name="state"
             value={formData.state}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="Is_active">Mark Active Status<span className="required">*</span></label>
+          <input
+            type="checkbox"
+            id="is_active"
+            name="is_active"
+            checked={formData.is_active}
             onChange={handleChange}
             required
           />

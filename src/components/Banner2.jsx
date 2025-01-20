@@ -11,7 +11,7 @@ const slides = [
     description:
       "Find the best doctors near you for your specific health needs. Convenient scheduling and trusted professionals for every patient.",
     buttonText: "Book Appointment",
-    buttonColor: "#007bff",
+    buttonColor: "#9b5de5",
     videoSrc: bookAppoinment,
     textOnLeft: false, // Text on the left for this slide
   },
@@ -21,7 +21,7 @@ const slides = [
     description:
       "Get lab tests booked conveniently from the comfort of your home. Reliable diagnostics for accurate health insights.",
     buttonText: "Book Lab Test",
-    buttonColor: "#28a745",
+    buttonColor: "#2b9348",
     videoSrc: header_2_video,
     textOnLeft: false, // Text on the right for this slide
   },

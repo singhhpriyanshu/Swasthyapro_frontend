@@ -89,7 +89,7 @@ const Services=()=>{
                 <div class="single-services">
                 <img src={face} alt="" style={{width:"80px",height:"80px" ,marginLeft:"106px",marginBottom:"25px",margin:"auto"}}/>
                     <h3 style={{    fontSize:" 22px", fontWeight: "300"}}>Autoimmune Diseases</h3>
-                    <p>Unlock the secrets of your body's defenses against autoimmune diseases.</p>
+                    <p>Unlock the secrets of your body's defenses against an autoimmune diseases. take Steps</p>
  
                     <a href="department-details-right-sidebar.html" class="read-more">
                         Check Now

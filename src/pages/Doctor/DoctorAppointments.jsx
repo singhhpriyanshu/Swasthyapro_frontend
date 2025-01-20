@@ -74,16 +74,16 @@ const DoctorAppointments = () => {
               <p className='max-sm:hidden'>{index}</p>
               <div className='flex items-center gap-2'>
                 {/* <img src={item.userData.image} className='w-8 rounded-full' alt="" /> <p>{item.userData.name}</p> */}
-                <p>{item.user.name}</p>
+                <p>{item.user.first_name + item.user.last_name}</p>
               </div>
               <div>
                 <p className='text-xs inline border border-primary px-2 rounded-full'>
                   {/* {item.payment?'Online':'CASH'} */}
-                  {item.user.phone}
+                  {item.user.contact}
                 </p>
               </div>
               <p className='max-sm:hidden'>{calculateAge(item.user.date_of_birth)}</p>
-              <p>{item.appointment_time}</p>
+              <p>{item.appointment_time.split('T')}</p>
               {/* <p>{currency}{item.amount}</p> */}
               <div>
                 <p className='text-xs inline border border-primary px-2 rounded-full'>{item.status_of_appointment}</p>
