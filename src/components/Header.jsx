@@ -23,7 +23,7 @@ const Header = () => {
         <div className="container">
           <nav className="navbar navbar-expand-lg custom_nav-container">
             <a className="navbar-brand" href="index.html">
-              <span>SwasthyaPro</span>
+              {/* <span>SwasthyaPro</span> */}
             </a>
           </nav>
         </div>

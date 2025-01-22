@@ -63,13 +63,7 @@ const Login = () => {
             setUserData(data.loginuser)
             console.log(userData);
           }
-          else {
-            sessionStorage.setItem("userType", "doctor");
-            sessionStorage.setItem("doctorData", JSON.stringify(data.logindoctor));
-            setProfileData(data.logindoctor);
-            console.log(profileData);
-
-          }
+         
           toast.success("Login successful!");
           setEmail("");
           setPassword("");

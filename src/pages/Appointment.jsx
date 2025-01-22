@@ -11,7 +11,6 @@ import DoctorTimeSlot from './DoctorTimeSlot';
 const Appointment = () => {
   const { docId } = useParams();
   const { doctors, currencySymbol, backendUrl } = useContext(AppContext);
-  const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
   const [docInfo, setDocInfo] = useState(false);
   const [docSlots, setDocSlots] = useState([]);
@@ -21,20 +20,19 @@ const Appointment = () => {
   const navigate = useNavigate();
 
   const fetchDocInfo = async () => {
-    const docInfo = doctors.find((doc) => doc.id === parseInt(docId));
-    setDocInfo(docInfo);
+    const doc = doctors.find((d) => d.id === parseInt(docId));
+    setDocInfo(doc);
   };
 
   const getAvailableSlots = async () => {
     setDocSlots([]);
-
-    let today = new Date();
+    const today = new Date();
 
     for (let i = 0; i < 7; i++) {
-      let currentDate = new Date(today);
+      const currentDate = new Date(today);
       currentDate.setDate(today.getDate() + i);
 
-      let endTime = new Date();
+      const endTime = new Date();
       endTime.setDate(today.getDate() + i);
       endTime.setHours(21, 0, 0, 0);
 
@@ -46,19 +44,24 @@ const Appointment = () => {
         currentDate.setMinutes(0);
       }
 
-      let timeSlots = [];
-
+      const timeSlots = [];
       while (currentDate < endTime) {
-        let formattedTime = currentDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const formattedTime = currentDate.toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+        });
 
-        let day = currentDate.getDate();
-        let month = currentDate.getMonth() + 1;
-        let year = currentDate.getFullYear();
-
-        const slotDate = day + "_" + month + "_" + year;
+        const day = currentDate.getDate();
+        const month = currentDate.getMonth() + 1;
+        const year = currentDate.getFullYear();
+        const slotDate = `${day}_${month}_${year}`;
         const slotTime = formattedTime;
 
-        const isSlotAvailable = docInfo.slots_booked[slotDate] && docInfo.slots_booked[slotDate].includes(slotTime) ? false : true;
+        const isSlotAvailable =
+          docInfo.slots_booked[slotDate] &&
+          docInfo.slots_booked[slotDate].includes(slotTime)
+            ? false
+            : true;
 
         if (isSlotAvailable) {
           timeSlots.push({
@@ -75,21 +78,23 @@ const Appointment = () => {
   };
 
   const bookAppointment = async () => {
+    // Example token usage check
     if (!token) {
       toast.warning('Login to book appointment');
       return navigate('/login');
     }
-
     const date = docSlots[slotIndex][0].datetime;
-
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-
-    const slotDate = day + "_" + month + "_" + year;
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const slotDate = `${day}_${month}_${year}`;
 
     try {
-      const { data } = await axios.post(backendUrl + '/appointments/book', { docId, slotDate, slotTime }, { headers: { token } });
+      const { data } = await axios.post(
+        backendUrl + '/appointments/book',
+        { docId, slotDate, slotTime },
+        { headers: { token } }
+      );
       if (data.success) {
         toast.success(data.message);
         getDoctosData();
@@ -116,35 +121,47 @@ const Appointment = () => {
   }, [docInfo]);
 
   return docInfo ? (
-    <div className='p-4 sm:p-8'>
+    <div className='p-4 sm:p-8 bg-green-50 min-h-screen'>
       <div className='flex flex-col lg:flex-row gap-8'>
         <div className='flex-shrink-0'>
+          {/* 
+            1. Make the image smaller on large screens (lg:max-w-[200px]).
+            2. Use object-cover to ensure the image maintains aspect ratio.
+          */}
           <img
-            className='bg-primary w-full lg:max-w-[300px] rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out'
+            className='bg-teal-600 w-full lg:max-w-[200px] object-cover rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out'
             src={docInfo.image}
             alt='Doctor'
           />
         </div>
 
-        <div className='flex-1 border border-gray-300 rounded-lg p-6 bg-white shadow-md transition-shadow hover:shadow-lg'>
-          <p className='text-3xl font-semibold text-gray-700 flex items-center gap-2'>
+        {/* 
+          2. Provide more space in the detail card (p-8 instead of p-6).
+        */}
+        <div className='flex-1 border border-teal-300 rounded-lg p-8 bg-green-100 shadow-md transition-shadow hover:shadow-lg'>
+          <p className='text-2xl font-semibold text-teal-800 inline-flex items-center gap-1'>
             {docInfo.name}
             <img
-              className='w-5 h-5'
+              className='w-4 h-4'
               src={assets.verified_icon}
               alt='Verified Icon'
             />
           </p>
-          <p className='mt-1 text-gray-600'>MBBS4 - {docInfo.specialization}</p>
-          <button className='py-1 px-3 mt-2 bg-blue-500 text-white rounded-full text-sm hover:bg-blue-600 transition'>
-            Experience: {docInfo.experience} years
-          </button>
-          <p className='mt-4 text-gray-800'>
-            <strong>Clinic Address:</strong> {docInfo.clinic_address}
+          <p className='mt-1 text-teal-600 leading-relaxed'>
+            MBBS ,MS - General Surgery, MCh - Neuro Surgery - {docInfo.specialization}
           </p>
-          <p className='mt-2 text-gray-600'>{docInfo.about}</p>
-          <p className='mt-4 text-lg text-gray-800'>
+          <button className='py-1 px-3 mt-2 bg-teal-500 text-white rounded-full text-sm hover:bg-teal-600 transition'>
+            Experience: {docInfo.experience} Years Experience Overall (7 years as specialist)
+          </button>
+          <p className='mt-2 text-teal-600 leading-relaxed'>{docInfo.about}</p>
+          <p className='mt-4 text-lg text-teal-800 leading-relaxed'>
             <strong>Appointment Fee:</strong> {currencySymbol} 500
+          </p>
+
+          <p className='mt-4 text-lg text-teal-800 leading-relaxed'>
+            Dr. Piyush Yadav Expert in performing Endoscope assisted surgery and computer navigated surge Adept in the treatment of tumors.
+            Has worked as Clinical Associate at Hinduja Hospital, Assistant Professor at SVIMS, 
+            Tirupathi and Senior Consultant at Sri Satya Institute Of Higher Medical Sciences harayana
           </p>
         </div>
         <DoctorTimeSlot docId={docId} />

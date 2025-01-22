@@ -16,8 +16,12 @@ const Navbar = () => {
 
   const logout = () => {
     sessionStorage.removeItem("userData");
-    sessionStorage.removeItem("doctorData");    setToken(false)
+    setToken(false)
     setUserData(false)
+    navigate('/login')
+  }
+  const doctorlogout = () => {
+    sessionStorage.removeItem("doctorData");    setToken(false)
     setProfileData(false)
     navigate('/login')
   }
@@ -35,7 +39,7 @@ const Navbar = () => {
 
 
 
-          <button  onClick={logout} class="bg-cadetblue text-white text-sm px-10 py-2 rounded-full">Logout</button>
+          <button  onClick={doctorlogout} class="bg-cadetblue text-white text-sm px-10 py-2 rounded-full">Logout</button>
 
           </div>
 
