@@ -63,6 +63,7 @@ const Doctors = () => {
                                 <div className="p-4">
                                     <h2 className="text-lg font-semibold text-teal-800">{doc.name}</h2>
                                     <p className="text-teal-600 font-serif">{doc.specialization}</p>
+                                    <p className="text-teal-600 font-serif">{doc.degree}</p>
                                     <p className="text-teal-600">Experience: {doc.experience} years</p>
                                     <p className="text-teal-600">{doc.clinic_address}</p>
                                     <button onClick={() => navigate(`/appointment/${doc.id}`)} className="mt-4 bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">

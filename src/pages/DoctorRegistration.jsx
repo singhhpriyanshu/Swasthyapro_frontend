@@ -31,6 +31,12 @@ const DoctorRegistration = () => {
     available_time_start: '',
     available_time_end: '',
     image: null,
+    degree: '',
+    description: '',
+    doc_about: '',
+    address: '',
+    pincode: '',
+    city: '',
   });
 
   // Handle input changes
@@ -66,6 +72,12 @@ const DoctorRegistration = () => {
       'state',
       'available_time_start',
       'available_time_end',
+      'degree',
+    'description',
+    'doc_about',
+    'address',
+    'pincode',
+    'city'
     ];
 
     for (let field of requiredFields) {
@@ -108,6 +120,13 @@ const DoctorRegistration = () => {
           available_time_start: '',
           available_time_end: '',
           image: null,
+          degree: '',
+    description: '',
+    doc_about: '',
+    address: '',
+    pincode: '',
+    city: '',
+
         });
         navigate('/login')
       }
@@ -245,6 +264,72 @@ const DoctorRegistration = () => {
             id="state"
             name="state"
             value={formData.state}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="degree">Degree<span className="required">*</span></label>
+          <input
+            type="text"
+            id="degree"
+            name="degree"
+            value={formData.degree}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="description">Description<span className="required">*</span></label>
+          <input
+            type="text"
+            id="description"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="doc_about">Doctor About<span className="required">*</span></label>
+          <input
+            type="text"
+            id="doc_about"
+            name="doc_about"
+            value={formData.doc_about}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="address">Address<span className="required">*</span></label>
+          <input
+            type="text"
+            id="address"
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="pincode">Pincode<span className="required">*</span></label>
+          <input
+            type="text"
+            id="pincode"
+            name="pincode"
+            value={formData.pincode}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="city">City<span className="required">*</span></label>
+          <input
+            type="text"
+            id="city"
+            name="city"
+            value={formData.city}
             onChange={handleChange}
             required
           />

@@ -4,6 +4,8 @@ import { DoctorContext } from "../../context/DoctorContext";
 
 const AddTimeSlot = () => {
   const [clinics, setClinics] = useState([]);
+  console.log(clinics, "lmlm");
+  
   const { profileData } = useContext(DoctorContext);
 
   const [selectedClinic, setSelectedClinic] = useState(null);
@@ -106,7 +108,9 @@ const AddTimeSlot = () => {
               className="p-4 border rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer bg-white"
               onClick={() => handleSelectClinic(clinic)} // Open modal when clicked
             >
+              <p className="text-lg font-medium text-gray-700">{clinic.clinic_name}</p>
               <p className="text-lg font-medium text-gray-700">{clinic.address}</p>
+
             </div>
           ))}
         </div>

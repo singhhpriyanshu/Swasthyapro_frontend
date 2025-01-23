@@ -6,7 +6,9 @@ import axios from "axios";
 import Sidebar from "../../components/Sidebar";
 
 const DoctorProfile = () => {
+  
   const { profileData, setProfileData } = useContext(DoctorContext);
+  console.log(profileData,"kokS");
   const { backendUrl } = useContext(AppContext);
   const [isEdit, setIsEdit] = useState(false);
   const [formData, setFormData] = useState(profileData || {});
@@ -28,11 +30,20 @@ const DoctorProfile = () => {
   const updateProfile = async () => {
     try {
       const updateData = {
+
         firstName: formData.firstName,
         last_name: formData.last_name,
         state: formData.state,
         alternate_contact: formData.alternate_contact,
         is_active: formData.is_active,
+        address: formData.address,
+        doc_about: formData.doc_about,
+        pincode: formData.pincode,
+        state: formData.state,
+        city: formData.city,
+        description:formData.description,
+        degree: formData.degreeapp
+       
       };
 
       const { data } = await axios.put(
@@ -130,6 +141,114 @@ const DoctorProfile = () => {
 
             <div className="mt-4">
               <label className="block text-gray-700 font-medium text-sm sm:text-base">
+                Degree
+              </label>
+              {isEdit ? (
+                <input
+                  type="text"
+                  name="degree"
+                  value={formData.degree || ""}
+                  onChange={handleChange}
+                  className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-primary/40 outline-none"
+                />
+              ) : (
+                <p className="text-gray-600 text-sm sm:text-base">
+                  {profileData?.degree || "Not Available"}
+                </p>
+              )}
+            </div>
+            <div className="mt-4">
+              <label className="block text-gray-700 font-medium text-sm sm:text-base">
+              Description
+              </label>
+              {isEdit ? (
+                <input
+                  type="text"
+                  name="description"
+                  value={formData.description || ""}
+                  onChange={handleChange}
+                  className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-primary/40 outline-none"
+                />
+              ) : (
+                <p className="text-gray-600 text-sm sm:text-base">
+                  {profileData?.description || "Not Available"}
+                </p>
+              )}
+            </div>
+            <div className="mt-4">
+              <label className="block text-gray-700 font-medium text-sm sm:text-base">
+                Doctor About
+              </label>
+              {isEdit ? (
+                <input
+                  type="text"
+                  name="doc_about"
+                  value={formData.doc_about || ""}
+                  onChange={handleChange}
+                  className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-primary/40 outline-none"
+                />
+              ) : (
+                <p className="text-gray-600 text-sm sm:text-base">
+                  {profileData?.doc_about || "Not Available"}
+                </p>
+              )}
+            </div>
+            <div className="mt-4">
+              <label className="block text-gray-700 font-medium text-sm sm:text-base">
+                Address
+              </label>
+              {isEdit ? (
+                <input
+                  type="text"
+                  name="address"
+                  value={formData.address || ""}
+                  onChange={handleChange}
+                  className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-primary/40 outline-none"
+                />
+              ) : (
+                <p className="text-gray-600 text-sm sm:text-base">
+                  {profileData?.address || "Not Available"}
+                </p>
+              )}
+            </div>
+            <div className="mt-4">
+              <label className="block text-gray-700 font-medium text-sm sm:text-base">
+                Pincode
+              </label>
+              {isEdit ? (
+                <input
+                  type="text"
+                  name="pincode"
+                  value={formData.pincode || ""}
+                  onChange={handleChange}
+                  className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-primary/40 outline-none"
+                />
+              ) : (
+                <p className="text-gray-600 text-sm sm:text-base">
+                  {profileData?.pincode || "Not Available"}
+                </p>
+              )}
+            </div>
+            <div className="mt-4">
+              <label className="block text-gray-700 font-medium text-sm sm:text-base">
+                City
+              </label>
+              {isEdit ? (
+                <input
+                  type="text"
+                  name="city"
+                  value={formData.city || ""}
+                  onChange={handleChange}
+                  className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-primary/40 outline-none"
+                />
+              ) : (
+                <p className="text-gray-600 text-sm sm:text-base">
+                  {profileData?.city || "Not Available"}
+                </p>
+              )}
+            </div>
+            <div className="mt-4">
+              <label className="block text-gray-700 font-medium text-sm sm:text-base">
                 State
               </label>
               {isEdit ? (
@@ -146,7 +265,6 @@ const DoctorProfile = () => {
                 </p>
               )}
             </div>
-
             <div className="mt-4 flex items-center gap-2">
               <input
                 type="checkbox"

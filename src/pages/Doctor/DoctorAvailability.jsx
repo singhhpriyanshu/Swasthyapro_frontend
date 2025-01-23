@@ -22,6 +22,7 @@ const DoctorAvailability = () => {
     const [formData, setFormData] = useState({
         
         active_status: false,
+        clinic_name: '',
         address: '',
         city: '',
         pincode: '',
@@ -46,33 +47,13 @@ const DoctorAvailability = () => {
     }
 
   }, [dToken])
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
-  const [date, setDate] = useState('');
 
-  const handleSubmit = async (e) => {
-      e.preventDefault();
-
-      const availability = { start_time: startTime, end_time: endTime,doctorId:profileData.doctorId };
-
-      try {
-          const response = await axios.post('http://localhost:5000/api/doctor/availability', availability);
-          if (response.data.success) {
-              alert('Availability updated successfully');
-          } else {
-              alert('Error updating availability: ' + response.data.message);
-          }
-      } catch (error) {
-          console.error('Error submitting availability:', error);
-          alert('Failed to update availability');
-      }
-  };
-   
   const handleAddClinicSubmit = async (e) => {
     e.preventDefault();
-    const {  active_status, address, city, pincode, state, fees, discount_percentage } = formData;
+    const {  clinic_name,active_status, address, city, pincode, state, fees, discount_percentage } = formData;
 
     const clinicData = {
+        clinic_name,
         active_status,
         address,
         city,
@@ -100,10 +81,6 @@ const DoctorAvailability = () => {
     }
 };
 
-
-
-
-
   return (
     <>
     <div style={{display:"flex"}}>
@@ -126,6 +103,18 @@ const DoctorAvailability = () => {
                             name="active_status"
                             checked={formData.active_status}
                             onChange={handleChange}
+                        />
+                    </label>
+                    <br /><br />
+
+                    <label >
+                        Clinic/Hospital Name:
+                        <input
+                            type="text"
+                            name="clinic_name"
+                            value={formData.clinic_name}
+                            onChange={handleChange}
+                            required
                         />
                     </label>
                     <br /><br />

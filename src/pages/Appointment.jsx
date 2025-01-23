@@ -16,6 +16,8 @@ const Appointment = () => {
   const [docSlots, setDocSlots] = useState([]);
   const [slotIndex, setSlotIndex] = useState(0);
   const [slotTime, setSlotTime] = useState('');
+  console.log(doctors,'asas');
+  
 
   const navigate = useNavigate();
 
@@ -151,18 +153,19 @@ const Appointment = () => {
             MBBS ,MS - General Surgery, MCh - Neuro Surgery - {docInfo.specialization}
           </p>
           <button className='py-1 px-3 mt-2 bg-teal-500 text-white rounded-full text-sm hover:bg-teal-600 transition'>
-            Experience: {docInfo.experience} Years Experience Overall (7 years as specialist)
+            Experience: {docInfo.experience} Years Experience Overall 
           </button>
           <p className='mt-2 text-teal-600 leading-relaxed'>{docInfo.about}</p>
-          <p className='mt-4 text-lg text-teal-800 leading-relaxed'>
-            <strong>Appointment Fee:</strong> {currencySymbol} 500
-          </p>
+          <p className='mt-2 text-teal-600 leading-relaxed'>{docInfo.degree}</p>
+          <p className='mt-2 text-teal-600 leading-relaxed'>{docInfo.description}</p>
+          <p className='mt-2 text-teal-600 leading-relaxed'>{docInfo.city}</p>
+          <p className='mt-2 text-teal-600 leading-relaxed'>{docInfo.state}</p>
+          <p className='mt-2 text-teal-600 leading-relaxed'>{docInfo.doc_about}</p>
 
-          <p className='mt-4 text-lg text-teal-800 leading-relaxed'>
-            Dr. Piyush Yadav Expert in performing Endoscope assisted surgery and computer navigated surge Adept in the treatment of tumors.
-            Has worked as Clinical Associate at Hinduja Hospital, Assistant Professor at SVIMS, 
-            Tirupathi and Senior Consultant at Sri Satya Institute Of Higher Medical Sciences harayana
-          </p>
+
+          {/* <p className='mt-4 text-lg text-teal-800 leading-relaxed'>
+            <strong>Appointment Fee:</strong> {currencySymbol} 
+          </p> */}
         </div>
         <DoctorTimeSlot docId={docId} />
       </div>
