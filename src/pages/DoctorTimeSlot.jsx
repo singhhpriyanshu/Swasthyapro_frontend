@@ -1,21 +1,25 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { AppContext } from "../context/AppContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// import  '../pages/TimeSlot.css' // <-- Commented out: using inline styles now
+import { AppContext } from "../context/AppContext";
+
+// Importing icons (you can replace with your choice of icons)
+import { FaClinicMedical } from "react-icons/fa"; // Example: FontAwesome clinic icon
 
 const DoctorTimeSlot = ({ docId }) => {
   const [clinics, setClinics] = useState([]);
   const [selectedClinic, setSelectedClinic] = useState(null);
-  const [availability, setAvailability] = useState(null);
-  const [slot_date, setslot_date] = useState(null);
+
   const [timeSlots, setTimeSlots] = useState([]);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
+  const [timeId, setTimeId] = useState(null);
+
   const [days, setDays] = useState([]);
-  const { userData } = useContext(AppContext);
   const [startDate, setStartDate] = useState(new Date());
-  const [timeId, settimeId] = useState(null);
+  const [slotDate, setSlotDate] = useState(null);
+
+  const { userData } = useContext(AppContext);
 
   useEffect(() => {
     fetchClinics();
@@ -23,7 +27,9 @@ const DoctorTimeSlot = ({ docId }) => {
 
   const fetchClinics = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/doctor/getclinics/${docId}`);
+      const response = await axios.get(
+        `http://localhost:5000/doctor/getclinics/${docId}`
+      );
       if (response.status === 201) {
         setClinics(response.data["clinic list"]);
       } else {
@@ -32,24 +38,6 @@ const DoctorTimeSlot = ({ docId }) => {
     } catch (error) {
       console.error("Error fetching clinics:", error);
       alert("An error occurred while fetching clinic details.");
-    }
-  };
-
-  const fetchAvailability = async (clinicId, slot_date) => {
-    try {
-      const response = await axios.get(`http://localhost:5000/doctor/gettime/${clinicId}`, {
-        params: { slot_date: slot_date },
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      if (response.data) {
-        setTimeSlots(response.data);
-      } else {
-        alert("No availability found for this clinic.");
-      }
-    } catch (error) {
-      console.error("Error fetching availability:", error);
     }
   };
 
@@ -70,92 +58,91 @@ const DoctorTimeSlot = ({ docId }) => {
   const handleClinicClick = (clinic) => {
     setSelectedClinic(clinic);
     setDays(getDaysOfWeek());
+    setTimeSlots([]);
+    setSelectedTimeSlot(null);
+    setTimeId(null);
+    setSlotDate(null);
   };
 
   const handleDayClick = (day) => {
-    const selecteddate = day.date;
-    setslot_date(selecteddate);
-    fetchAvailability(selectedClinic.clinicId, selecteddate);
+    setSlotDate(day.date);
+    setSelectedTimeSlot(null);
+    setTimeId(null);
+    fetchAvailability(selectedClinic.clinicId, day.date);
   };
 
   const handleCalendarClick = (date) => {
     const formattedDate = date.toISOString().split("T")[0];
-    setslot_date(formattedDate);
-  };
+    setSlotDate(formattedDate);
+    setSelectedTimeSlot(null);
+    setTimeId(null);
 
-  const handleTimeSlotClick = (slot_time, id) => {
-    settimeId(id);
-    setSelectedTimeSlot(slot_time);
-  };
-
-  const handleSubmit = async () => {
-    if (!userData) {
-      alert("Login Required");
-    } else {
-      if (!slot_date || !selectedTimeSlot) {
-        alert("Please select a date and time slot.");
-        return;
-      }
-
-      const data = {
-        id: timeId,
-        appointment_time: `${slot_date} ${selectedTimeSlot}:00`,
-        slot_time: selectedTimeSlot,
-        doctorId: parseInt(docId),
-        userId: userData.userId,
-        appointment_location: selectedClinic.clinicId
-      };
-
-      try {
-        const response = await axios.post("http://localhost:5000/appointments/book", data);
-        if (response.data.success) {
-          alert("Booking successful!");
-        } else {
-          alert("Booking Success: " + response.data.message);
-        }
-      } catch (error) {
-        console.error("Error submitting booking:", error);
-      }
+    if (selectedClinic) {
+      fetchAvailability(selectedClinic.clinicId, formattedDate);
     }
   };
 
-  // Helper: Determine which “period” a slot belongs to by hour
+  const fetchAvailability = async (clinicId, dateStr) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/doctor/gettime/${clinicId}`,
+        {
+          params: { slot_date: dateStr },
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      if (response.data) {
+        setTimeSlots(response.data);
+      } else {
+        alert("No availability found for this clinic.");
+      }
+    } catch (error) {
+      console.error("Error fetching availability:", error);
+    }
+  };
+
+  const handleTimeSlotClick = (slot_time, id) => {
+    setSelectedTimeSlot(slot_time);
+    setTimeId(id);
+  };
+
   const filterSlotsByPeriod = (period) => {
-    return timeSlots.filter(slot => {
-      const hour = parseInt(slot.slot_time.split(":")[0], 10);
+    return timeSlots.filter((slot) => {
+      const [hourStr] = slot.slot_time.split(":");
+      const hour = parseInt(hourStr, 10);
       switch (period) {
         case "morning":
-          return hour >= 5 && hour < 12;  // 5 AM to 11 AM
+          return hour >= 5 && hour < 12;
         case "afternoon":
-          return hour >= 12 && hour < 17; // 12 PM to 4 PM
+          return hour >= 12 && hour < 17;
         case "evening":
-          return hour >= 17 && hour < 20; // 5 PM to 7 PM
+          return hour >= 17 && hour < 20;
         case "night":
-          return (hour >= 20 && hour <= 23) || (hour >= 0 && hour < 5);
+          return hour >= 20 || hour < 5;
         default:
           return false;
       }
     });
   };
 
-  // Renders the slots for a given period (morning, afternoon, evening, night).
   const renderPeriodSlots = (periodName, title) => {
     const slots = filterSlotsByPeriod(periodName);
     if (!slots.length) return null;
 
     return (
-      <div style={styles.periodsContainer}>
-        <div style={styles.periodTitle}>{title}</div>
-        <div style={styles.timeSlotsList}>
-          {slots.map((slot, index) =>
+      <div className="mb-4">
+        <h3 className="font-semibold text-gray-700 mb-2">{title}</h3>
+        <div className="flex flex-wrap gap-2">
+          {slots.map((slot) =>
             slot.status ? (
               <button
-                key={index}
+                key={slot.id}
                 onClick={() => handleTimeSlotClick(slot.slot_time, slot.id)}
-                style={{
-                  ...styles.timeSlotCard,
-                  ...(selectedTimeSlot === slot.slot_time ? styles.selectedTimeSlotCard : {})
-                }}
+                className={`px-3 py-1 rounded border text-sm hover:bg-teal-100 ${
+                  selectedTimeSlot === slot.slot_time
+                    ? "bg-teal-500 text-white border-teal-500"
+                    : "bg-gray-100 text-gray-800 border-gray-300"
+                }`}
               >
                 {slot.slot_time}
               </button>
@@ -166,186 +153,148 @@ const DoctorTimeSlot = ({ docId }) => {
     );
   };
 
-  return (
-    <div style={styles.container}>
-      <h2 style={styles.title}>Pick Your Time Slot Now</h2>
+  const handleSubmit = async () => {
+    if (!userData) {
+      alert("Login Required");
+      return;
+    }
+    if (!slotDate || !selectedTimeSlot) {
+      alert("Please select a date and time slot.");
+      return;
+    }
 
-      {clinics.length > 0 && (
-        <div style={styles.clinicsList}>
-          {clinics.map((clinic) => {
-            const isSelected = selectedClinic === clinic;
-            return (
-              <div
-                key={clinic.clinicId}
-                onClick={() => handleClinicClick(clinic)}
-                style={{
-                  ...styles.clinicCard,
-                  ...(isSelected ? styles.selectedClinicCard : {})
-                }}
-              >
-                {clinic.address}
-              </div>
-            );
-          })}
+    const data = {
+      id: timeId,
+      appointment_time: `${slotDate} ${selectedTimeSlot}:00`,
+      slot_time: selectedTimeSlot,
+      doctorId: parseInt(docId, 10),
+      userId: userData.userId,
+      appointment_location: selectedClinic.clinicId,
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/appointments/book",
+        data
+      );
+      if (response.data.success) {
+        alert("Booking successful!");
+      } else {
+        alert("Booking: " + response.data.message);
+      }
+    } catch (error) {
+      console.error("Error submitting booking:", error);
+    }
+  };
+
+  return (
+    <div className="bg-green-100 p-4 rounded-lg">
+      <h2 className="text-lg font-semibold text-green-800 mb-3">
+        Pick a time slot
+      </h2>
+
+      {/* Clinics List */}
+      {clinics.length > 0 ? (
+        <div className="mb-4">
+          <p className="text-sm font-medium text-green-700">
+            Clinic Appointment
+          </p>
+          <p className="text-sm text-green-600 mb-2">
+            Select a clinic below:
+          </p>
+          <div className="flex flex-wrap gap-3">
+  {clinics.map((clinic) => {
+    const isSelected =
+      selectedClinic && selectedClinic.clinicId === clinic.clinicId;
+    return (
+      <button
+        key={clinic.clinicId}
+        onClick={() => handleClinicClick(clinic)}
+        className={`flex items-start gap-3 px-4 py-2 rounded-lg border text-sm hover:bg-green-50 ${
+          isSelected
+            ? "bg-green-300 text-green-900 border-green-400"
+            : "bg-green-200 text-green-700 border-green-300"
+        }`}
+      >
+        {/* Icon on the left */}
+        <FaClinicMedical className="mt-1 text-lg text-green-800" />
+
+        {/* Text Content */}
+        <div className="text-left">
+          <p className="font-medium text-base text-green-800">
+            {clinic.clinic_name}
+          </p>
+          <p className="text-sm text-green-600">{clinic.address}</p>
         </div>
+      </button>
+    );
+  })}
+</div>
+
+        </div>
+      ) : (
+        <p className="text-sm text-green-700 mb-4">
+          No clinics found for this doctor.
+        </p>
       )}
 
+      {/* Show DatePicker + 7-day “tabs” once clinic is selected */}
       {selectedClinic && (
         <>
-          <div style={styles.datePickerContainer}>
-            <p>Select Date: </p>
+          <div className="mb-4 flex items-center gap-2">
+            <p className="text-sm font-medium text-green-700">Select Date:</p>
             <DatePicker
               selected={startDate}
               onChange={(date) => {
                 setStartDate(date);
                 handleCalendarClick(date);
               }}
+              minDate={new Date()}
+              className="border border-green-300 rounded px-2 py-1 text-sm"
             />
           </div>
 
-          <div style={styles.daysList}>
+          <div className="mb-4 flex flex-wrap gap-2">
             {days.map((day) => {
-              const isSelected = slot_date === day.date;
+              const isSelected = slotDate === day.date;
               return (
                 <button
                   key={day.date}
                   onClick={() => handleDayClick(day)}
-                  style={{
-                    ...styles.dayCard,
-                    ...(isSelected ? styles.selectedDayCard : {})
-                  }}
+                  className={`px-3 py-2 rounded text-sm border hover:bg-green-50 ${
+                    isSelected
+                      ? "bg-green-300 border-green-400 text-green-900"
+                      : "bg-green-200 border-green-300 text-green-700"
+                  }`}
                 >
                   {new Date(day.date).toLocaleDateString("en-US", {
                     weekday: "short",
-                    day: "2-digit"
+                    day: "2-digit",
                   })}
                 </button>
               );
             })}
           </div>
 
-          {timeSlots.length > 0 && (
-            <>
-              {renderPeriodSlots("morning", "Morning Slots")}
-              {renderPeriodSlots("afternoon", "Afternoon Slots")}
-              {renderPeriodSlots("evening", "Evening Slots")}
-              {renderPeriodSlots("night", "Night Slots")}
-            </>
-          )}
+          {/* Time Slots by Period */}
+          {renderPeriodSlots("morning", "Morning Slots")}
+          {renderPeriodSlots("afternoon", "Afternoon Slots")}
+          {renderPeriodSlots("evening", "Evening Slots")}
+          {renderPeriodSlots("night", "Night Slots")}
 
-          <button
-            style={styles.submitButton}
-            onClick={handleSubmit}
-            onMouseDown={(e) => e.target.style.backgroundColor = '#388E3C'} 
-            onMouseUp={(e) => e.target.style.backgroundColor = '#4caf50'}
-            disabled={!slot_date || !selectedTimeSlot}
-          >
-            Pay At Clinic
-          </button>
+          <div className="mt-4">
+            <button
+              onClick={handleSubmit}
+              disabled={!slotDate || !selectedTimeSlot}
+              className="w-full px-4 py-2 rounded bg-green-500 text-white text-sm hover:bg-green-600 disabled:opacity-50"
+            >
+              Pay at Clinic
+            </button>
+          </div>
         </>
       )}
     </div>
   );
-};
-
-// Inline styles (instead of external CSS):
-const styles = {
-  container: {
-    // maxWidth: '600px',
-    width: '450px',
-    margin: '0 auto',
-    padding: '20px',
-    fontFamily: 'Arial, sans-serif',
-    border: '1px solid #ccc',
-    borderRadius: '6px'
-  },
-  title: {
-    fontSize: '24px',
-    fontWeight: 'bold',
-    marginBottom: '10px',
-    textAlign: 'center',
-    color: 'Green'
-  },
-  clinicsList: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '10px',
-    margin: '10px 0'
-  },
-  clinicCard: {
-    flex: '1 1 auto',
-    backgroundColor: '#f5f5f5',
-    padding: '10px',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    textAlign: 'center',
-    border: '1px solid #ddd'
-  },
-  // Changed from #d2e2ff (bluish) + #4994ff → greenish shades:
-  selectedClinicCard: {
-    backgroundColor: '#b2f2b4', // Light green background
-    borderColor: '#66bb6a'      // Green border
-  },
-  datePickerContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px',
-    margin: '10px 0'
-  },
-  daysList: {
-    display: 'flex',
-    gap: '10px',
-    margin: '10px 0'
-  },
-  dayCard: {
-    backgroundColor: '#eee',
-    padding: '8px',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    border: '1px solid transparent'
-  },
-  selectedDayCard: {
-    backgroundColor: '#c8e6c9',
-    borderColor: '#2e7d32'
-  },
-  subTitle: {
-    fontSize: '20px',
-    fontWeight: 'bold',
-    marginTop: '20px',
-    marginBottom: '10px'
-  },
-  timeSlotsList: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '10px'
-  },
-  timeSlotCard: {
-    padding: '8px 12px',
-    backgroundColor: '#fafafa',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    border: '1px solid #ddd'
-  },
-  selectedTimeSlotCard: {
-    backgroundColor: '#ffe599',
-    borderColor: '#ffd966'
-  },
-  periodsContainer: {
-    marginBottom: '10px'
-  },
-  periodTitle: {
-    margin: '10px 0 5px',
-    fontWeight: 'bold'
-  },
-  submitButton: {
-    marginTop: '20px',
-    padding: '10px 20px',
-    backgroundColor: '#4caf50',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer'
-  }
 };
 
 export default DoctorTimeSlot;

@@ -44,7 +44,7 @@ const DeleteClinic = () => {
 
   return (
     <dev style={{display:"flex"}}>
-            <Sidebar/>
+            {/* <Sidebar/> */}
     <div className="delete-clinic-container">
       <h1>Manage Clinics</h1>
       {!showClinics && (

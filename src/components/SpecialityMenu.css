@@ -63,6 +63,25 @@ body {
     border-color: #888;
 }
 
+/* Add hover effect to the circle */
+.speciality-circle {
+    border-color: #d1d5db; /* Default gray border */
+  }
+  
+  .speciality-circle:hover {
+    border-color: #178066; /* Green border on hover */
+    box-shadow: 0 0 10px rgba(23, 128, 102, 0.5); /* Add a soft green glow */
+    transform: scale(1.05); /* Slight scaling effect */
+    transition: all 0.3s ease-in-out; /* Smooth animation */
+  }
+  
+  /* Slight hover translate effect for the link */
+  .speciality-item:hover {
+    transform: translateY(-5px); /* Moves the item slightly upwards */
+    transition: transform 0.3s ease-in-out;
+  }
+  
+
 #circle img {
     width: 100%; /* Make image responsive within container */
     height: auto;

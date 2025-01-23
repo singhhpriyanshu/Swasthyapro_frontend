@@ -1,21 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
 import { DoctorContext } from "../../context/DoctorContext";
 import { AppContext } from "../../context/AppContext";
 import { toast } from "react-toastify";
-import axios from "axios";
 import Sidebar from "../../components/Sidebar";
 
 const DoctorProfile = () => {
-  
   const { profileData, setProfileData } = useContext(DoctorContext);
-  console.log(profileData,"kokS");
   const { backendUrl } = useContext(AppContext);
+
   const [isEdit, setIsEdit] = useState(false);
   const [formData, setFormData] = useState(profileData || {});
 
   useEffect(() => {
     if (profileData) {
-      setFormData(profileData); // Ensure formData is set on initial render
+      setFormData(profileData);
     }
   }, [profileData]);
 
@@ -30,10 +29,8 @@ const DoctorProfile = () => {
   const updateProfile = async () => {
     try {
       const updateData = {
-
         firstName: formData.firstName,
         last_name: formData.last_name,
-        state: formData.state,
         alternate_contact: formData.alternate_contact,
         is_active: formData.is_active,
         address: formData.address,
@@ -41,9 +38,8 @@ const DoctorProfile = () => {
         pincode: formData.pincode,
         state: formData.state,
         city: formData.city,
-        description:formData.description,
-        degree: formData.degreeapp
-       
+        description: formData.description,
+        degree: formData.degree,
       };
 
       const { data } = await axios.put(
@@ -57,239 +53,261 @@ const DoctorProfile = () => {
       if (data.success) {
         toast.success("Profile updated successfully!");
         setIsEdit(false);
-        setProfileData((prev) => ({ ...prev, ...updateData })); // Update global context
+        // Update the global profile data
+        setProfileData((prev) => ({ ...prev, ...updateData }));
       } else {
         toast.error(data.message || "Failed to update profile");
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || "Error updating profile");
+      toast.error(
+        error.response?.data?.message || "An error occurred updating profile"
+      );
     }
   };
 
   const cancelEdit = () => {
-    setFormData(profileData); // Reset to original data
+    setFormData(profileData); // revert changes
     setIsEdit(false);
   };
 
   return (
-    <div style={{ display: "flex" }}>
-      <Sidebar className="w-full lg:w-64 transition-all duration-300" />
-      <div className="flex-1 p-5 bg-gray-100 min-h-screen">
-        <div className="flex flex-col sm:flex-row items-center gap-6">
-          {/* Doctor's Image */}
-          <div>
+    <div className="flex min-h-screen">
+      {/* Sidebar on the left */}
+      <Sidebar />
+
+      {/* Main content on the right */}
+      <div className="flex-1 p-4 md:p-6 bg-gray-100">
+        <h1 className="text-2xl font-bold text-gray-800 mb-4">Doctor Profile</h1>
+
+        <div className="bg-white rounded-lg shadow p-4 md:p-6 flex flex-col md:flex-row gap-6">
+          {/* Profile Image */}
+          <div className="flex-shrink-0 flex justify-center md:justify-start">
             <img
-              className="w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64 rounded object-contain"
+              className="w-32 h-32 md:w-48 md:h-48 rounded object-cover border border-gray-300"
               src={profileData?.image_url}
-              alt={`${profileData?.firstName || ""} ${profileData?.last_name || ""}`}
+              alt="Doctor"
             />
           </div>
-          {/* Editable Doctor Details */}
-          <div className="bg-gradient-to-r from-cyan-100 to-cyan-300 w-full sm:flex-1 bg-white p-4 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
-            <p className="text-xl sm:text-2xl font-bold text-gray-700 flex items-center gap-2">
+
+          {/* Profile Fields */}
+          <div className="flex-1">
+            {/* Name & Email */}
+            <div className="mb-4">
               {isEdit ? (
-                <>
+                <div className="flex items-center gap-2">
                   <input
-                    className="text-xl font-bold text-gray-700 border-b border-gray-300 focus:outline-none"
-                    onChange={handleChange}
                     type="text"
                     name="firstName"
                     value={formData.firstName || ""}
+                    onChange={handleChange}
+                    className="border-b border-gray-300 focus:outline-none text-xl font-semibold"
                   />
                   <input
-                    className="text-xl font-bold text-gray-700 border-b border-gray-300 focus:outline-none"
-                    onChange={handleChange}
                     type="text"
                     name="last_name"
                     value={formData.last_name || ""}
+                    onChange={handleChange}
+                    className="border-b border-gray-300 focus:outline-none text-xl font-semibold"
                   />
-                </>
+                </div>
               ) : (
-                `${profileData.firstName || ""} ${profileData.last_name || ""}`
+                <h2 className="text-xl font-semibold text-gray-700">
+                  {profileData?.firstName} {profileData?.last_name}
+                </h2>
               )}
-            </p>
-            <p className="text-gray-600 mt-1 text-sm sm:text-base">
-              {profileData?.specialization}
-            </p>
-            <p className="mt-1 flex items-center gap-2 text-gray-600 text-sm sm:text-base">
-              <span className="py-1 px-3 bg-primary/20 text-primary text-xs rounded-full">
-                {profileData?.yearsOfExperience} Years
-              </span>
-            </p>
-            <p>{profileData.email}</p>
-
-
-            {/* Editable Fields */}
-            <div className="mt-4">
-              <label className="block text-gray-700 font-medium text-sm sm:text-base">
-                Alternate Contact
-              </label>
-              {isEdit ? (
-                <input
-                  type="text"
-                  name="alternate_contact"
-                  value={formData.alternate_contact || ""}
-                  onChange={handleChange}
-                  className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-primary/40 outline-none"
-                />
-              ) : (
-                <p className="text-gray-600 text-sm sm:text-base">
-                  {profileData?.alternate_contact || "Not Available"}
-                </p>
-              )}
+              <p className="text-sm text-gray-500 mt-1">
+                {profileData?.email || "No email found"}
+              </p>
             </div>
 
-            <div className="mt-4">
-              <label className="block text-gray-700 font-medium text-sm sm:text-base">
-                Degree
-              </label>
-              {isEdit ? (
+            {/* Single-Column Responsive Fields */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Alternate Contact */}
+              <div>
+                <label className="block text-sm text-gray-600 font-medium">
+                  Alternate Contact
+                </label>
+                {isEdit ? (
+                  <input
+                    type="text"
+                    name="alternate_contact"
+                    value={formData.alternate_contact || ""}
+                    onChange={handleChange}
+                    className="w-full p-2 border border-gray-300 rounded mt-1"
+                  />
+                ) : (
+                  <p className="mt-1 text-gray-700">
+                    {profileData?.alternate_contact || "Not Available"}
+                  </p>
+                )}
+              </div>
+
+              {/* Degree */}
+              <div>
+                <label className="block text-sm text-gray-600 font-medium">
+                  Degree
+                </label>
+                {isEdit ? (
+                  <input
+                    type="text"
+                    name="degree"
+                    value={formData.degree || ""}
+                    onChange={handleChange}
+                    className="w-full p-2 border border-gray-300 rounded mt-1"
+                  />
+                ) : (
+                  <p className="mt-1 text-gray-700">
+                    {profileData?.degree || "Not Available"}
+                  </p>
+                )}
+              </div>
+
+              {/* Description */}
+              <div className="sm:col-span-2">
+                <label className="block text-sm text-gray-600 font-medium">
+                  Description
+                </label>
+                {isEdit ? (
+                  <textarea
+                    name="description"
+                    value={formData.description || ""}
+                    onChange={handleChange}
+                    className="w-full p-2 border border-gray-300 rounded mt-1"
+                  />
+                ) : (
+                  <p className="mt-1 text-gray-700 whitespace-pre-line">
+                    {profileData?.description || "Not Available"}
+                  </p>
+                )}
+              </div>
+
+              {/* Doctor About */}
+              <div className="sm:col-span-2">
+                <label className="block text-sm text-gray-600 font-medium">
+                  Doctor About
+                </label>
+                {isEdit ? (
+                  <textarea
+                    name="doc_about"
+                    value={formData.doc_about || ""}
+                    onChange={handleChange}
+                    className="w-full p-2 border border-gray-300 rounded mt-1"
+                  />
+                ) : (
+                  <p className="mt-1 text-gray-700 whitespace-pre-line">
+                    {profileData?.doc_about || "Not Available"}
+                  </p>
+                )}
+              </div>
+
+              {/* Address */}
+              <div>
+                <label className="block text-sm text-gray-600 font-medium">
+                  Address
+                </label>
+                {isEdit ? (
+                  <input
+                    type="text"
+                    name="address"
+                    value={formData.address || ""}
+                    onChange={handleChange}
+                    className="w-full p-2 border border-gray-300 rounded mt-1"
+                  />
+                ) : (
+                  <p className="mt-1 text-gray-700">
+                    {profileData?.address || "Not Available"}
+                  </p>
+                )}
+              </div>
+
+              {/* Pincode */}
+              <div>
+                <label className="block text-sm text-gray-600 font-medium">
+                  Pincode
+                </label>
+                {isEdit ? (
+                  <input
+                    type="text"
+                    name="pincode"
+                    value={formData.pincode || ""}
+                    onChange={handleChange}
+                    className="w-full p-2 border border-gray-300 rounded mt-1"
+                  />
+                ) : (
+                  <p className="mt-1 text-gray-700">
+                    {profileData?.pincode || "Not Available"}
+                  </p>
+                )}
+              </div>
+
+              {/* City */}
+              <div>
+                <label className="block text-sm text-gray-600 font-medium">
+                  City
+                </label>
+                {isEdit ? (
+                  <input
+                    type="text"
+                    name="city"
+                    value={formData.city || ""}
+                    onChange={handleChange}
+                    className="w-full p-2 border border-gray-300 rounded mt-1"
+                  />
+                ) : (
+                  <p className="mt-1 text-gray-700">
+                    {profileData?.city || "Not Available"}
+                  </p>
+                )}
+              </div>
+
+              {/* State */}
+              <div>
+                <label className="block text-sm text-gray-600 font-medium">
+                  State
+                </label>
+                {isEdit ? (
+                  <input
+                    type="text"
+                    name="state"
+                    value={formData.state || ""}
+                    onChange={handleChange}
+                    className="w-full p-2 border border-gray-300 rounded mt-1"
+                  />
+                ) : (
+                  <p className="mt-1 text-gray-700">
+                    {profileData?.state || "Not Available"}
+                  </p>
+                )}
+              </div>
+
+              {/* Active Checkbox */}
+              <div className="flex items-center gap-2 sm:col-span-2">
                 <input
-                  type="text"
-                  name="degree"
-                  value={formData.degree || ""}
+                  type="checkbox"
+                  name="is_active"
+                  checked={formData.is_active || false}
                   onChange={handleChange}
-                  className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-primary/40 outline-none"
+                  className="w-5 h-5"
                 />
-              ) : (
-                <p className="text-gray-600 text-sm sm:text-base">
-                  {profileData?.degree || "Not Available"}
-                </p>
-              )}
-            </div>
-            <div className="mt-4">
-              <label className="block text-gray-700 font-medium text-sm sm:text-base">
-              Description
-              </label>
-              {isEdit ? (
-                <input
-                  type="text"
-                  name="description"
-                  value={formData.description || ""}
-                  onChange={handleChange}
-                  className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-primary/40 outline-none"
-                />
-              ) : (
-                <p className="text-gray-600 text-sm sm:text-base">
-                  {profileData?.description || "Not Available"}
-                </p>
-              )}
-            </div>
-            <div className="mt-4">
-              <label className="block text-gray-700 font-medium text-sm sm:text-base">
-                Doctor About
-              </label>
-              {isEdit ? (
-                <input
-                  type="text"
-                  name="doc_about"
-                  value={formData.doc_about || ""}
-                  onChange={handleChange}
-                  className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-primary/40 outline-none"
-                />
-              ) : (
-                <p className="text-gray-600 text-sm sm:text-base">
-                  {profileData?.doc_about || "Not Available"}
-                </p>
-              )}
-            </div>
-            <div className="mt-4">
-              <label className="block text-gray-700 font-medium text-sm sm:text-base">
-                Address
-              </label>
-              {isEdit ? (
-                <input
-                  type="text"
-                  name="address"
-                  value={formData.address || ""}
-                  onChange={handleChange}
-                  className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-primary/40 outline-none"
-                />
-              ) : (
-                <p className="text-gray-600 text-sm sm:text-base">
-                  {profileData?.address || "Not Available"}
-                </p>
-              )}
-            </div>
-            <div className="mt-4">
-              <label className="block text-gray-700 font-medium text-sm sm:text-base">
-                Pincode
-              </label>
-              {isEdit ? (
-                <input
-                  type="text"
-                  name="pincode"
-                  value={formData.pincode || ""}
-                  onChange={handleChange}
-                  className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-primary/40 outline-none"
-                />
-              ) : (
-                <p className="text-gray-600 text-sm sm:text-base">
-                  {profileData?.pincode || "Not Available"}
-                </p>
-              )}
-            </div>
-            <div className="mt-4">
-              <label className="block text-gray-700 font-medium text-sm sm:text-base">
-                City
-              </label>
-              {isEdit ? (
-                <input
-                  type="text"
-                  name="city"
-                  value={formData.city || ""}
-                  onChange={handleChange}
-                  className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-primary/40 outline-none"
-                />
-              ) : (
-                <p className="text-gray-600 text-sm sm:text-base">
-                  {profileData?.city || "Not Available"}
-                </p>
-              )}
-            </div>
-            <div className="mt-4">
-              <label className="block text-gray-700 font-medium text-sm sm:text-base">
-                State
-              </label>
-              {isEdit ? (
-                <input
-                  type="text"
-                  name="state"
-                  value={formData.state || ""}
-                  onChange={handleChange}
-                  className="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-primary/40 outline-none"
-                />
-              ) : (
-                <p className="text-gray-600 text-sm sm:text-base">
-                  {profileData?.state || "Not Available"}
-                </p>
-              )}
-            </div>
-            <div className="mt-4 flex items-center gap-2">
-              <input
-                type="checkbox"
-                name="is_active"
-                checked={formData.is_active || false}
-                onChange={handleChange}
-                className="w-5 h-5"
-              />
-              <label className="text-gray-700 font-medium text-sm sm:text-base">
-                Available
-              </label>
+                <label className="text-sm text-gray-600 font-medium">
+                  Available
+                </label>
+              </div>
             </div>
 
-            <div className="mt-6 flex flex-wrap gap-4">
+            {/* Edit / Save / Cancel Buttons */}
+            <div className="mt-6 flex gap-4">
               {isEdit ? (
                 <>
                   <button
                     onClick={updateProfile}
-                    className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg shadow hover:bg-primary/80 transition-all"
+                    className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
                   >
                     Save
                   </button>
                   <button
                     onClick={cancelEdit}
-                    className="flex items-center gap-2 px-4 py-2 bg-gray-300 text-gray-700 rounded-lg shadow hover:bg-gray-400 transition-all"
+                    className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition"
                   >
                     Cancel
                   </button>
@@ -297,7 +315,7 @@ const DoctorProfile = () => {
               ) : (
                 <button
                   onClick={() => setIsEdit(true)}
-                  className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg shadow hover:bg-primary/80 transition-all"
+                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
                 >
                   Edit
                 </button>
