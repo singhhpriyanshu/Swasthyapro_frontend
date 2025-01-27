@@ -49,7 +49,12 @@ const MyAppointments = () => {
         `${backendUrl}/user/appointments/get/${userData.userId}`
       );
       if (data && data.appointments) {
-        setAppointments(data.appointments);
+        // Sort appointments by date from latest to oldest
+        const sortedAppointments = data.appointments.sort((a, b) => {
+          // Convert appointmentTime to Date objects for comparison
+          return new Date(b.appointmentTime) - new Date(a.appointmentTime);
+        });
+        setAppointments(sortedAppointments);
       } else {
         toast.error(data.message || "No appointments found.");
       }
@@ -57,6 +62,7 @@ const MyAppointments = () => {
       toast.error("Failed to fetch appointments. Please try again.");
     }
   };
+
 
   // === CANCEL APPOINTMENT FLOW ===
   const handleCancelClick = (appointmentId) => {
@@ -224,7 +230,7 @@ const MyAppointments = () => {
         {appointments.map((item) => (
           <div
             key={item.id}
-            className="bg-green-100 shadow rounded-lg p-4 border-l-4 border-green-500 flex flex-col sm:flex-row justify-between items-center relative"
+            className="bg-[#edede9] shadow rounded-lg p-4 border-l-4 border-green-500 flex flex-col sm:flex-row justify-between items-center relative"
           >
             {/* Left side info */}
             <div className="flex items-center space-x-4">
@@ -270,7 +276,7 @@ const MyAppointments = () => {
                 Update Appointment
               </button>
               <button
-                className="bg-red-500 text-white py-2 px-4 rounded shadow-lg transform transition-transform duration-300 hover:scale-105 hover:bg-red-600 focus:outline-none"
+                className="bg-[#fe5d9f] text-white py-2 px-4 rounded shadow-lg transform transition-transform duration-300 hover:scale-105 hover:bg-red-600 focus:outline-none"
                 onClick={() => handleCancelClick(item.id)}
               >
                 Cancel Appointment

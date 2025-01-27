@@ -35,7 +35,7 @@ const Navbar = () => {
     return (
       <div
         className="flex items-center justify-between py-4 mb-5 border-b border-[#ADADAD] bg-[#D4F3E0] text-sm"
-        style={{ height: '60px' }}
+        style={{ height: '60px'}}
       >
         {/* Left side: Logo */}
         <div className="flex items-center px-5 py-6">
@@ -175,11 +175,11 @@ const Navbar = () => {
         ) : (
           /* Create Account button (DESKTOP ONLY) */
           <button
-            onClick={() => navigate('/login')}
-            className="hidden md:block bg-seagreen-200 text-white px-4 py-2 rounded-full text-sm hover:bg-green-600 transition"
-          >
-            Create account
-          </button>
+  onClick={() => navigate('/login')}
+  className="hidden md:block bg-[#66c28e] text-white px-4 py-2 rounded-full text-sm hover:bg-green-600 transition"
+>
+  Create account
+</button>
         )}
 
         {/* Mobile Menu Icon */}

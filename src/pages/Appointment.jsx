@@ -26,9 +26,9 @@ const Appointment = () => {
   }
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6 p-6 bg-green-50 min-h-screen">
+    <div className="flex flex-col lg:flex-row gap-6 p-6 bg-white min-h-screen">
       {/* LEFT COLUMN: Doctor Info */}
-      <div className="lg:w-2/3 bg-green-100 p-6 rounded-lg">
+      <div className="lg:w-2/3 bg-white p-6 rounded-lg">
         <div className="flex items-start gap-6">
           {/* Doctor Image */}
           <img
@@ -52,25 +52,20 @@ const Appointment = () => {
             </h2>
 
             {/* Specialization, experience */}
-            <p className="text-lg text-green-700 mt-2">
+            <p className="text-lg text-black mt-2">
               {docInfo.specialization}
             </p>
-            <p className="text-sm text-green-700">
+            <p className="text-sm text-black">
               Experience: {docInfo.experience} Years
             </p>
-          </div>
-        </div>
-
-        {/* Additional fields below the “header” */}
-        <div className="mt-6 space-y-2 text-green-700">
-          {docInfo.degree && (
+            {docInfo.degree && (
             <p>
-              <span className="font-semibold">Degree:</span> {docInfo.degree}
+              <span className="font-semibold"></span> {docInfo.degree}
             </p>
           )}
           {docInfo.description && (
             <p>
-              <span className="font-semibold">Description:</span>{" "}
+              <span className="font-semibold"></span>{" "}
               {docInfo.description}
             </p>
           )}
@@ -84,12 +79,53 @@ const Appointment = () => {
               <span className="font-semibold">State:</span> {docInfo.state}
             </p>
           )}
+          {docInfo.doc_about && (
+            <p>
+              <span className="font-semibold"></span>{" "}
+              {docInfo.doc_about}
+            </p>
+          )}
+          </div>
+        </div>
+
+        {/* Additional fields below the “header” */}
+        <div className="mt-6 space-y-2 text-black">
+          {/* {docInfo.degree && (
+            <p>
+              <span className="font-semibold"></span> {docInfo.degree}
+            </p>
+          )}
+          {docInfo.description && (
+            <p>
+              <span className="font-semibold"></span>{" "}
+              {docInfo.description}
+            </p>
+          )}
+          {docInfo.city && (
+            <p>
+              <span className="font-semibold">City:</span> {docInfo.city}
+            </p>
+          )}
+          {docInfo.state && (
+            <p>
+              <span className="font-semibold">State:</span> {docInfo.state}
+            </p>
+          )}
+          {docInfo.doc_about && (
+            <p>
+              <span className="font-semibold"></span>{" "}
+              {docInfo.doc_about}
+            </p>
+          )} */}
         </div>
       </div>
 
       {/* RIGHT COLUMN: Time‐Slot Booking */}
       <div className="lg:w-1/3">
-        <DoctorTimeSlot docId={docId} />
+        <div className="pt-6"> {/* Ensures no content overlaps under the image */}
+          <p className="text-lg font-semibold text-green-800 mb-3">Pick a Time Slot </p>
+          <DoctorTimeSlot docId={docId} />
+        </div>
       </div>
     </div>
   );

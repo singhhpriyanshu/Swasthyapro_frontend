@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import dna from '../assets/dna.jpg';
+import pathalogylab from '../assets/pathalogylab.png';
 import cancer1 from '../assets/cancer1.jpg';
 import reproductivehealth from '../assets/reproductivehealth.jpg';
 import bg1 from '../assets/bg1.jpg'; // This import is used for the background image
@@ -8,9 +8,9 @@ const MainContent = () => {
   const [hoverIndex, setHoverIndex] = useState(null);
 
   const cards = [
-    { id: 1, image: dna, title: "Oncology", description: "Diagnostics, Therapeutics & Prognostic markers for various cancers." },
-    { id: 2, image: cancer1, title: "Rare Diseases", description: "Comprehensive test menu for rare disease diagnosis & management." },
-    { id: 3, image: reproductivehealth, title: "Reproductive Health", description: "Most advanced test offerings in Reproductive genetics." },
+    { id: 1, image: pathalogylab, title: "Pathology Test", description: "Discover what your body is telling you: Explore with Pathology Testing." },
+    { id: 2, image: cancer1, title: "Cancer Screening", description: "Early detection, brighter future: Screen for cancer today.." },
+    { id: 3, image: reproductivehealth, title: "Reproductive Health", description: "Empower your future with informed reproductive health choices.." },
     // { id: 4, image: dna, title: "Infectious Diseases", description: "Highly sensitive molecular testing in the infectious disease diagnosis." }
   ];
 

@@ -189,19 +189,16 @@ const DoctorTimeSlot = ({ docId }) => {
 
   return (
     <div className="bg-green-100 p-4 rounded-lg">
-      <h2 className="text-lg font-semibold text-green-800 mb-3">
-        Pick a time slot
-      </h2>
-
-      {/* Clinics List */}
+      
       {clinics.length > 0 ? (
         <div className="mb-4">
-          <p className="text-sm font-medium text-green-700">
-            Clinic Appointment
-          </p>
-          <p className="text-sm text-green-600 mb-2">
-            Select a clinic below:
-          </p>
+         <dev className="flex flex-wrap gap-3 flex items-center justify-between w-full px-4 py-3 rounded-lg border text-sm bg-[#2E8B57]">
+
+<FaClinicMedical className="text-2xl text-white-800" />
+
+<p className="text-lg font-medium text-black-700">Clinic Appointment</p>
+
+</dev>
           <div className="flex flex-wrap gap-3">
   {clinics.map((clinic) => {
     const isSelected =
@@ -217,15 +214,25 @@ const DoctorTimeSlot = ({ docId }) => {
         }`}
       >
         {/* Icon on the left */}
-        <FaClinicMedical className="mt-1 text-lg text-green-800" />
 
-        {/* Text Content */}
-        <div className="text-left">
-          <p className="font-medium text-base text-green-800">
-            {clinic.clinic_name}
-          </p>
-          <p className="text-sm text-green-600">{clinic.address}</p>
-        </div>
+        <div className="flex flex-wrap gap-3">
+                  <p className="font-semibold text-base">{clinic.clinic_name}</p>
+                  <p className="text-sm text-green-600">{clinic.address}</p>
+                  <div className="text-right">
+                    <div className="flex flex-wrap gap-3 font-medium text-base text-green-800">
+                      <p>fees :</p>
+                      {clinic.discount_percentage > 0 ? (
+                        <>
+                          <span className="line-through opacity-50">₹{clinic.fees}</span>
+                          <span className="ml-2 text-green-600">₹{clinic.discounted_fees}</span>
+                          <span className="text-sm text-green-600"> ({clinic.discount_percentage}% off)</span>
+                        </>
+                      ) : (
+                        <span>₹{clinic.fees}</span>
+                      )}
+                    </div>
+                  </div>
+                  </div>
       </button>
     );
   })}

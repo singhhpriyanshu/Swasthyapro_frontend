@@ -11,6 +11,7 @@ const UpdateClinicModal = ({ clinic, onClose, onUpdateSuccess }) => {
     fees: clinic.fees || "",
     discount_percentage: clinic.discount_percentage || "",
     phone: clinic.phone || "",
+    clinic_name:clinic.clinic_name || "",
   });
 
   const handleChange = (e) => {
@@ -54,6 +55,19 @@ const UpdateClinicModal = ({ clinic, onClose, onUpdateSuccess }) => {
         </h2>
 
         <form onSubmit={handleUpdate} className="space-y-4">
+        <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Clinic Name
+            </label>
+            <input
+              type="text"
+              name="clinic_name"
+              value={formData.clinic_name}
+              onChange={handleChange}
+              required
+              className="border w-full p-2 rounded"
+            />
+          </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Address

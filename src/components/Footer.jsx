@@ -2,6 +2,8 @@ import React from 'react';
 import { assets } from '../assets/assets';
 import Newlogo from '../assets/Newlogo.jpeg';
 import './Footer.css'
+import { NavLink, useNavigate } from 'react-router-dom';
+
  
 const Footer = () => {
   return (
@@ -10,7 +12,7 @@ const Footer = () => {
         <div class="row">
           <div class="col-md-6 col-lg-3 footer_col">
             <div class="footer_contact" id='contact'>
-              <h4>Reach at..</h4>
+              <h4 style={{fontStyle:'italic'}}>Reach at..</h4>
               <div class="contact_link_box">
                 <a href="">
                   <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -33,10 +35,10 @@ const Footer = () => {
               <a href="">
                 <i class="fa fa-twitter" aria-hidden="true"></i>
               </a>
-              <a href="">
+              <a href="https://www.linkedin.com/in/swasthya-pro-1aba51346?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app">
                 <i class="fa fa-linkedin" aria-hidden="true"></i>
               </a>
-              <a href="">
+              <a href="https://www.instagram.com/swasthya_pro?igsh=OHc5bGh3ZjRmaWp4">
                 <i class="fa fa-instagram" aria-hidden="true"></i>
               </a>
             </div>
@@ -72,12 +74,25 @@ const Footer = () => {
               </div>
             </div> */}
           </div>
-          <div class="col-md-6 col-lg-3 footer_col ">
-            <h4>Newsletter</h4>
-            <form action="#">
-              <input type="email" placeholder="Enter email" />
-              <button type="submit">Subscribe</button>
-            </form>
+          <div class="col-md-6 col-lg-4 mx-auto footer_col">
+             <NavLink to="/">
+                      <li className="py-1 text-sm">HOME</li>
+                    </NavLink>
+                    <NavLink to="/doctors">
+                      <li className="py-1 text-sm">FIND DOCTORS</li>
+                    </NavLink>
+                    <NavLink to="/findtests">
+                      <li className="py-1 text-sm">FIND TESTS</li>
+                    </NavLink>
+                    <NavLink to="/my-appointments">
+                      <li className="py-1 text-sm">APPOINTMENTS</li>
+                    </NavLink>
+                    <NavLink to="/about">
+                      <li className="py-1 text-sm">ABOUT</li>
+                    </NavLink>
+                    <NavLink to="/contact">
+                      <li className="py-1 text-sm">CONTACT</li>
+                    </NavLink>
           </div>
         </div>
  

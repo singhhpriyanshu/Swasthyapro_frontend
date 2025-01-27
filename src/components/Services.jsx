@@ -8,7 +8,7 @@ import "../../css/responsiveservice.css";
 import  Cancer from"../assets/Cancer.png"
 import reproductive  from "../assets/reproductive.png"
 import geneticdisorder from "../assets/geneticdisorder.png"
-import  face from"../assets/face.png"
+import  pathalogy from"../assets/pathalogy.png"
 import  dr from"../assets/dr.png"
 import  neuro from"../assets/neuroscience_9619636.png"
 import './Services.css'
@@ -87,9 +87,9 @@ const Services=()=>{
  
             <div data-aos="fade-up" data-aos-duration="2400" class="col-lg-4 col-sm-6 aos-init aos-animate">
                 <div class="single-services">
-                <img src={face} alt="" style={{width:"80px",height:"80px" ,marginLeft:"106px",marginBottom:"25px",margin:"auto"}}/>
-                    <h3 style={{    fontSize:" 22px", fontWeight: "300"}}>Autoimmune Diseases</h3>
-                    <p>Unlock the secrets of your body's defenses against an autoimmune diseases. take Steps</p>
+                <img src={pathalogy} alt="" style={{width:"80px",height:"80px" ,marginLeft:"106px",marginBottom:"25px",margin:"auto"}}/>
+                    <h3 style={{    fontSize:" 22px", fontWeight: "300"}}>Pathology Test</h3>
+                    <p>Unlock the secrets of your health with accurate and precise pathology. take Steps</p>
  
                     <a href="department-details-right-sidebar.html" class="read-more">
                         Check Now
