@@ -49,7 +49,7 @@ const Sidebar = () => {
                 }
               >
                 <img className="w-6 h-6" src={appointment_icon} alt="Dashboard" />
-                {isSidebarOpen && <p>Dashboard</p>}
+                 <p className='hidden md:block text-[#178066]'>Dashboard</p>
               </NavLink>
 
               <NavLink
@@ -65,7 +65,7 @@ const Sidebar = () => {
                   src={clockalert}
                   alt="Manage Clinics"
                 />
-                {isSidebarOpen && <p>Manage Clinics</p>}
+                 <p className='hidden md:block text-[#178066]'>Manage Clinics</p>
               </NavLink>
 
               <NavLink
@@ -77,7 +77,9 @@ const Sidebar = () => {
                 }
               >
                 <img className="w-6 h-6" src={people_icon} alt="Profile" />
-                {isSidebarOpen && <p>Profile</p>}
+                {/* {isSidebarOpen &&  */}
+                <p className='hidden md:block text-[#178066]'>Profile</p>
+                {/* // } */}
               </NavLink>
             </>
           )}

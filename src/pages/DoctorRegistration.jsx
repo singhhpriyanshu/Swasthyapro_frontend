@@ -8,11 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AppContext } from '../context/AppContext'
 import { useNavigate } from 'react-router-dom';
 
-
-
-
-
-
 const DoctorRegistration = () => {
   // Define state for all form fields
   const { backendUrl} = useContext(AppContext);

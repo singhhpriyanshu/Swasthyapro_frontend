@@ -28,7 +28,8 @@ import { AppContext } from '../src/context/AppContext'
 import { DoctorContext} from '../src/context/DoctorContext'
 import UpdataClinic from '../src/pages/Doctor/UpdataClinic'
 import DeleteClinic from '../src/pages/Doctor/DeleteClinic'
-
+import Facility from './pages/Tests/Facility'
+import TestDetails from './pages/Tests/TestsDetails'
 const App = () => {
 
 
@@ -77,6 +78,11 @@ const App = () => {
         <Route path='/doctor-profile' element={<DoctorProfile/>} />
         <Route path='/updata-clinic' element={<UpdataClinic/>} />
         <Route path='/delete-clinic' element={<DeleteClinic/>} />
+        <Route path="/" element={<Findtest />} />
+        <Route path="/facility/:id" element={<Facility />} />
+        <Route path="/tests/:id" element={<TestDetails />} />
+
+        
 
       </Routes>
       <Footer />

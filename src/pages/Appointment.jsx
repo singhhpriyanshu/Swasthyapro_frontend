@@ -88,36 +88,6 @@ const Appointment = () => {
           </div>
         </div>
 
-        {/* Additional fields below the “header” */}
-        <div className="mt-6 space-y-2 text-black">
-          {/* {docInfo.degree && (
-            <p>
-              <span className="font-semibold"></span> {docInfo.degree}
-            </p>
-          )}
-          {docInfo.description && (
-            <p>
-              <span className="font-semibold"></span>{" "}
-              {docInfo.description}
-            </p>
-          )}
-          {docInfo.city && (
-            <p>
-              <span className="font-semibold">City:</span> {docInfo.city}
-            </p>
-          )}
-          {docInfo.state && (
-            <p>
-              <span className="font-semibold">State:</span> {docInfo.state}
-            </p>
-          )}
-          {docInfo.doc_about && (
-            <p>
-              <span className="font-semibold"></span>{" "}
-              {docInfo.doc_about}
-            </p>
-          )} */}
-        </div>
       </div>
 
       {/* RIGHT COLUMN: Time‐Slot Booking */}

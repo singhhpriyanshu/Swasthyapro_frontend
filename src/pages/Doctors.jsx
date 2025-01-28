@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { assets } from "../assets/assets"; 
-import dna from '../assets/dna.jpg';  // Ensure you have this image in your assets directory
+import labtest from '../assets/labtest.jpg';  // Ensure you have this image in your assets directory
 
 const Doctors = () => {
   const { speciality } = useParams();
@@ -150,16 +150,17 @@ const Doctors = () => {
       {/* SIDE BAR (Health Tips) */}
       <div className="hidden md:block sticky top-20 w-80 p-4 bg-green-200 h-screen">
         <h2 className="font-semibold text-lg text-green-800 font-serif">
-          Health Tips
+          Take Your Test
         </h2>
-        <img src={dna} alt="DNA" className="w-full h-auto mt-4" />
+        <img src={labtest} alt="DNA" className="w-full h-auto mt-4" />
         <p className="mt-4 text-green-700 font-serif">
-          Get the latest updates on health and wellness delivered to your inbox!
+          Get your Test in any circumstances and book  test at lowest cost.
         </p>
         <button className="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded font-serif">
-          Subscribe Now
+          Book Now
         </button>
       </div>
+      
     </div>
   );
 };
