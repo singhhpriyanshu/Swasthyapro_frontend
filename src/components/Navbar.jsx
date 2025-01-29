@@ -34,7 +34,7 @@ const Navbar = () => {
   if (profileData) {
     return (
       <div
-        className="flex items-center justify-between py-4 mb-5 border-b border-[#ADADAD] bg-[#D4F3E0] text-sm"
+        className="flex items-center justify-between py-4 mb-5 border-b border-[#ADADAD] bg-[#fff] text-sm"
         style={{ height: '60px'}}
       >
         {/* Left side: Logo */}

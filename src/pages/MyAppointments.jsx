@@ -276,7 +276,7 @@ const MyAppointments = () => {
                 Update Appointment
               </button>
               <button
-                className="bg-[#fe5d9f] text-white py-2 px-4 rounded shadow-lg transform transition-transform duration-300 hover:scale-105 hover:bg-red-600 focus:outline-none"
+                className="bg-[#FF6865] text-white py-2 px-4 rounded shadow-lg transform transition-transform duration-300 hover:scale-105 hover:bg-red-600 focus:outline-none"
                 onClick={() => handleCancelClick(item.id)}
               >
                 Cancel Appointment
