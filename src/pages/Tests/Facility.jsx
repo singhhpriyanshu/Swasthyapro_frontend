@@ -53,7 +53,7 @@ const Facility = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row bg-white-200">
+    <div className="flex flex-col lg:flex-row bg-white-200" style={{marginTop:-48}}>
       <div className="lg:w-1/4 w-full" style={{ minWidth: '300px', margin: '10px' }}>
         <p className="bg-green-600 text-white text-center py-2">Filters</p>
         <div className="overflow-auto p-4 bg-white rounded-lg shadow" style={{ maxHeight: 'calc(100vh - 50px)', margin: '10px' }}>
