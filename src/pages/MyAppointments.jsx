@@ -263,7 +263,8 @@ const MyAppointments = () => {
             </div>
 
             {/* Scheduled label */}
-            <span className="px-3 py-1 text-sm text-white bg-green-500 rounded-full absolute top-4 right-4">
+            {item.statusOfAppointment === 'false' ? <>
+              <span className="px-3 py-1 text-sm text-white bg-green-500 rounded-full absolute top-4 right-4">
               Scheduled
             </span>
 
@@ -282,6 +283,12 @@ const MyAppointments = () => {
                 Cancel Appointment
               </button>
             </div>
+            </>:<>
+              <span className="px-3 py-1 text-sm text-white bg-green-500 rounded-full absolute top-4 right-4">
+              Completed
+            </span>
+            </>}
+           
           </div>
         ))}
       </div>

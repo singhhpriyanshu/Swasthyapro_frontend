@@ -30,6 +30,10 @@ import UpdataClinic from '../src/pages/Doctor/UpdataClinic'
 import DeleteClinic from '../src/pages/Doctor/DeleteClinic'
 import Facility from './pages/Tests/Facility'
 import TestDetails from './pages/Tests/TestsDetails'
+import Cart from './pages/Tests/Cart'
+import MyTest from './pages/MyTest'
+import DML from './pages/DML'
+
 const App = () => {
 
 
@@ -78,9 +82,15 @@ const App = () => {
         <Route path='/doctor-profile' element={<DoctorProfile/>} />
         <Route path='/updata-clinic' element={<UpdataClinic/>} />
         <Route path='/delete-clinic' element={<DeleteClinic/>} />
-        <Route path="/" element={<Findtest />} />
+        <Route path="/find-test" element={<Findtest />} />
         <Route path="/facility/:facilityId" element={<Facility />} />
         <Route path="/tests/:id" element={<TestDetails />} />
+        <Route path="/my-cart" element={<Cart />} />
+        <Route path="/my-test" element={<MyTest />} />
+        <Route path="/dml" element={<DML />} />
+
+
+
 
         
 

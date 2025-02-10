@@ -1,45 +1,84 @@
-import React from 'react'
-import { assets } from '../assets/assets'
+import React from 'react';
+import labtest from '../assets/labtest.jpg';
+import aboutus from '../assets/aboutus.jpeg';
+import bg1 from '../assets/bg1.jpg'; // Background image
 
 const About = () => {
   return (
-    <div>
+    <div className="w-full flex flex-col">
 
-      <div className='text-center text-2xl pt-10 text-[#707070]'>
-        <p>ABOUT <span className='text-gray-700 font-semibold'>US</span></p>
-      </div>
-
-      <div className='my-10 flex flex-col md:flex-row gap-12'>
-        <img className='w-full md:max-w-[360px]' src={assets.about_image} alt="" />
-        <div className='flex flex-col justify-center gap-6 md:w-2/4 text-sm text-gray-600'>
-          <p>Welcome to SwasthyaPro, your trusted partner in managing your healthcare needs conveniently and efficiently. At SwasthyaPro, we understand the challenges individuals face when it comes to scheduling doctor appointments and managing their health records.</p>
-          <p>SwasthyaPro is committed to excellence in healthcare technology. We continuously strive to enhance our platform, integrating the latest advancements to improve user experience and deliver superior service. Whether you're booking your first appointment or managing ongoing care, SwasthyaPro is here to support you every step of the way.</p>
-          <b className='text-gray-800'>Our Vision</b>
-          <p>Our vision at SwasthyaPro is to create a seamless healthcare experience for every user. We aim to bridge the gap between patients and healthcare providers, making it easier for you to access the care you need, when you need it.</p>
+      {/* Hero Section with Background Image */}
+      <div className="h-screen w-full bg-cover bg-center flex items-center justify-center relative" style={{ backgroundImage: `url(${bg1})`, marginTop: '-70px' }}>
+        <div className="absolute inset-0 bg-green-800/60"></div>
+        <div className="relative text-center">
+          <h1 className="text-6xl font-bold text-white">About Us</h1>
+          <p className="mt-4 text-xl text-white max-w-4xl mx-auto">
+            Discover who we are and why we are committed to bringing you the best in healthcare services. SwasthyaPro is dedicated to making healthcare accessible and hassle-free for everyone across India.
+          </p>
         </div>
       </div>
 
-      <div className='text-xl my-4'>
-        <p>WHY  <span className='text-gray-700 font-semibold'>CHOOSE US</span></p>
+      {/* Welcome Section */}
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        <h2 className="text-3xl font-semibold mb-6 text-sky-500">Welcome to SwasthyaPro</h2>
+        <p className="text-black">
+          From lab test bookings to doctor consultations, our platform connects you with trusted diagnostic labs and experienced doctors—all in just a few clicks. Whether you need a quick test or expert medical advice, SwasthyaPro ensures quality care at your convenience.
+          <strong> Your health, our priority!</strong>
+        </p>
       </div>
 
-      <div className='flex flex-col md:flex-row mb-20'>
-        <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-primary hover:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
-          <b>EFFICIENCY:</b>
-          <p>Streamlined appointment scheduling that fits into your busy lifestyle.</p>
+      {/* Mission & Vision Section */}
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        <h2 className="text-2xl font-semibold mb-4 text-sky-500">Our Mission & Vision</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <img src={labtest} alt="Mission" className="w-full rounded shadow"/>
+          <div>
+            <p><strong>Mission:</strong> To provide affordable, convenient, and high-quality healthcare to every Indian, no matter where they are.</p>
+            <p><strong>Vision:</strong> A future where everyone has easy access to diagnostic services and medical expertise at their fingertips.</p>
+          </div>
         </div>
-        <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-primary hover:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
-          <b>CONVENIENCE: </b>
-          <p>Access to a network of trusted healthcare professionals in your area.</p>
+      </div>
+
+      {/* Why Choose Us Section */}
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        <h2 className="text-3xl font-semibold mb-6">Why Choose Us</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-blue-500 p-6 rounded shadow hover:bg-blue-400 transition-all text-white">
+            <h3 className="font-bold mb-2">🖥️ User-Friendly Portal</h3>
+            <p>Easily navigate and book appointments within minutes.</p>
+          </div>
+          <div className="bg-blue-500 p-6 rounded shadow hover:bg-blue-400 transition-all text-white">
+            <h3 className="font-bold mb-2">👩‍⚕️ Verified Doctors</h3>
+            <p>Only experienced, certified professionals.</p>
+          </div>
+          <div className="bg-blue-500 p-6 rounded shadow hover:bg-blue-400 transition-all text-white">
+            <h3 className="font-bold mb-2">🧬 Comprehensive Lab Tests</h3>
+            <p>Genetic, DNA, and pathology tests all in one place.</p>
+          </div>
         </div>
-        <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-primary hover:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
-          <b>PERSONALIZATION:</b>
-          <p >Tailored recommendations and reminders to help you stay on top of your health.</p>
+      </div>
+
+      {/* Additional Info Section */}
+      <div className="max-w-7xl mx-auto px-4 py-15 bg-blue-200 text-black">
+        <h2 className="text-3xl font-semibold mb-6">More Reasons to Choose SwasthyaPro</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-4">
+            <p><strong>💡 Convenience:</strong> Book tests & consultations in minutes.</p>
+            <p><strong>📍 Nationwide Network:</strong> Trusted healthcare services across India.</p>
+            <p><strong>🔬 Accurate & Reliable:</strong> Partnered with NABL-certified labs and experienced doctors.</p>
+            <p><strong>📱 Easy-to-Use Platform:</strong> Seamless booking with just a few taps.</p>
+          </div>
+          <img src={aboutus} alt="Why Choose Us" className="rounded shadow"/>
         </div>
+      </div>
+
+      {/* Closing Statement */}
+      <div className="bg-green-600 text-center py-6 text-white-500">
+        <p>Together, we aim to create a healthier, happier tomorrow. Experience SwasthyaPro today!</p>
       </div>
 
     </div>
-  )
-}
+  );
+};
 
-export default About
+export default About;

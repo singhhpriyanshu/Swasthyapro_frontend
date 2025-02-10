@@ -1,0 +1,52 @@
+.update-container {
+    display: flex;
+    width: 780px;
+    background: #fff;  /* Assuming a light background */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .image-section img {
+    width: 300px;  /* Adjust the width as per your design */
+    height: auto;
+    display: block;
+  }
+  
+  .content-section {
+    padding: 20px;
+    flex-grow: 1;
+    background-color: #ff3e58;  /* Background color for the text section */
+    color: white;
+  }
+  
+  .content-section h2 {
+    margin-top: 0;
+  }
+  
+  .content-section p {
+    margin: 20px 0;
+  }
+  
+  .content-section ul {
+    padding-left: 20px;
+  }
+  
+  .content-section li {
+    margin-bottom: 10px;
+  }
+  
+  .content-section button {
+    background-color: #222;  /* Dark background for the button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .content-section button:hover {
+    background-color: #555;  /* Lighter background on hover */
+  }
+  

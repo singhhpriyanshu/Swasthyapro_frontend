@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import bookAppoinment from '../assets/bookAppoinment.mp4';
 import videocall from '../assets/videocall.mp4';
 import header_2_video from '../assets/header_2_video.mp4';
-import'./Banner2.css'
+import './Banner2.css';
+import { useNavigate } from 'react-router-dom';
 
 const slides = [
   {
@@ -39,6 +40,7 @@ const slides = [
 
 const Banner2 = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -59,7 +61,6 @@ const Banner2 = () => {
     container: {
       position: "relative",
       width: "100%",
-      // maxWidth: "800px",
       margin: "40px auto",
       overflow: "hidden",
       borderRadius: "15px",
@@ -70,7 +71,6 @@ const Banner2 = () => {
       display: "flex",
       transition: "transform 0.5s ease-in-out",
       transform: `translateX(-${currentSlide * 100}%)`
-
     },
     item: {
       display: "flex",
@@ -108,8 +108,6 @@ const Banner2 = () => {
       flex: "1",
       width: "100%",
       maxHeight: "300px", // Keep video size consistent
-      // borderRadius: "10px",
-      // boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
     },
     controls: {
       position: "absolute",
@@ -139,7 +137,16 @@ const Banner2 = () => {
               <div style={carouselStyles.textContainer}>
                 <h2 style={carouselStyles.title(slide.buttonColor)}>{slide.title}</h2>
                 <p style={carouselStyles.description}>{slide.description}</p>
-                <button style={carouselStyles.button(slide.buttonColor)}>
+                <button
+                  style={carouselStyles.button(slide.buttonColor)}
+                  onClick={() => {
+                    if (slide.buttonText === "Book Appointment") {
+                      navigate("/doctors");
+                    } else if (slide.buttonText === "Book Lab Test") {
+                      navigate("/find-test");
+                    }
+                  }}
+                >
                   {slide.buttonText}
                 </button>
               </div>
@@ -155,7 +162,16 @@ const Banner2 = () => {
               <div style={carouselStyles.textContainer}>
                 <h2 style={carouselStyles.title(slide.buttonColor)}>{slide.title}</h2>
                 <p style={carouselStyles.description}>{slide.description}</p>
-                <button style={carouselStyles.button(slide.buttonColor)}>
+                <button
+                  style={carouselStyles.button(slide.buttonColor)}
+                  onClick={() => {
+                    if (slide.buttonText === "Book Appointment") {
+                      navigate("/doctors");
+                    } else if (slide.buttonText === "Book Lab Test") {
+                      navigate("/find-test");
+                    }
+                  }}
+                >
                   {slide.buttonText}
                 </button>
               </div>

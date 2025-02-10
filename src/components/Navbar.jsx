@@ -11,8 +11,12 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false); // Mobile hamburger
   const [showUserDropdown, setShowUserDropdown] = useState(false); // Desktop user dropdown
 
-  const { token, setToken, userData, setUserData } = useContext(AppContext);
+  const { token, setToken, userData, setUserData, cart } = useContext(AppContext);
   const { profileData, setProfileData } = useContext(DoctorContext);
+
+  // Dynamically calculate cart count based on cart items
+  // If your cart items have a "qty", sum them up. Otherwise, use cart.length
+  const cartCount = cart?.reduce((acc, item) => acc + (item.qty || 1), 0) || 0;
 
   // For patient user
   const logout = () => {
@@ -30,16 +34,16 @@ const Navbar = () => {
     navigate('/login');
   };
 
-  // If the user is a doctor, show top bar with "Logout" only
+  // If the user is a doctor => show top bar with "Logout" only
   if (profileData) {
     return (
       <div
-        className="flex items-center justify-between py-4 mb-5 border-b border-[#ADADAD] bg-[#fff] text-sm"
-        style={{ height: '60px'}}
+        className="flex items-center justify-between py-4 mb-5 border-b border-[#ADADAD] bg-[#FFFFFF] text-sm"
+        style={{ height: '60px' }}
       >
         {/* Left side: Logo */}
         <div className="flex items-center px-5 py-6">
-          <img src={logo} className="w-36" alt="Logo" />
+          <img src={logo} className="w-36" alt="Logo" style={{height: '60px'}}/>
         </div>
 
         {/* Right side: Logout + Mobile Menu */}
@@ -75,7 +79,6 @@ const Navbar = () => {
                 />
               </div>
               <ul className="flex flex-col items-center gap-5 mt-5 text-sm font-medium">
-                {/* Minimal links for doctors; add as needed */}
                 <li>
                   <button
                     onClick={doctorlogout}
@@ -96,7 +99,7 @@ const Navbar = () => {
   return (
     <div
       id="navbar"
-      className="flex items-center justify-between py-4 mb-5 border-b border-[#ADADAD] bg-[#D4F3E0] text-sm"
+      className="flex items-center justify-between py-4 mb-5 border-b border-[#ADADAD] bg-[#FFFFFF] text-sm"
       style={{ height: '60px' }}
     >
       {/* Left: Logo */}
@@ -127,19 +130,41 @@ const Navbar = () => {
         <NavLink to="/contact">
           <li className="py-1 text-sm">CONTACT</li>
         </NavLink>
+        <NavLink to="/dml">
+          <li className="py-1 text-sm">DML</li>
+        </NavLink>
       </ul>
 
-      {/* Right: "Create account" or user dropdown (desktop only) + Mobile Menu */}
+      {/* Right Section */}
       <div className="flex items-center gap-4">
-        {/* If user logged in => user dropdown; else => "Create account" button (DESKTOP ONLY) */}
+        {/* CART ICON + BADGE */}
+        <div
+          className="relative cursor-pointer"
+          onClick={() => navigate('/my-cart')}
+          style={{ marginRight: '0.5rem' }}
+        >
+          <i className="fas fa-shopping-cart text-xl text-gray-700"></i>
+          {cartCount > 0 && (
+            <span
+              className="absolute rounded-full bg-red-600 text-white text-xs font-bold px-1"
+              style={{
+                top: '-8px',
+                right: '-8px',
+                minWidth: '18px',
+                textAlign: 'center',
+              }}
+            >
+              {cartCount}
+            </span>
+          )}
+        </div>
+
         {userData ? (
           <div
             className="relative hidden md:flex items-center gap-2 cursor-pointer p-3"
             onClick={() => setShowUserDropdown(!showUserDropdown)}
           >
-            {/* Dropdown icon */}
             <i className="fa-solid fa-circle-chevron-down text-xl text-[#178066]" />
-            {/* Dropdown Menu */}
             {showUserDropdown && (
               <div className="absolute top-12 right-0 bg-gray-50 rounded shadow-lg p-4 text-gray-600 text-sm space-y-3 z-30">
                 <p
@@ -150,6 +175,15 @@ const Navbar = () => {
                   className="hover:text-black cursor-pointer"
                 >
                   My Profile
+                </p>
+                <p
+                  onClick={() => {
+                    setShowUserDropdown(false);
+                    navigate('/my-test');
+                  }}
+                  className="hover:text-black cursor-pointer"
+                >
+                  My Tests
                 </p>
                 <p
                   onClick={() => {
@@ -173,13 +207,12 @@ const Navbar = () => {
             )}
           </div>
         ) : (
-          /* Create Account button (DESKTOP ONLY) */
           <button
-  onClick={() => navigate('/login')}
-  className="hidden md:block bg-[#66c28e] text-white px-4 py-2 rounded-full text-sm hover:bg-green-600 transition"
->
-  Create account
-</button>
+            onClick={() => navigate('/login')}
+            className="hidden md:block bg-[#66c28e] text-white px-4 py-2 rounded-full text-sm hover:bg-green-600 transition"
+          >
+            Create account
+          </button>
         )}
 
         {/* Mobile Menu Icon */}
@@ -222,8 +255,31 @@ const Navbar = () => {
                 <p className="px-4 py-2">CONTACT</p>
               </NavLink>
 
+              {/* Cart in mobile menu (optional) */}
+              <p
+                className="px-4 py-2 relative"
+                onClick={() => {
+                  setShowMenu(false);
+                  navigate('/my-cart');
+                }}
+              >
+                <i className="fas fa-shopping-cart text-base text-gray-700"></i>
+                {cartCount > 0 && (
+                  <span
+                    className="absolute rounded-full bg-red-600 text-white text-xs font-bold px-1"
+                    style={{
+                      top: '0px',
+                      right: '-10px',
+                      minWidth: '18px',
+                      textAlign: 'center',
+                    }}
+                  >
+                    {cartCount}
+                  </span>
+                )}
+              </p>
+
               {userData ? (
-                /* If user logged in => My Profile, My Appointments, Logout in hamburger */
                 <>
                   <p
                     onClick={() => {
@@ -254,11 +310,7 @@ const Navbar = () => {
                   </p>
                 </>
               ) : (
-                /* Otherwise => 'Create account' in hamburger */
-                <NavLink
-                  onClick={() => setShowMenu(false)}
-                  to="/login"
-                >
+                <NavLink onClick={() => setShowMenu(false)} to="/login">
                   <p className="px-4 py-2 font-bold">CREATE ACCOUNT</p>
                 </NavLink>
               )}

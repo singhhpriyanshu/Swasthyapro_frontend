@@ -16,6 +16,17 @@ const AppContextProvider = (props) => {
     const [userData, setUserData] = useState(false)
     const [appoint_doctor,setappoint_doctor]=useState([]);
 
+    const [cart, setcart] = useState(() => {
+        // Retrieve cart from localStorage if it exists, otherwise use an empty array
+        const storedCart = JSON.parse(localStorage.getItem("cart"));
+        return storedCart || [];
+      });
+    
+      // Store cart in localStorage whenever it changes
+      useEffect(() => {
+        localStorage.setItem("cart", JSON.stringify(cart));
+      }, [cart]);
+
     // Getting Doctors using API
     const calculateAge = (dob) => {
         const today = new Date()
@@ -85,8 +96,9 @@ const AppContextProvider = (props) => {
         currencySymbol,
         backendUrl,
         token, setToken,
-        userData, setUserData,
-        calculateAge
+        userData,cart,
+         setUserData,
+        calculateAge,setcart,
     }
 
     return (

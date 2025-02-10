@@ -156,7 +156,9 @@ const Doctors = () => {
         <p className="mt-4 text-green-700 font-serif">
           Get your Test in any circumstances and book  test at lowest cost.
         </p>
-        <button className="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded font-serif">
+        <button className="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded font-serif"
+        onClick={()=>navigate("/find-test")}
+        >
           Book Now
         </button>
       </div>

@@ -4,8 +4,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { AppContext } from "../context/AppContext";
 
-// Importing icons (you can replace with your choice of icons)
-import { FaClinicMedical } from "react-icons/fa"; // Example: FontAwesome clinic icon
+// Example icon, you can remove or replace with another
+import { FaClinicMedical } from "react-icons/fa";
 
 const DoctorTimeSlot = ({ docId }) => {
   const [clinics, setClinics] = useState([]);
@@ -18,6 +18,9 @@ const DoctorTimeSlot = ({ docId }) => {
   const [days, setDays] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [slotDate, setSlotDate] = useState(null);
+
+  // State to store the uploaded prescription file
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const { userData } = useContext(AppContext);
 
@@ -153,6 +156,11 @@ const DoctorTimeSlot = ({ docId }) => {
     );
   };
 
+  // Handle prescription file selection
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
   const handleSubmit = async () => {
     if (!userData) {
       alert("Login Required");
@@ -163,19 +171,32 @@ const DoctorTimeSlot = ({ docId }) => {
       return;
     }
 
-    const data = {
-      id: timeId,
-      appointment_time: `${slotDate} ${selectedTimeSlot}:00`,
-      slot_time: selectedTimeSlot,
-      doctorId: parseInt(docId, 10),
-      userId: userData.userId,
-      appointment_location: selectedClinic.clinicId,
-    };
+    // Create a FormData object to hold all data, including the file
+    const formData = new FormData();
+    formData.append("Timeid", timeId);
+    formData.append("appointment_time", `${slotDate} ${selectedTimeSlot}:00`);
+    formData.append("slot_time", selectedTimeSlot);
+    formData.append("doctorId", parseInt(docId, 10));
+    formData.append("userId", userData.userId);
+    formData.append("appointment_location", selectedClinic.clinicId);
+
+    // If a file is selected, append it to the form data
+    if (selectedFile) {
+      formData.append("prescription", selectedFile);
+    }
+
+    console.log(formData);
+    
 
     try {
       const response = await axios.post(
         "http://localhost:5000/appointments/book",
-        data
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", // crucial for file uploads
+          },
+        }
       );
       if (response.data.success) {
         alert("Booking successful!");
@@ -189,55 +210,55 @@ const DoctorTimeSlot = ({ docId }) => {
 
   return (
     <div className="bg-green-100 p-4 rounded-lg">
-      
       {clinics.length > 0 ? (
         <div className="mb-4">
-         <dev className="flex flex-wrap gap-3 flex items-center justify-between w-full px-4 py-3 rounded-lg border text-sm bg-[#2E8B57]">
-
-<FaClinicMedical className="text-2xl text-white-800" />
-
-<p className="text-lg font-medium text-black-700">Clinic Appointment</p>
-
-</dev>
+          <div className="flex flex-wrap gap-3 items-center justify-between w-full px-4 py-3 rounded-lg border text-sm bg-[#2E8B57]">
+            <FaClinicMedical className="text-2xl text-white-800" />
+            <p className="text-lg font-medium text-black-700">Clinic Appointment</p>
+          </div>
           <div className="flex flex-wrap gap-3">
-  {clinics.map((clinic) => {
-    const isSelected =
-      selectedClinic && selectedClinic.clinicId === clinic.clinicId;
-    return (
-      <button
-        key={clinic.clinicId}
-        onClick={() => handleClinicClick(clinic)}
-        className={`flex items-start gap-3 px-4 py-2 rounded-lg border text-sm hover:bg-green-50 ${
-          isSelected
-            ? "bg-green-300 text-green-900 border-green-400"
-            : "bg-green-200 text-green-700 border-green-300"
-        }`}
-      >
-        {/* Icon on the left */}
-
-        <div className="flex flex-wrap gap-3">
-                  <p className="font-semibold text-base">{clinic.clinic_name}</p>
-                  <p className="text-sm text-green-600">{clinic.address}</p>
-                  <div className="text-right">
-                    <div className="flex flex-wrap gap-3 font-medium text-base text-green-800">
-                      <p>fees :</p>
-                      {clinic.discount_percentage > 0 ? (
-                        <>
-                          <span className="line-through opacity-50">₹{clinic.fees}</span>
-                          <span className="ml-2 text-green-600">₹{clinic.discounted_fees}</span>
-                          <span className="text-sm text-green-600"> ({clinic.discount_percentage}% off)</span>
-                        </>
-                      ) : (
-                        <span>₹{clinic.fees}</span>
-                      )}
+            {clinics.map((clinic) => {
+              const isSelected =
+                selectedClinic && selectedClinic.clinicId === clinic.clinicId;
+              return (
+                <button
+                  key={clinic.clinicId}
+                  onClick={() => handleClinicClick(clinic)}
+                  className={`flex items-start gap-3 px-4 py-2 rounded-lg border text-sm hover:bg-green-50 ${
+                    isSelected
+                      ? "bg-green-300 text-green-900 border-green-400"
+                      : "bg-green-200 text-green-700 border-green-300"
+                  }`}
+                >
+                  <div className="flex flex-wrap gap-3">
+                    <p className="font-semibold text-base">{clinic.clinic_name}</p>
+                    <p className="text-sm text-green-600">{clinic.address}</p>
+                    <div className="text-right">
+                      <div className="flex flex-wrap gap-3 font-medium text-base text-green-800">
+                        <p>fees :</p>
+                        {clinic.discount_percentage > 0 ? (
+                          <>
+                            <span className="line-through opacity-50">
+                              ₹{clinic.fees}
+                            </span>
+                            <span className="ml-2 text-green-600">
+                              ₹{clinic.discounted_fees}
+                            </span>
+                            <span className="text-sm text-green-600">
+                              {" "}
+                              ({clinic.discount_percentage}% off)
+                            </span>
+                          </>
+                        ) : (
+                          <span>₹{clinic.fees}</span>
+                        )}
+                      </div>
                     </div>
                   </div>
-                  </div>
-      </button>
-    );
-  })}
-</div>
-
+                </button>
+              );
+            })}
+          </div>
         </div>
       ) : (
         <p className="text-sm text-green-700 mb-4">
@@ -288,6 +309,28 @@ const DoctorTimeSlot = ({ docId }) => {
           {renderPeriodSlots("afternoon", "Afternoon Slots")}
           {renderPeriodSlots("evening", "Evening Slots")}
           {renderPeriodSlots("night", "Night Slots")}
+
+          {/* File Uploader for Prescription */}
+          <form>
+          <label
+              htmlFor="prescription"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Upload Prescription (optional)
+            </label>
+            <input
+              type="file"
+              name="prescription"
+              onChange={handleFileChange}
+              className="mt-1 block w-full text-sm text-gray-900"
+            />
+
+
+
+          </form>
+          
+            
+        
 
           <div className="mt-4">
             <button

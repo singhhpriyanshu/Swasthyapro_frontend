@@ -48,15 +48,23 @@ const Header = () => {
                           }
                         </p>
                         <div className="btn-box">
-                          {index === 0 || index === 1
-                            ? <button onClick={() => navigate("/doctors")} className="btn1">
-                                {index === 0 ? 'Book Appointment' : 'Book Test'}
-                              </button>
-                            : <a href="" className="btn1">
-                                Read More
-                              </a>
-                          }
-                        </div>
+  {index === 0 && (
+    <button onClick={() => navigate("/doctors")} className="btn1">
+      Book Appointment
+    </button>
+  )}
+  {index === 1 && (
+    <button onClick={() => navigate("/find-test")} className="btn1">
+      Book Test
+    </button>
+  )}
+  {index !== 0 && index !== 1 && (
+    <a href="" className="btn1">
+      Read More
+    </a>
+  )}
+</div>
+
                       </div>
                     </div>
                   </div>
