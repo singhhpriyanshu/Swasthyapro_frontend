@@ -59,23 +59,23 @@ const About = () => {
       </div>
 
       {/* Additional Info Section */}
-      <div className="max-w-7xl mx-auto px-4 py-15 bg-blue-200 text-black">
-        <h2 className="text-3xl font-semibold mb-6">More Reasons to Choose SwasthyaPro</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="space-y-4">
-            <p><strong>💡 Convenience:</strong> Book tests & consultations in minutes.</p>
-            <p><strong>📍 Nationwide Network:</strong> Trusted healthcare services across India.</p>
-            <p><strong>🔬 Accurate & Reliable:</strong> Partnered with NABL-certified labs and experienced doctors.</p>
-            <p><strong>📱 Easy-to-Use Platform:</strong> Seamless booking with just a few taps.</p>
-          </div>
-          <img src={aboutus} alt="Why Choose Us" className="rounded shadow"/>
-        </div>
-      </div>
+      <div className="max-w-7xl mx-auto px-4 py-15 bg-blue-200 text-black" style={{marginBottom:10}}>
+  <h2 className="text-3xl font-semibold mb-6 text-center" style={{marginTop:14}}>More Reasons to Choose SwasthyaPro</h2>
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <img src={aboutus} alt="Why Choose Us" className="rounded shadow md:order-2" style={{marginBottom:14}}/>
+    <div className="space-y-4 md:order-1" style={{marginTop:80}}>
+      <p><strong>💡 Convenience:</strong> Book tests & consultations in minutes.</p>
+      <p><strong>📍 Nationwide Network:</strong> Trusted healthcare services across India.</p>
+      <p><strong>🔬 Accurate & Reliable:</strong> Partnered with NABL-certified labs and experienced doctors.</p>
+      <p><strong>📱 Easy-to-Use Platform:</strong> Seamless booking with just a few taps.</p>
+    </div>
+  </div>
+</div>
 
       {/* Closing Statement */}
-      <div className="bg-green-600 text-center py-6 text-white-500">
+      {/* <div className="bg-green-600 text-center py-6 text-white-500">
         <p>Together, we aim to create a healthier, happier tomorrow. Experience SwasthyaPro today!</p>
-      </div>
+      </div> */}
 
     </div>
   );

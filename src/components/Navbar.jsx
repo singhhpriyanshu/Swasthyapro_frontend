@@ -115,15 +115,15 @@ const Navbar = () => {
         <NavLink to="/">
           <li className="py-1 text-sm">HOME</li>
         </NavLink>
-        <NavLink to="/doctors">
+        {/* <NavLink to="/doctors">
           <li className="py-1 text-sm">FIND DOCTORS</li>
-        </NavLink>
+        </NavLink> */}
         <NavLink to="/findtests">
           <li className="py-1 text-sm">FIND TESTS</li>
         </NavLink>
-        <NavLink to="/my-appointments">
+        {/* <NavLink to="/my-appointments">
           <li className="py-1 text-sm">APPOINTMENTS</li>
-        </NavLink>
+        </NavLink> */}
         <NavLink to="/about">
           <li className="py-1 text-sm">ABOUT</li>
         </NavLink>
@@ -133,6 +133,9 @@ const Navbar = () => {
         <NavLink to="/dml">
           <li className="py-1 text-sm">DML</li>
         </NavLink>
+        {/* <NavLink to="/termsandconditions">
+        <li className="py-1 text-sm">TERMSANDCONDATIONS</li>
+        </NavLink> */}
       </ul>
 
       {/* Right Section */}
@@ -185,7 +188,7 @@ const Navbar = () => {
                 >
                   My Tests
                 </p>
-                <p
+                {/* <p
                   onClick={() => {
                     setShowUserDropdown(false);
                     navigate('/my-appointments');
@@ -193,7 +196,7 @@ const Navbar = () => {
                   className="hover:text-black cursor-pointer"
                 >
                   My Appointments
-                </p>
+                </p> */}
                 <p
                   onClick={() => {
                     setShowUserDropdown(false);
@@ -239,15 +242,15 @@ const Navbar = () => {
               <NavLink onClick={() => setShowMenu(false)} to="/">
                 <p className="px-4 py-2">HOME</p>
               </NavLink>
-              <NavLink onClick={() => setShowMenu(false)} to="/doctors">
+              {/* <NavLink onClick={() => setShowMenu(false)} to="/doctors">
                 <p className="px-4 py-2">FIND DOCTORS</p>
-              </NavLink>
+              </NavLink> */}
               <NavLink onClick={() => setShowMenu(false)} to="/findtests">
                 <p className="px-4 py-2">FIND TESTS</p>
               </NavLink>
-              <NavLink onClick={() => setShowMenu(false)} to="/my-appointments">
+              {/* <NavLink onClick={() => setShowMenu(false)} to="/my-appointments">
                 <p className="px-4 py-2">APPOINTMENTS</p>
-              </NavLink>
+              </NavLink> */}
               <NavLink onClick={() => setShowMenu(false)} to="/about">
                 <p className="px-4 py-2">ABOUT</p>
               </NavLink>

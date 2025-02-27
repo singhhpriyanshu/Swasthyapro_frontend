@@ -33,6 +33,14 @@ import TestDetails from './pages/Tests/TestsDetails'
 import Cart from './pages/Tests/Cart'
 import MyTest from './pages/MyTest'
 import DML from './pages/DML'
+import TermsAndConditions from './pages/TermsAndConditions'
+import CompliancePolicy from './pages/CompliancePolicy'
+import IntellectualPropertyPolicy from './pages/IntellectualPropertyPolicy'
+import PaymentPolicy from './pages/PaymentPolicy'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import RefundPolicy from './pages/RefundPolicy'
+import SecurityPolicy from './pages/SecurityPolicy'
+
 
 const App = () => {
 
@@ -88,6 +96,15 @@ const App = () => {
         <Route path="/my-cart" element={<Cart />} />
         <Route path="/my-test" element={<MyTest />} />
         <Route path="/dml" element={<DML />} />
+        <Route path="/termsandconditions" element={<TermsAndConditions/>} />
+        <Route path="/compliance" element={<CompliancePolicy/>} />
+        <Route path="/intellectualpropertypolicy" element={<IntellectualPropertyPolicy/>} />
+        <Route path="/paymentpolicy" element={<PaymentPolicy/>} />
+        <Route path="/privacypolicy" element={<PrivacyPolicy/>} />
+        <Route path="/refundpolicy" element={<RefundPolicy/>} />
+        <Route path="/securitypolicy" element={<SecurityPolicy/>} />
+
+
 
 
 

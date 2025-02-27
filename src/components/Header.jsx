@@ -49,8 +49,8 @@ const Header = () => {
                         </p>
                         <div className="btn-box">
   {index === 0 && (
-    <button onClick={() => navigate("/doctors")} className="btn1">
-      Book Appointment
+    <button  className="btn1">
+      Coming Soon
     </button>
   )}
   {index === 1 && (

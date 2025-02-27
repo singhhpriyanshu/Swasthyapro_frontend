@@ -8,9 +8,9 @@ import { NavLink, useNavigate } from 'react-router-dom';
 const Footer = () => {
   return (
     <footer class="footer_section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 col-lg-3 footer_col">
+      <div class="container-fluid" >
+        <div class="row" style={{marginLeft:15}}>
+          <div class="col-md-3 col-lg-3 footer_col">
             <div class="footer_contact" id='contact'>
               <h4 style={{fontStyle:'italic'}}>Reach at..</h4>
               <div class="contact_link_box">
@@ -27,7 +27,8 @@ const Footer = () => {
                   <span>Info@swasthyapro.com</span>
                 </a>
               </div>
-            </div>
+              <div class="row">
+          <div class="col-md-12 col-lg-12 footer_col">
             <div class="footer_social" id='media'>
               <a href="">
                 <i class="fa fa-facebook" aria-hidden="true"></i>
@@ -43,7 +44,10 @@ const Footer = () => {
               </a>
             </div>
           </div>
-          <div class="col-md-6 col-lg-3 footer_col">
+        </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-lg-3 footer_col">
             <div class="footer_detail">
               <h4>About</h4>
               <p>
@@ -52,53 +56,78 @@ const Footer = () => {
               </p>
             </div>
           </div>
-          <div class="col-md-6 col-lg-2 mx-auto footer_col">
-            {/* <div class="footer_link_box">
-              <h4>Links</h4>
-              <div class="footer_links">
-                <a class="active" href="index.html">
-                  Home
-                </a>
-                <a class="" href="about.html">
-                  About
-                </a>
-                <a class="" href="departments.html">
-                  Departments
-                </a>
-                <a class="" href="doctors.html">
-                  Doctors
-                </a>
-                <a class="" href="contact.html">
-                  Contact Us
-                </a>
-              </div>
-            </div> */}
+          <div class="col-md-3 col-lg-3 footer_col">
+            <div class=" col-md-13 col-lg-13 footer_link_box" style={{marginLeft:80}}>
+              <h4>Quick Links</h4>
+              <ul>
+                <li>
+                  <NavLink to="/">
+                    HOME
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/findtests">
+                    FIND TESTS
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/about">
+                    ABOUT
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/contact">
+                    CONTACT
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div class="col-md-6 col-lg-4 mx-auto footer_col">
-             <NavLink to="/">
-                      <li className="py-1 text-sm">HOME</li>
-                    </NavLink>
-                    <NavLink to="/doctors">
-                      <li className="py-1 text-sm">FIND DOCTORS</li>
-                    </NavLink>
-                    <NavLink to="/findtests">
-                      <li className="py-1 text-sm">FIND TESTS</li>
-                    </NavLink>
-                    <NavLink to="/my-appointments">
-                      <li className="py-1 text-sm">APPOINTMENTS</li>
-                    </NavLink>
-                    <NavLink to="/about">
-                      <li className="py-1 text-sm">ABOUT</li>
-                    </NavLink>
-                    <NavLink to="/contact">
-                      <li className="py-1 text-sm">CONTACT</li>
-                    </NavLink>
+          <div class="col-md-3 col-lg-3 footer_col">
+            <div class="footer_link_box">
+              <h4>Policies</h4>
+              <ul>
+                <li>
+                  <NavLink to="/termsandconditions">
+                    TERMS AND CONDITIONS
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/compliance">
+                    COMPLIANCE POLICY
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/intellectualpropertypolicy">
+                    INTELLECTUAL PROPERTY POLICY
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/paymentpolicy">
+                    PAYMENT POLICY
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/privacypolicy">
+                    PRIVACY POLICY
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/refundpolicy">
+                    REFUND POLICY
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/securitypolicy">
+                    SECURITY POLICY
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
- 
-        {/* Horizontal Line to Separate Content */}
-        <hr style={{ marginTop: '100px', borderTop: '2px solid #ffffff' }} />
- 
+       
+        <hr style={{ marginTop: '50px', borderTop: '2px solid #ffffff' }} />
         <div class="footer-info">
           <p>
             &copy; <span id="displayYear"></span> 2025 SwasthyaPro. All rights reserved

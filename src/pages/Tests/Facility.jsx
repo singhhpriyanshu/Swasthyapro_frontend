@@ -74,7 +74,7 @@ const Facility = () => {
                 onChange={() => {}} // onChange is needed for accessibility but doesn't change state
                 className="form-radio text-green-600 h-5 w-5 mr-2"
               />
-              <h3 className="text-lg">{facility.facilityName}</h3>
+              <h3 className="text-lg" style={{fontSize:13}}>{facility.facilityName}</h3>
             </label>
           </div>
           

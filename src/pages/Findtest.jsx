@@ -5,15 +5,19 @@ import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
 
 // Import images
-import BRCA from '../assets/BRCA.jpg';
-import BRCA1and2 from '../assets/BRCA1and2.jpg';
-import carrierscreening from '../assets/carrierscreening.jpeg';
-import cerebralpalsy from '../assets/cerebralpalsy.jpg';
-import cervical_cancer_ from '../assets/cervical_cancer_.jpg';
+import Braca12 from '../assets/Braca12.jpg';
+import double_marker from '../assets/double_marker.jpg';
+import preimplantation_test_header from '../assets/preimplantation_test_header.jpg';
+import senior_citizen_health_packages from '../assets/senior_citizen_health_packages.jpg';
+import germ_line_mutation_test from '../assets/germ_line_mutation_test.jpg';
 import cervical_cancer_main from '../assets/cervical_cancer_main.jpg';
 import Cervical_Cancer_Screening from '../assets/Cervical_Cancer_Screening.jpg';
 import nipt from '../assets/nipt.jpg';
 import ctlung from '../assets/ctlung.jpg';
+import infectious_diseases from '../assets/infectious_diseases.jpg';
+import Routine_Health_Check_ups from '../assets/Routine_Health_Check_ups.png';
+
+
 
 const FindTest = () => {
   const [facilities, setFacilities] = useState([]);
@@ -106,15 +110,16 @@ const FindTest = () => {
 
   // Array of images for facility cards
   const facilityImages = [
-    BRCA,
-    BRCA1and2,
-    carrierscreening,
-    cerebralpalsy,
-    cervical_cancer_,
-    cervical_cancer_main,
-    Cervical_Cancer_Screening,
+    Routine_Health_Check_ups,
+    infectious_diseases,
+    nipt,
+    Braca12,
     ctlung,
-    nipt
+    Cervical_Cancer_Screening,
+    preimplantation_test_header,
+    double_marker,
+    germ_line_mutation_test,
+    senior_citizen_health_packages,
   ];
 
   return (
@@ -137,7 +142,7 @@ const FindTest = () => {
                 alt={facility.facilityName}
                 className="w-full h-40 object-cover"
               />
-              <h3 className="text-lg font-bold text-center p-2">
+              <h3 className="text-lg font-bold text-center p-2" style={{fontSize:15}}>
                 {facility.facilityName}
               </h3>
             </div>

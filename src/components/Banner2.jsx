@@ -7,17 +7,17 @@ import { useNavigate } from 'react-router-dom';
 
 const slides = [
   {
-    id: 1,
+    id: 2,
     title: "Book Doctor Appointment",
     description:
       "Find the best doctors near you for your specific health needs. Convenient scheduling and trusted professionals for every patient.",
-    buttonText: "Book Appointment",
+    buttonText: "Coming Soon",
     buttonColor: "#9b5de5",
     videoSrc: bookAppoinment,
     textOnLeft: false, // Text on the left for this slide
   },
   {
-    id: 2,
+    id: 1,
     title: "Book Lab Tests",
     description:
       "Get lab tests booked conveniently from the comfort of your home. Reliable diagnostics for accurate health insights.",
@@ -31,7 +31,7 @@ const slides = [
     title: "Video Consultation",
     description:
       "Connect with healthcare professionals via video consultations. Safe, secure, and convenient consultations anytime, anywhere.",
-    buttonText: "Start Consultation",
+    buttonText: "Coming Soon",
     buttonColor: "#17a2b8",
     videoSrc: videocall,
     textOnLeft: false, // Text on the left for this slide

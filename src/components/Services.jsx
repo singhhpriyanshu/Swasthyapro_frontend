@@ -36,8 +36,10 @@ const Services = () => {
               <img src={dr} alt="" style={{ width: "80px", height: "80px", marginLeft: "106px", marginBottom: "25px", margin: "auto" }} />
               <h3 style={{ fontSize: "22px", fontWeight: "300" }}>Doctor Consultation</h3>
               <p>Expert advice at your fingertips—consult with top doctors to guide your path to optimal health.</p>
-              <a onClick={() => navigate("/doctors")} class="read-more">
-                Check Now
+              <a
+              //  onClick={() => navigate("/doctors")} 
+              class="read-more">
+                Coming Soon
               </a>
             </div>
           </div>
