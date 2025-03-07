@@ -115,9 +115,9 @@ const Navbar = () => {
         <NavLink to="/">
           <li className="py-1 text-sm">HOME</li>
         </NavLink>
-        {/* <NavLink to="/doctors">
+        <NavLink to="/doctors">
           <li className="py-1 text-sm">FIND DOCTORS</li>
-        </NavLink> */}
+        </NavLink>
         <NavLink to="/findtests">
           <li className="py-1 text-sm">FIND TESTS</li>
         </NavLink>
@@ -130,9 +130,9 @@ const Navbar = () => {
         <NavLink to="/contact">
           <li className="py-1 text-sm">CONTACT</li>
         </NavLink>
-        <NavLink to="/dml">
+        {/* <NavLink to="/dml">
           <li className="py-1 text-sm">DML</li>
-        </NavLink>
+        </NavLink> */}
         {/* <NavLink to="/termsandconditions">
         <li className="py-1 text-sm">TERMSANDCONDATIONS</li>
         </NavLink> */}
@@ -146,7 +146,9 @@ const Navbar = () => {
           onClick={() => navigate('/my-cart')}
           style={{ marginRight: '0.5rem' }}
         >
-          <i className="fas fa-shopping-cart text-xl text-gray-700"></i>
+          <i
+            className={`fas fa-shopping-cart text-xl ${cartCount > 0 ? 'text-green-600' : 'text-red-600'}`}
+          ></i>
           {cartCount > 0 && (
             <span
               className="absolute rounded-full bg-red-600 text-white text-xs font-bold px-1"
@@ -266,7 +268,9 @@ const Navbar = () => {
                   navigate('/my-cart');
                 }}
               >
-                <i className="fas fa-shopping-cart text-base text-gray-700"></i>
+                <i
+                  className={`fas fa-shopping-cart text-base ${cartCount > 0 ? 'text-green-600' : 'text-red-600'}`}
+                ></i>
                 {cartCount > 0 && (
                   <span
                     className="absolute rounded-full bg-red-600 text-white text-xs font-bold px-1"

@@ -17,8 +17,6 @@ import ctlung from '../assets/ctlung.jpg';
 import infectious_diseases from '../assets/infectious_diseases.jpg';
 import Routine_Health_Check_ups from '../assets/Routine_Health_Check_ups.png';
 
-
-
 const FindTest = () => {
   const [facilities, setFacilities] = useState([]);
   const { backendUrl } = useContext(AppContext);
@@ -35,6 +33,7 @@ const FindTest = () => {
   });
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [consentChecked, setConsentChecked] = useState(false);
 
   // Fetch facilities on mount
   useEffect(() => {
@@ -122,8 +121,24 @@ const FindTest = () => {
     senior_citizen_health_packages,
   ];
 
+  const handleConsentChange = (e) => {
+    setConsentChecked(e.target.checked);
+  };
+
   return (
-    <div>
+    <div style={{marginTop:-48,}} >
+       {/* Upload Prescription Button */}
+       <div className="flex justify-center items-center gap-6 p-4  rounded-lg">
+  <h2 className="text-3xl font-200 text-green-700">One upload, all your health details!</h2>
+  <button
+    onClick={() => setModalOpen(true)}
+    className="px-6 py-3 bg-green-600 text-white font-10 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+  >
+    Upload Prescription
+  </button>
+</div>
+
+
       {/* Facility Cards */}
       <div className="flex flex-wrap justify-center items-center p-4 gap-4">
         {facilities.map((facility, index) => {
@@ -150,37 +165,25 @@ const FindTest = () => {
         })}
       </div>
 
-      {/* Upload Prescription Button */}
-      <div className="text-center mt-4">
-        <button
-          onClick={() => setModalOpen(true)}
-          className="px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          Upload Prescription
-        </button>
-      </div>
+     
 
       {/* Modal */}
       {modalOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 "
           onClick={() => setModalOpen(false)}
         >
           <div
-            className="bg-white rounded-lg shadow-lg p-8 relative w-full max-w-md mx-4"
+            className="bg-white rounded-lg shadow-lg p-8 relative w-full max-w-2xl mx-4 h-screen overflow-y-auto"
             onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
           >
             {/* Close button */}
-            <button
-              className="absolute top-2 right-2 text-gray-600 hover:text-gray-800 text-xl"
-              onClick={() => setModalOpen(false)}
-            >
-              &times;
-            </button>
+           
 
-            <h2 className="text-2xl font-bold mb-4 text-center">Upload Prescription</h2>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6 mt-10">
+            <h2 className="text-2xl font-bold mb-4 text-green-600 text-center">Upload Prescription</h2>
+
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                   Name
@@ -194,6 +197,7 @@ const FindTest = () => {
                   required
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter your name"
+                  disabled={!consentChecked}
                 />
               </div>
 
@@ -210,6 +214,7 @@ const FindTest = () => {
                   required
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter your contact number"
+                  disabled={!consentChecked}
                 />
               </div>
 
@@ -226,6 +231,7 @@ const FindTest = () => {
                   rows="3"
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
                   placeholder="Enter your address"
+                  disabled={!consentChecked}
                 />
               </div>
 
@@ -261,6 +267,7 @@ const FindTest = () => {
                           type="file"
                           onChange={handleFileChange}
                           className="sr-only"
+                          disabled={!consentChecked}
                         />
                       </label>
                       <p className="pl-1">or drag and drop</p>
@@ -271,16 +278,55 @@ const FindTest = () => {
                   </div>
                 </div>
               </div>
+              <div
+  className="p-4 border border-gray-300 rounded-md h-20 w-400 overflow-y-auto"
+>
+  <p>Dear User,</p>
+  <p>For a seamless experience, our support team may assist you in booking your test and ensuring smooth report delivery. However, to protect your privacy, your prescription and test report remain encrypted by default and can only be accessed with your explicit approval.</p>
+  <p>&#x1F4C3; Consent Terms</p>
+  <p>&#10004; Purpose of Access:</p>
+  <p>&#8226; The support team may request temporary access only to assist with test booking or report-related queries if required.</p>
+  <p>&#10004; Encryption & Security:</p>
+  <p>&#8226; Your prescription and test reports are securely encrypted by default.</p>
+  <p>&#8226; The support team cannot access them without your explicit approval via OTP or on-call consent.</p>
+  <p>&#10004; Temporary & Limited Viewing:</p>
+  <p>&#8226; Access is temporary and will be automatically restricted after test booking or issue resolution.</p>
+  <p>&#8226; No data will be stored, copied, or shared.</p>
+  <p>&#10004; Access Logging & Transparency:</p>
+  <p>&#8226; Every decryption request is logged for audit & security purposes.</p>
+  <p>&#10004; User Rights:</p>
+  <p>&#8226; You have the right to request permanent deletion of all stored data at any time.</p>
+  <p>&#10004; Third-Party Disclosure:</p>
+  <p>&#8226; Your prescription and reports will not be shared with any third party without your explicit consent.</p>
+  <p>________________________________________</p>
+  <p>&#x2709; User Action Required</p>
+  <p>(By proceeding, you acknowledge that you have read and agreed to this data access policy.)</p>
+</div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  loading ? 'opacity-50 cursor-not-allowed' : ''
-                }`}
-              >
-                {loading ? 'Submitting...' : 'Submit'}
-              </button>
+<div className="flex justify-center mt-4">
+              <input
+                type="checkbox"
+                id="consent"
+                checked={consentChecked}
+                onChange={handleConsentChange}
+              />
+              <label htmlFor="consent" className="ml-2">
+                I agree to the terms and conditions
+              </label>
+            </div>
+
+
+             <button
+  type="submit"
+  disabled={loading || !consentChecked}
+  className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
+    loading || !consentChecked ? 'bg-gray-300' : 'bg-blue-600 hover:bg-blue-700'
+  } focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+    loading ? 'opacity-50 cursor-not-allowed' : ''
+  }`}
+>
+  {loading ? 'Submitting...' : 'Submit'}
+</button>
             </form>
           </div>
         </div>

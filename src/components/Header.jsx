@@ -41,22 +41,23 @@ const Header = () => {
                         <h1>{title}</h1>
                         <p>
                           {index === 0
-                            ? "Stay on top of your schedule and make time for what matters. Choose a convenient date and time to get started—it's quick and easy!"
-                            : index === 1
                             ? "Take control of your health with our comprehensive lab tests — easy, fast, and convenient!"
+                            : index === 1
+                            ? "Stay on top of your schedule and make time for what matters. Choose a convenient date and time to get started—it's quick and easy!"
                             : "Explore comprehensive healthcare solutions tailored for you and your family. Discover more about what we offer."
                           }
                         </p>
                         <div className="btn-box">
   {index === 0 && (
-    <button  className="btn1">
-      Coming Soon
-    </button>
+   
+     <button onClick={() => navigate("/find-test")} className="btn1">
+     Book Test
+   </button>
   )}
   {index === 1 && (
-    <button onClick={() => navigate("/find-test")} className="btn1">
-      Book Test
-    </button>
+     <button  className="btn1">
+     Coming Soon
+   </button>
   )}
   {index !== 0 && index !== 1 && (
     <a href="" className="btn1">

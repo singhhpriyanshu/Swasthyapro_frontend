@@ -6,6 +6,7 @@ const Cart = () => {
   const { userData, cart, setcart } = useContext(AppContext);
   const [paymentMethod, setPaymentMethod] = useState("FULL");
   const [billing_address,setbilling_address]=useState('');
+  const [coupon_code, setcoupon_code] = useState('');
 
   const loadScript = (src) => {
     return new Promise((resolve) => {
@@ -30,7 +31,8 @@ const Cart = () => {
       tests: cart,
       choose_payment_type: paymentMethod,
       userId: userData.userId,
-      billing_address: billing_address,   
+      billing_address: billing_address,  
+      coupon_code: coupon_code, 
      });
 
     const options = {
@@ -187,10 +189,26 @@ const Cart = () => {
               {/* Total Amount */}
               <div className="bg-white p-4 rounded shadow">
                 <h3 className="text-lg font-semibold text-gray-800">
-                  Total Amount
+                  Total Test Price
                 </h3>
                 <p className="mt-2 text-xl font-bold text-gray-900">
                   ₹{totalPrice}
+                </p>
+              </div>
+              <div className="bg-white p-4 rounded shadow">
+                <h3 className="text-lg font-semibold text-gray-800">
+                  GST Amount 18 % Total Price
+                </h3>
+                <p className="mt-2 text-xl font-bold text-gray-900">
+                  ₹{totalPrice*0.18}
+                </p>
+              </div>
+              <div className="bg-white p-4 rounded shadow">
+                <h3 className="text-lg font-semibold text-gray-800">
+                  Total Amount
+                </h3>
+                <p className="mt-2 text-xl font-bold text-gray-900">
+                  ₹{totalPrice + 0.18 *totalPrice}
                 </p>
               </div>
 
@@ -224,10 +242,17 @@ const Cart = () => {
                 <p className="text-sm text-gray-500">
                   Selected Payment Method: {paymentMethod}
                 </p>
+                <p>Selected Payment Method: {paymentMethod==="FULL"?<p>{totalPrice + totalPrice * 0.18}</p>:<p>70% of {totalPrice + totalPrice * 0.18} </p>}</p>
+
+              <p>
+                Amount to Pay: {paymentMethod === "FULL"
+                  ? totalPrice + totalPrice * 0.18
+                  : 0.7 * totalPrice + 0.7 * totalPrice * 0.18}
+              </p>
               </div>
 
               {/* Pay Now Button */}
-              <h3>Enter Billing Address Before</h3>
+              <h3>Enter Current Address</h3>
             <div>
               <label>
                 <input
@@ -239,9 +264,25 @@ const Cart = () => {
                   onChange={(e)=>{setbilling_address(e.target.value)}}
                   name="billing_address"
                 />
-                Billing Address
+                {/* Billing Address */}
               </label>
             </div>
+            <div>
+          <label>
+          Coupon Code
+            <input
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+
+              type="text"
+              value={coupon_code}
+
+              onChange={(e) => { setcoupon_code(e.target.value) }}
+              name="coupon_code"
+              placeholder="Enter coupon code if available"
+            />
+            
+          </label>
+        </div>
               <div className="bg-white p-4 rounded shadow">
                 <button
                   onClick={handlePayment}

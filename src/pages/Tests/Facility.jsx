@@ -12,10 +12,12 @@ const Facility = () => {
   useEffect(() => {
     fetchFacilities();
     if (facilityId) {
-      setSelectedFacilityId(facilityId); // Set selected facility based on URL parameter
-      fetchTests(facilityId);
+      // Convert URL parameter to number to match facility ID type
+      const parsedId = parseInt(facilityId, 10);
+      setSelectedFacilityId(parsedId);
+      fetchTests(parsedId);
     }
-  }, [facilityId]);
+  }, [facilityId]); // This effect runs whenever URL parameter changes
 
   const fetchFacilities = async () => {
     try {
@@ -66,14 +68,13 @@ const Facility = () => {
             onClick={() => handleFacilitySelect(facility.facilityId)}
           >
             <label className="flex items-center w-full h-5">
-              <input
-                type="radio"
-                name="facilitySelection"
-                value={facility.facilityId}
-                checked={selectedFacilityId === facility.facilityId}
-                onChange={() => {}} // onChange is needed for accessibility but doesn't change state
-                className="form-radio text-green-600 h-5 w-5 mr-2"
-              />
+<input
+  type="radio"
+  name="facilitySelection"
+  value={facility.facilityId}
+  checked={selectedFacilityId === facility.facilityId}
+  // ... rest remains the same
+/>
               <h3 className="text-lg" style={{fontSize:13}}>{facility.facilityName}</h3>
             </label>
           </div>

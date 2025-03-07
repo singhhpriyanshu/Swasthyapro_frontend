@@ -43,15 +43,15 @@ const About = () => {
       <div className="max-w-7xl mx-auto px-4 py-12">
         <h2 className="text-3xl font-semibold mb-6">Why Choose Us</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-blue-500 p-6 rounded shadow hover:bg-blue-400 transition-all text-white">
+          <div className="bg-green-300 p-6 rounded shadow hover:bg-blue-400 transition-all text-white">
             <h3 className="font-bold mb-2">🖥️ User-Friendly Portal</h3>
             <p>Easily navigate and book appointments within minutes.</p>
           </div>
-          <div className="bg-blue-500 p-6 rounded shadow hover:bg-blue-400 transition-all text-white">
+          <div className="bg-green-300 p-6 rounded shadow hover:bg-blue-400 transition-all text-white">
             <h3 className="font-bold mb-2">👩‍⚕️ Verified Doctors</h3>
             <p>Only experienced, certified professionals.</p>
           </div>
-          <div className="bg-blue-500 p-6 rounded shadow hover:bg-blue-400 transition-all text-white">
+          <div className="bg-green-300 p-6 rounded shadow hover:bg-blue-400 transition-all text-white">
             <h3 className="font-bold mb-2">🧬 Comprehensive Lab Tests</h3>
             <p>Genetic, DNA, and pathology tests all in one place.</p>
           </div>

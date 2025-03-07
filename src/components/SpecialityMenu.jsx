@@ -43,9 +43,9 @@ const SpecialityMenu = () => {
              <div
   className="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 hover:opacity-100 transition duration-500 rounded-full"
   style={{
-    backgroundColor: 'rgba(11, 216, 62, 0.5)',
+    backgroundColor: 'rgba(97, 201, 123, 0.5)',
     color: 'white',
-    border: '2px solid #178066',
+    border: '2px solid rgb(73, 180, 154)',
   }}
 >
   <p className="text-sm">Coming Soon</p>

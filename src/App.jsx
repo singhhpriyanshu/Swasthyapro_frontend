@@ -32,7 +32,7 @@ import Facility from './pages/Tests/Facility'
 import TestDetails from './pages/Tests/TestsDetails'
 import Cart from './pages/Tests/Cart'
 import MyTest from './pages/MyTest'
-import DML from './pages/DML'
+// import DML from './pages/DML'
 import TermsAndConditions from './pages/TermsAndConditions'
 import CompliancePolicy from './pages/CompliancePolicy'
 import IntellectualPropertyPolicy from './pages/IntellectualPropertyPolicy'
@@ -95,7 +95,7 @@ const App = () => {
         <Route path="/tests/:id" element={<TestDetails />} />
         <Route path="/my-cart" element={<Cart />} />
         <Route path="/my-test" element={<MyTest />} />
-        <Route path="/dml" element={<DML />} />
+        {/* <Route path="/dml" element={<DML />} /> */}
         <Route path="/termsandconditions" element={<TermsAndConditions/>} />
         <Route path="/compliance" element={<CompliancePolicy/>} />
         <Route path="/intellectualpropertypolicy" element={<IntellectualPropertyPolicy/>} />
