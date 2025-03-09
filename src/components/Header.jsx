@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Header.css';
+// import './Header.css';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const Header = () => {
   return (
     <div style={{ marginTop: "-48px" }} className="hero_area">
       <div className="hero_bg_box">
-        <img src="src/images/hero_bg.png" alt=""/>
+        <img src="src/assets/hero_bg.png" alt=""/>
       </div>
 
       <header className="header_section">
