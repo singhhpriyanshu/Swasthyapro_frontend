@@ -44,7 +44,7 @@ const DoctorAvailability = () => {
   const fetchClinics = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/doctor/getclinics/${profileData.doctorId}`
+        `http://localhost:5000/api/doctor/getclinics/${profileData.doctorId}`
       );
       if (response.status === 201) {
         setClinics(response.data["clinic list"]);
@@ -88,7 +88,7 @@ const DoctorAvailability = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:5000/doctor/addclinics/${profileData.doctorId}`,
+        `http://localhost:5000/api/doctor/addclinics/${profileData.doctorId}`,
         clinicForm,
         { headers: { "Content-Type": "application/json" } }
       );
@@ -113,7 +113,7 @@ const DoctorAvailability = () => {
     if (!window.confirm("Are you sure you want to delete this clinic?")) return;
 
     try {
-      await axios.delete(`http://localhost:5000/doctor/deleteclinics/${clinicId}`);
+      await axios.delete(`http://localhost:5000/api/doctor/deleteclinics/${clinicId}`);
       setClinics((prev) => prev.filter((c) => c.clinicId !== clinicId));
       alert("Clinic deleted successfully!");
     } catch (error) {

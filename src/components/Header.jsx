@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import './Header.css';
+import heroBg from "../assets/hero_bg.png"; // Import the image
 
 const Header = () => {
   const navigate = useNavigate();
@@ -9,14 +9,14 @@ const Header = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((currentActiveIndex) => (currentActiveIndex + 1) % 3); // Assuming there are 3 items
-    }, 3000); // Change every 3 seconds, as your comment mentioned 5 seconds but your code is set to 3000ms
+    }, 3000); // Change every 3 seconds
     return () => clearInterval(interval);
   }, []);
 
   return (
     <div style={{ marginTop: "-48px" }} className="hero_area">
       <div className="hero_bg_box">
-        <img src="src/assets/hero_bg.png" alt=""/>
+        <img src={heroBg} alt="Hero Background" /> {/* Use imported image */}
       </div>
 
       <header className="header_section">
@@ -33,7 +33,7 @@ const Header = () => {
         <div id="customCarousel1" className="carousel slide" data-ride="carousel">
           <div className="carousel-inner">
             {['Book Your Appointment Today', 'Your Health, Your Hands: Schedule Your Lab Test Now!', 'We Provide Best Healthcare'].map((title, index) => (
-              <div className={`carousel-item ${index === activeIndex ? 'active' : ''}`}>
+              <div key={index} className={`carousel-item ${index === activeIndex ? 'active' : ''}`}>
                 <div className="container">
                   <div className="row">
                     <div className="col-md-7">
@@ -48,24 +48,22 @@ const Header = () => {
                           }
                         </p>
                         <div className="btn-box">
-  {index === 0 && (
-   
-     <button onClick={() => navigate("/find-test")} className="btn1">
-     Book Test
-   </button>
-  )}
-  {index === 1 && (
-     <button  className="btn1">
-     Coming Soon
-   </button>
-  )}
-  {index !== 0 && index !== 1 && (
-    <a href="" className="btn1">
-      Read More
-    </a>
-  )}
-</div>
-
+                          {index === 0 && (
+                            <button onClick={() => navigate("/find-test")} className="btn1">
+                              Coming Soon
+                            </button>
+                          )}
+                          {index === 1 && (
+                            <button className="btn1">
+                              Book Test
+                            </button>
+                          )}
+                          {index !== 0 && index !== 1 && (
+                            <a href="" className="btn1">
+                              Read More
+                            </a>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>

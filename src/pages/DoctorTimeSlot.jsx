@@ -31,7 +31,7 @@ const DoctorTimeSlot = ({ docId }) => {
   const fetchClinics = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/doctor/getclinics/${docId}`
+        `http://localhost:5000/api/doctor/getclinics/${docId}`
       );
       if (response.status === 201) {
         setClinics(response.data["clinic list"]);
@@ -88,7 +88,7 @@ const DoctorTimeSlot = ({ docId }) => {
   const fetchAvailability = async (clinicId, dateStr) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/doctor/gettime/${clinicId}`,
+        `http://localhost:5000/api/doctor/gettime/${clinicId}`,
         {
           params: { slot_date: dateStr },
           headers: { "Content-Type": "application/json" },

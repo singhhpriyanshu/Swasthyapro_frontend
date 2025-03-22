@@ -29,9 +29,7 @@ const Login = () => {
   const sendOtp = async () => {
     if (state === "Sign Up") {
       try {
-        const response = await axios.post(`${backendUrl}/auth/emailVerification`, { email });
-        console.log(response,'KLLK');
-        
+        const response = await axios.post(`${backendUrl}/api/auth/emailVerification`, { email });
         if (response) {
           setIsOtpSent(true);
           setShowOtpModal(true);
@@ -42,7 +40,7 @@ const Login = () => {
       }
     } else if (state === 'Loginwithcontact') {
       try {
-        const response = await axios.post(`${backendUrl}/whatsappOtp/${contact}`);
+        const response = await axios.post(`${backendUrl}/api/whatsappOtp/${contact}`);
         if (response) {
           setIsOtpSent(true);
           setShowOtpModal(true);
@@ -68,7 +66,7 @@ const Login = () => {
   const verifyOtp = async () => {
     try {
       if (state === 'Loginwithcontact') {
-        const response = await axios.post(`${backendUrl}/auth/user/contactlogin`, { contact, otp });
+        const response = await axios.post(`${backendUrl}/api/auth/user/contactlogin`, { contact, otp });
         const data = response.data;
 
         if (data) {
@@ -84,7 +82,7 @@ const Login = () => {
           toast.error(data.message || "Login failed. Please try again.");
         }
       } else {
-        const response = await axios.post(`${backendUrl}/auth/otpVerification`, { email, otp });
+        const response = await axios.post(`${backendUrl}/api/auth/otpVerification`, { email, otp });
         if (response.data) {
           if (state === "Sign Up") {
             registerUser();
@@ -104,7 +102,7 @@ const Login = () => {
 
   const loginuser = async () => {
     try {
-      const response = await axios.post(`${backendUrl}/auth/login`, { email, password });
+      const response = await axios.post(`${backendUrl}/api/auth/login`, { email, password });
       const data = response.data;
 
       if (data) {
@@ -140,7 +138,7 @@ const Login = () => {
     };
 
     try {
-      const { data } = await axios.post(`${backendUrl}/auth/register`, requestBody);
+      const { data } = await axios.post(`${backendUrl}/api/auth/register`, requestBody);
       if (data.message === "User registered successfully") {
         toast.success("Registration successful!");
         setState('Login');
@@ -211,6 +209,10 @@ const Login = () => {
               <div className='form-field'>
                 <p>Alternate contact no</p>
                 <input onChange={(e) => setaltno(e.target.value)} value={alternatecontactno} type="number" required />
+              </div>
+              <div className='form-field'>
+                <p>Register</p>
+                {/* <input onChange={(e) => setaltno(e.target.value)} value={alternatecontactno} type="number" required /> */}
               </div>
             </>
           )}

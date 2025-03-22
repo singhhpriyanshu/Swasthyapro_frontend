@@ -94,7 +94,7 @@ const DoctorRegistration = () => {
 
     try {
       // Replace with your actual backend endpoint
-      const response = await axios.post(`${backendUrl}/auth/doctor/register`, submissionData,{
+      const response = await axios.post(`${backendUrl}/api/auth/doctor/register`, submissionData,{
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 

@@ -16,7 +16,7 @@ const DoctorLogin = () => {
     const onSubmitHandler = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${backendUrl}/auth/doctorlogin`, { email, password });
+            const response = await axios.post(`${backendUrl}/api/auth/doctorlogin`, { email, password });
 
             const data = response.data;
 

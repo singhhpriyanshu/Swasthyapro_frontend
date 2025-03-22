@@ -6,8 +6,8 @@ const IntellectualPropertyPolicy = () => {
     <div style={styles.container}>
       <div style={styles.card}>
         <h1 style={styles.heading}>Intellectual Property (IP) Policy</h1>
-        <h3 style={styles.subHeading}>Effective Date: [Insert Date]</h3>
-        <h3 style={styles.subHeading}>Last Updated: [Insert Date]</h3>
+        <h3 style={styles.subHeading}>Effective Date: [15-Feb-2025]</h3>
+        <h3 style={styles.subHeading}>Last Updated: [15-Feb-2025]</h3>
 
         <h2 style={styles.sectionTitle}>1. Ownership of Intellectual Property</h2>
         <p style={styles.text}>

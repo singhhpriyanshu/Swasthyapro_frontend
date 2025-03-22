@@ -118,7 +118,7 @@ const DoctorBooking = ({ docId }) => {
             
 
         try {
-            const response = await axios.post("http://localhost:5000/appointments/book", data);
+            const response = await axios.post("http://localhost:5000//api/appointments/book", data);
             if (response.data.success) {
                 alert("Booking successful!");
             } else {

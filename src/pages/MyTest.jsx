@@ -34,7 +34,7 @@ const MyTest = () => {
     };
     try {
       const response = await axios.delete(
-        `${backendUrl}/cancelTest/${appointmentToDelete}`, {
+        `${backendUrl}/api/cancelTest/${appointmentToDelete}`, {
           headers: {
             'Content-Type': 'application/json',  // Set the correct content type
           },
@@ -63,7 +63,7 @@ const MyTest = () => {
         throw new Error('User not logged in');
       }
 
-      const response = await axios.get(`${backendUrl}/get_booking_id/${email}`);
+      const response = await axios.get(`${backendUrl}/api/get_booking_id/${email}`);
       setBookingIds(response.data.bookingIds);
     } catch (err) {
       setError(err.message);
@@ -75,7 +75,7 @@ const MyTest = () => {
     try {
       const details = {};
       for (const bookingId of bookingIds) {
-        const response = await axios.get(`${backendUrl}/getfacility/book/${bookingId}`);
+        const response = await axios.get(`${backendUrl}/api/getfacility/book/${bookingId}`);
         details[bookingId] = response.data.Tests;
       }
       setTestDetails(details);

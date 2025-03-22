@@ -24,7 +24,7 @@ const TestsDetails = () => {
 
   const fetchFaqs = async (test_id) => {
     try {
-      const response = await axios.get(`http://localhost:5000/admin/getfaq/${test_id}`);
+      const response = await axios.get(`http://localhost:5000/api/admin/getfaq/${test_id}`);
       if (response.data && response.data.faqs) {
         setFaqs(response.data.faqs);
       } else {
@@ -37,7 +37,7 @@ const TestsDetails = () => {
 
   const fetchParameters = async (test_id) => {
     try {
-      const response = await axios.get(`http://localhost:5000/admin/getparameters/${test_id}`);
+      const response = await axios.get(`http://localhost:5000/api/admin/getparameters/${test_id}`);
       if (response.data && response.data.parameters) {
         setParameters(response.data.parameters);
       } else {

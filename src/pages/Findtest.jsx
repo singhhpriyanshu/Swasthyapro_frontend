@@ -42,7 +42,7 @@ const FindTest = () => {
 
   const fetchFacilities = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/admin/getfacilityheader');
+      const response = await axios.get('http://localhost:5000/api/admin/getfacilityheader');
       if (response.data && response.data['facility list']) {
         setFacilities(response.data['facility list']);
       }

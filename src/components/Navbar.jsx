@@ -115,9 +115,9 @@ const Navbar = () => {
         <NavLink to="/">
           <li className="py-1 text-sm">HOME</li>
         </NavLink>
-        <NavLink to="/doctors">
+        {/* <NavLink to="/doctors">
           <li className="py-1 text-sm">FIND DOCTORS</li>
-        </NavLink>
+        </NavLink> */}
         <NavLink to="/findtests">
           <li className="py-1 text-sm">FIND TESTS</li>
         </NavLink>

@@ -6,8 +6,8 @@ const PaymentPolicy = () => {
     <div style={styles.container}>
       <div style={styles.card}>
         <h1 style={styles.heading}>Payment Policy</h1>
-        <h3 style={styles.subHeading}>Effective Date: [Insert Date]</h3>
-        <h3 style={styles.subHeading}>Last Updated: [Insert Date]</h3>
+        <h3 style={styles.subHeading}>Effective Date: [15-Feb-2025]</h3>
+        <h3 style={styles.subHeading}>Last Updated: [15-Feb-2025]</h3>
 
         <h2 style={styles.sectionTitle}>1. Payment Terms</h2>
         <p style={styles.text}>

@@ -37,7 +37,7 @@ const AddTimeSlotModal = ({ clinic, onClose }) => {
 
     try {
       await axios.post(
-        `http://localhost:5000/doctor/addtime/${clinic.clinicId}`,
+        `http://localhost:5000/api/doctor/addtime/${clinic.clinicId}`,
         formData
       );
       alert("Time slot added successfully!");

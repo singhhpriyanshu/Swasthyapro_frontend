@@ -46,7 +46,7 @@ const MyAppointments = () => {
   const fetchAppointments = async () => {
     try {
       const { data } = await axios.get(
-        `${backendUrl}/user/appointments/get/${userData.userId}`
+        `${backendUrl}/api/user/appointments/get/${userData.userId}`
       );
       if (data && data.appointments) {
         // Sort appointments by date from latest to oldest
@@ -73,7 +73,7 @@ const MyAppointments = () => {
     if (!appointmentToDelete) return;
     try {
       const response = await axios.delete(
-        `${backendUrl}/appointments/delete/${appointmentToDelete}`
+        `${backendUrl}/api/appointments/delete/${appointmentToDelete}`
       );
       if (response.data?.Success) {
         toast.success(response.data.Success);
@@ -128,7 +128,7 @@ const MyAppointments = () => {
 
     try {
       const response = await axios.get(
-        `${backendUrl}/doctor/gettime/${clinicId}`,
+        `${backendUrl}/api/doctor/gettime/${clinicId}`,
         { params: { slot_date: formattedDate } }
       );
       if (response.data) {
@@ -201,7 +201,7 @@ const MyAppointments = () => {
 
     try {
       const response = await axios.put(
-        `${backendUrl}/appointments/update/${appointmentToUpdate.id}`,
+        `${backendUrl}/api/appointments/update/${appointmentToUpdate.id}`,
         dataToSend
       );
       if (response) {

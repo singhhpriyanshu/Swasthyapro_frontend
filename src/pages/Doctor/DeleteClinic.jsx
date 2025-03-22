@@ -11,7 +11,7 @@ const DeleteClinic = () => {
 
   const fetchClinics = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/doctor/getclinics/${profileData.doctorId}`);
+      const response = await axios.get(`http://localhost:5000/api/doctor/getclinics/${profileData.doctorId}`);
       if (response.status === 201) {
         setClinics(response.data['clinic list']);
         setShowClinics(true);
@@ -26,7 +26,7 @@ const DeleteClinic = () => {
 
   const deleteClinic = async (clinicId) => {
     try {
-      await axios.delete(`http://localhost:5000/doctor/deleteclinics/${clinicId}`);
+      await axios.delete(`http://localhost:5000/api/doctor/deleteclinics/${clinicId}`);
       setClinics((prevClinics) => prevClinics.filter((clinic) => clinic.clinicId !== clinicId));
       alert("Clinic deleted successfully!");
     } catch (error) {

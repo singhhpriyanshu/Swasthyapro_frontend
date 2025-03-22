@@ -19,7 +19,7 @@ const Cart = () => {
   };
 
   const handlePayment = async () => {
-    const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+    const res = await loadScript("https://checkout.razorpay.com/api/v1/checkout.js");
 
     if (!res) {
       alert("Razorpay SDK failed to load. Are you online?");
@@ -27,7 +27,7 @@ const Cart = () => {
     }
 
     // Fetch order details from backend (replace with your actual API call)
-    const orderData = await axios.post("http://localhost:5000/facility/book", {
+    const orderData = await axios.post("http://localhost:5000/api/facility/book", {
       tests: cart,
       choose_payment_type: paymentMethod,
       userId: userData.userId,
@@ -48,7 +48,7 @@ const Cart = () => {
 
         axios
           .post(
-            `http://localhost:5000/verify_payment/${orderData.data.bookingId}`,
+            `https://www.swasthyapro.com/api/verify_payment/${orderData.data.bookingId}`,
             {
               payment_id: response.razorpay_payment_id,
               order_id: response.razorpay_order_id,
