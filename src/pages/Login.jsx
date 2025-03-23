@@ -21,6 +21,8 @@ const Login = () => {
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [otp, setOtp] = useState('');
   const [isOtpSent, setIsOtpSent] = useState(false);
+  const [isConsentChecked, setIsConsentChecked] = useState(false);
+
 
   const navigate = useNavigate();
   const { backendUrl, token, setToken, userData, setUserData } = useContext(AppContext);
@@ -29,10 +31,9 @@ const Login = () => {
   const sendOtp = async () => {
     if (state === "Sign Up") {
       try {
-        const response = await axios.post(`${backendUrl}/api/auth/emailVerification`, { email });
+        const response = await axios.post(`${backendUrl}/api/auth/emailVerification`, { email ,request:"VERIFICATION"});
         if (response) {
           setIsOtpSent(true);
-          setShowOtpModal(true);
           toast.success("OTP sent to your email!");
         }
       } catch (error) {
@@ -43,7 +44,6 @@ const Login = () => {
         const response = await axios.post(`${backendUrl}/api/whatsappOtp/${contact}`);
         if (response) {
           setIsOtpSent(true);
-          setShowOtpModal(true);
           toast.success("OTP sent to your contact!");
         }
       } catch (error) {
@@ -54,7 +54,6 @@ const Login = () => {
         const response = await axios.post(`${backendUrl}/send_dml_otp/${email}`);
         if (response) {
           setIsOtpSent(true);
-          setShowOtpModal(true);
           toast.success("OTP sent to your email!");
         }
       } catch (error) {
@@ -82,14 +81,12 @@ const Login = () => {
           toast.error(data.message || "Login failed. Please try again.");
         }
       } else {
-        const response = await axios.post(`${backendUrl}/api/auth/otpVerification`, { email, otp });
+        const response = await axios.post(`${backendUrl}/api/auth/otpVerification/${email}`, { email, otp });
         if (response.data) {
           if (state === "Sign Up") {
             registerUser();
-            setShowOtpModal(false);
           } else {
             loginuser();
-            setShowOtpModal(false);
           }
         } else {
           toast.error("Invalid OTP");
@@ -102,7 +99,7 @@ const Login = () => {
 
   const loginuser = async () => {
     try {
-      const response = await axios.post(`${backendUrl}/api/auth/login`, { email, password });
+      const response = await axios.post(`${backendUrl}/api/auth/user/login`, { email, password });
       const data = response.data;
 
       if (data) {
@@ -143,6 +140,24 @@ const Login = () => {
         toast.success("Registration successful!");
         setState('Login');
         setIsOtpSent(false);
+        setOtp('');
+        if (data.userId) {
+          // Here we call the backend to store the consent
+          const consentResponse = await axios.post(`${backendUrl}/api/checkconsent`, {
+            userId: data.userId,  // Pass userId
+            acceptance: isConsentChecked  // Consent status (if the user checked the consent box)
+          });
+          if (consentResponse.status === 200) {
+            toast.success("Consent granted and saved successfully!");
+          } else {
+            toast.error("Failed to save consent");
+          }
+        }
+
+
+
+
+
       } else {
         toast.error(data.error || "Registration failed. Please try again.");
       }
@@ -153,7 +168,12 @@ const Login = () => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    await sendOtp();
+    if (state==='Login') {
+      await loginuser();
+    } else {
+      await sendOtp();
+    }
+   
   };
 
   useEffect(() => {
@@ -211,11 +231,64 @@ const Login = () => {
                 <input onChange={(e) => setaltno(e.target.value)} value={alternatecontactno} type="number" required />
               </div>
               <div className='form-field'>
-                <p>Register</p>
-                {/* <input onChange={(e) => setaltno(e.target.value)} value={alternatecontactno} type="number" required /> */}
+                <p>Email</p>
+                <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" required />
               </div>
+              <div className='form-field'>
+                <p>Password</p>
+                <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" required />
+              </div>
+              <div className='form-field'>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={isConsentChecked}
+                    onChange={(e) => {
+                      setIsConsentChecked(e.target.checked);
+                      if (e.target.checked) {
+                        setShowOtpModal(true); // Show the modal when checkbox is checked
+                      } else {
+                        setShowOtpModal(false); // Close the modal if checkbox is unchecked
+                      }
+                    }}
+                  />
+                  I agree to the <span onClick={() => setShowOtpModal(true)} className="form-link">Consent Terms</span>
+                </label>
+              </div>
+
+              <button
+                className="form-button"
+                disabled={!isConsentChecked}
+                style={{
+                  backgroundColor: isConsentChecked ? '#007bff' : '#d6d6d6',
+                  color: isConsentChecked ? 'white' : '#9e9e9e',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '5px',
+                  cursor: isConsentChecked ? 'pointer' : 'not-allowed',
+                  opacity: isConsentChecked ? '1' : '0.6',
+                  transition: 'background-color 0.3s ease, opacity 0.3s ease',
+                }}
+                onMouseOver={(e) => {
+                  if (isConsentChecked) {
+                    e.target.style.backgroundColor = '#0056b3'; // Darker blue on hover
+                  }
+                }}
+                onMouseOut={(e) => {
+                  if (isConsentChecked) {
+                    e.target.style.backgroundColor = '#007bff'; // Reset to original blue
+                  }
+                }}
+              >
+                Send OTP
+              </button>
             </>
           )}
+         
+
+
+
+
           {state === 'Loginwithcontact' && (
             <div className='form-field'>
               <p>Enter Contact No.</p>
@@ -249,8 +322,86 @@ const Login = () => {
         </div>
       </form>
 
-      {/* OTP Modal */}
       {showOtpModal && (
+            <div
+              style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                zIndex: 1000, // Ensure it stays on top of other elements
+              }}
+            >
+              <div
+                style={{
+                  backgroundColor: 'white',
+                  padding: '30px',
+                  borderRadius: '8px',
+                  maxWidth: '600px',
+                  width: '80%',
+                  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Add some shadow for depth
+                  overflowY: 'auto',
+                  maxHeight: '80%', // Limit the height so the modal doesn't take over the screen
+                  textAlign: 'center',
+                }}
+              >
+                <h2
+                  style={{
+                    fontSize: '24px',
+                    marginBottom: '20px',
+                    color: '#333',
+                  }}
+                >
+                  Consent
+                </h2>
+                <p
+                  style={{
+                    fontSize: '16px',
+                    marginBottom: '20px',
+                    lineHeight: '1.5',
+                    color: '#555',
+                  }}
+                >
+                  By signing up for and using SwasthyaPro, you acknowledge and agree to abide by all existing policies,
+                  including but not limited to the Terms & Conditions, Privacy Policy, Refund Policy, Security Policy, and Payment Policy.
+                </p>
+                <p
+                  style={{
+                    fontSize: '16px',
+                    marginBottom: '20px',
+                    lineHeight: '1.5',
+                    color: '#555',
+                  }}
+                >
+                  You further consent that these policies may be updated, modified, or supplemented over time to comply with legal, security, and operational requirements. Continued use of the platform after any updates constitutes acceptance of the revised policies.
+                </p>
+                <button
+                  onClick={() => setShowOtpModal(false)}
+                  style={{
+                    backgroundColor: '#007bff',
+                    color: 'white',
+                    border: 'none',
+                    padding: '10px 20px',
+                    borderRadius: '5px',
+                    cursor: 'pointer',
+                    fontSize: '16px',
+                    transition: 'background-color 0.3s ease',
+                  }}
+                 
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
+
+      {/* OTP Modal */}
+      {isOtpSent && (
         <div style={{
           position: 'fixed',
           top: '0',
@@ -298,7 +449,7 @@ const Login = () => {
               Submit OTP
             </button>
             <button
-              onClick={() => setShowOtpModal(false)}
+              onClick={() => setIsOtpSent(false)}
               style={{
                 backgroundColor: '#ef4444',
                 color: '#fff',

@@ -79,9 +79,9 @@ const AppContextProvider = (props) => {
 
     // }
     
-    useEffect(() => {
-        getDoctosData()
-    }, [])
+    // useEffect(() => {
+    //     getDoctosData()
+    // }, [])
 
     // useEffect(() => {
     //     if (token) {
