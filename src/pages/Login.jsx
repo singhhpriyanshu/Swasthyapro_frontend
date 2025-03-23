@@ -71,10 +71,10 @@ const Login = () => {
         const data = response.data;
 
         if (data) {
-          if (data.loginuser) {
+          if (!data.error) {
             sessionStorage.setItem("userType", "user");
-            sessionStorage.setItem("userData", JSON.stringify(data.loginuser));
-            setUserData(data.loginuser);
+            sessionStorage.setItem("userData", JSON.stringify(data));
+            setUserData(data);
             console.log(userData);
           }
           toast.success("Login successful!");
