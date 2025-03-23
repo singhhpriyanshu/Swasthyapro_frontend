@@ -23,6 +23,8 @@ const Login = () => {
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [isConsentChecked, setIsConsentChecked] = useState(false);
 
+  const [id,setid]=useState('');
+
 
   const navigate = useNavigate();
   const { backendUrl, token, setToken, userData, setUserData } = useContext(AppContext);
@@ -99,18 +101,18 @@ const Login = () => {
 
   const loginuser = async () => {
     try {
-      const response = await axios.post(`${backendUrl}/api/auth/user/login`, { email, password });
+      const response = await axios.post(`${backendUrl}/api/auth/user/login`, { id, password });
       const data = response.data;
 
       if (data) {
-        if (data.loginuser) {
+        if (!data.error) {
           sessionStorage.setItem("userType", "user");
-          sessionStorage.setItem("userData", JSON.stringify(data.loginuser));
-          setUserData(data.loginuser);
+          sessionStorage.setItem("userData", JSON.stringify(data));
+          setUserData(data);
           console.log(userData);
         }
         toast.success("Login successful!");
-        setEmail("");
+        setid("");
         setPassword("");
       } else {
         toast.error(data.message || "Login failed. Please try again.");
@@ -300,7 +302,7 @@ const Login = () => {
             <>
               <div className='form-field'>
                 <p>Email</p>
-                <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" required />
+                <input onChange={(e) => setid(e.target.value)} value={id}  required />
               </div>
               <div className='form-field'>
                 <p>Password</p>
