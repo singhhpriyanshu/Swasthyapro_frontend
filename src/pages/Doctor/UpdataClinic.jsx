@@ -23,7 +23,7 @@ const UpdateClinicModal = ({ clinic, onClose, onUpdateSuccess }) => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/doctor/updateclinics/${clinic.clinicId}`,
+        `https://www.swasthyapro.com/api/doctor/updateclinics/${clinic.clinicId}`,
         formData
       );
       if (response.status === 201) {
