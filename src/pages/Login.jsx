@@ -23,7 +23,11 @@ const Login = () => {
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [isConsentChecked, setIsConsentChecked] = useState(false);
 
-  const [id,setid]=useState('');
+  const [id, setid] = useState('');
+
+  const today = new Date();
+  const minDate = new Date(today.setFullYear(today.getFullYear() - 18));
+  const formattedMinDate = minDate.toISOString().split('T')[0];
 
 
   const navigate = useNavigate();
@@ -33,7 +37,7 @@ const Login = () => {
   const sendOtp = async () => {
     if (state === "Sign Up") {
       try {
-        const response = await axios.post(`${backendUrl}/api/auth/emailVerification`, { email ,request:"VERIFICATION"});
+        const response = await axios.post(`${backendUrl}/api/auth/emailVerification`, { email, request: "VERIFICATION" });
         if (response) {
           setIsOtpSent(true);
           toast.success("OTP sent to your email!");
@@ -170,12 +174,26 @@ const Login = () => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    if (state==='Login') {
+    if (state === 'Login') {
       await loginuser();
     } else {
       await sendOtp();
     }
-   
+
+  };
+  const handleContactChange = (e) => {
+    const value = e.target.value;
+    // Ensure only digits are entered and the length is not more than 10
+    if (/^\d*$/.test(value) && value.length <= 10) {
+      setContact(value);
+    }
+  };
+  const handlealtcontact = (e) => {
+    const value = e.target.value;
+    // Ensure only digits are entered and the length is not more than 10
+    if (/^\d*$/.test(value) && value.length <= 10) {
+      setaltno(value);
+    }
   };
 
   useEffect(() => {
@@ -210,11 +228,17 @@ const Login = () => {
               </div>
               <div className='form-field'>
                 <p>Date of Birth</p>
-                <input onChange={(e) => setdate_of_birth(e.target.value)} value={date_of_birth} type="date" required />
+                <input onChange={(e) => setdate_of_birth(e.target.value)} value={date_of_birth} type="date" max={formattedMinDate} required />
               </div>
               <div className='form-field'>
                 <p>Contact</p>
-                <input onChange={(e) => setContact(e.target.value)} value={contact} type="number" required />
+                <input
+                  onChange={handleContactChange}
+                  value={contact}
+                  type="text"
+                  required
+                  placeholder="Enter 10-digit contact number"
+                />
               </div>
               <div className='form-field'>
                 <p>Address</p>
@@ -230,7 +254,7 @@ const Login = () => {
               </div>
               <div className='form-field'>
                 <p>Alternate contact no</p>
-                <input onChange={(e) => setaltno(e.target.value)} value={alternatecontactno} type="number" required />
+                <input onChange={handlealtcontact} value={alternatecontactno} type="text" required />
               </div>
               <div className='form-field'>
                 <p>Email</p>
@@ -286,7 +310,7 @@ const Login = () => {
               </button>
             </>
           )}
-         
+
 
 
 
@@ -301,8 +325,8 @@ const Login = () => {
           {state === 'Login' && (
             <>
               <div className='form-field'>
-                <p>Email</p>
-                <input onChange={(e) => setid(e.target.value)} value={id}  required />
+                <p>Email or Contact</p>
+                <input onChange={(e) => setid(e.target.value)} value={id} placeholder='Enter Email or contact' required />
               </div>
               <div className='form-field'>
                 <p>Password</p>
@@ -311,96 +335,112 @@ const Login = () => {
               <button className='form-button'>{state === 'Sign Up' ? 'Create account' : 'Login'}</button>
             </>
           )}
-          {state === 'Sign Up' ? (
-            <p>Already have an account?<br></br> <span onClick={() => setState('Login')} className='form-link'>Login as User</span> &nbsp;&nbsp;
-              <span onClick={() => navigate('/doctor-login')} className='form-link'>Login as Doctor</span></p>
-          ) : (
-            <>
-              <p>Create a new account? <span onClick={() => setState('Sign Up')} className='form-link'>Click here</span></p>
-              <p>Login in with Contact No.<span onClick={() => setState('Loginwithcontact')} className='form-link'>Click here</span></p>
-            </>
-          )}
+          {
+            state === 'Sign Up' ? (
+              <p>Already have an account?<br></br>
+                <span onClick={() => setState('Login')} className='form-link'>Login as User</span> &nbsp;&nbsp;
+                <span onClick={() => navigate('/doctor-login')} className='form-link'>Login as Doctor</span>
+              </p>
+            ) : state === 'Loginwithcontact' ? (
+              <>
+                <p>Create a new account? <span onClick={() => setState('Sign Up')} className='form-link'>Click here</span></p>
+
+                <p>Login with Email<span onClick={() => setState('Login')} className='form-link'>Click here to login with Email</span></p>
+              </>
+            ) : state === 'Login' ? (
+              <>
+                <p>Create a new account? <span onClick={() => setState('Sign Up')} className='form-link'>Click here</span></p>
+
+                <p>Login with Contact <span onClick={() => setState('Loginwithcontact')} className='form-link'>Click here to login with Contact No.</span></p>
+              </>
+            ) : (
+              <>
+                {/* <p>Login with Contact No.<span onClick={() => setState('Loginwithcontact')} className='form-link'>Click here</span></p> */}
+              </>
+            )
+          }
+
           <p>Register as a Doctor <span onClick={() => navigate('/doctorregistration')} className='form-link'>Click here</span></p>
         </div>
       </form>
 
       {showOtpModal && (
-            <div
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 1000, // Ensure it stays on top of other elements
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: 'white',
+              padding: '30px',
+              borderRadius: '8px',
+              maxWidth: '600px',
+              width: '80%',
+              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Add some shadow for depth
+              overflowY: 'auto',
+              maxHeight: '80%', // Limit the height so the modal doesn't take over the screen
+              textAlign: 'center',
+            }}
+          >
+            <h2
               style={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                zIndex: 1000, // Ensure it stays on top of other elements
+                fontSize: '24px',
+                marginBottom: '20px',
+                color: '#333',
               }}
             >
-              <div
-                style={{
-                  backgroundColor: 'white',
-                  padding: '30px',
-                  borderRadius: '8px',
-                  maxWidth: '600px',
-                  width: '80%',
-                  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Add some shadow for depth
-                  overflowY: 'auto',
-                  maxHeight: '80%', // Limit the height so the modal doesn't take over the screen
-                  textAlign: 'center',
-                }}
-              >
-                <h2
-                  style={{
-                    fontSize: '24px',
-                    marginBottom: '20px',
-                    color: '#333',
-                  }}
-                >
-                  Consent
-                </h2>
-                <p
-                  style={{
-                    fontSize: '16px',
-                    marginBottom: '20px',
-                    lineHeight: '1.5',
-                    color: '#555',
-                  }}
-                >
-                  By signing up for and using SwasthyaPro, you acknowledge and agree to abide by all existing policies,
-                  including but not limited to the Terms & Conditions, Privacy Policy, Refund Policy, Security Policy, and Payment Policy.
-                </p>
-                <p
-                  style={{
-                    fontSize: '16px',
-                    marginBottom: '20px',
-                    lineHeight: '1.5',
-                    color: '#555',
-                  }}
-                >
-                  You further consent that these policies may be updated, modified, or supplemented over time to comply with legal, security, and operational requirements. Continued use of the platform after any updates constitutes acceptance of the revised policies.
-                </p>
-                <button
-                  onClick={() => setShowOtpModal(false)}
-                  style={{
-                    backgroundColor: '#007bff',
-                    color: 'white',
-                    border: 'none',
-                    padding: '10px 20px',
-                    borderRadius: '5px',
-                    cursor: 'pointer',
-                    fontSize: '16px',
-                    transition: 'background-color 0.3s ease',
-                  }}
-                 
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          )}
+              Consent
+            </h2>
+            <p
+              style={{
+                fontSize: '16px',
+                marginBottom: '20px',
+                lineHeight: '1.5',
+                color: '#555',
+              }}
+            >
+              By signing up for and using SwasthyaPro, you acknowledge and agree to abide by all existing policies,
+              including but not limited to the Terms & Conditions, Privacy Policy, Refund Policy, Security Policy, and Payment Policy.
+            </p>
+            <p
+              style={{
+                fontSize: '16px',
+                marginBottom: '20px',
+                lineHeight: '1.5',
+                color: '#555',
+              }}
+            >
+              You further consent that these policies may be updated, modified, or supplemented over time to comply with legal, security, and operational requirements. Continued use of the platform after any updates constitutes acceptance of the revised policies.
+            </p>
+            <button
+              onClick={() => setShowOtpModal(false)}
+              style={{
+                backgroundColor: '#007bff',
+                color: 'white',
+                border: 'none',
+                padding: '10px 20px',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                fontSize: '16px',
+                transition: 'background-color 0.3s ease',
+              }}
+
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* OTP Modal */}
       {isOtpSent && (

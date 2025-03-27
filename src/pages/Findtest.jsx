@@ -197,7 +197,7 @@ const FindTest = () => {
                   required
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter your name"
-                  disabled={!consentChecked}
+                  // disabled={!consentChecked}
                 />
               </div>
 
@@ -214,7 +214,7 @@ const FindTest = () => {
                   required
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter your contact number"
-                  disabled={!consentChecked}
+                  // disabled={!consentChecked}
                 />
               </div>
 
@@ -231,7 +231,7 @@ const FindTest = () => {
                   rows="3"
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
                   placeholder="Enter your address"
-                  disabled={!consentChecked}
+                  // disabled={!consentChecked}
                 />
               </div>
 
@@ -267,7 +267,7 @@ const FindTest = () => {
                           type="file"
                           onChange={handleFileChange}
                           className="sr-only"
-                          disabled={!consentChecked}
+                          // disabled={!consentChecked}
                         />
                       </label>
                       <p className="pl-1">or drag and drop</p>

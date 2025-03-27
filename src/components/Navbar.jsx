@@ -216,7 +216,7 @@ const Navbar = () => {
             onClick={() => navigate('/login')}
             className="hidden md:block bg-[#66c28e] text-white px-4 py-2 rounded-full text-sm hover:bg-green-600 transition"
           >
-            Create account
+            Sign Up/Login
           </button>
         )}
 
