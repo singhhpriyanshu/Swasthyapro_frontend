@@ -27,7 +27,7 @@ const Cart = () => {
     }
 
     // Fetch order details from backend (replace with your actual API call)
-    const orderData = await axios.post("http://localhost:5000/api/facility/book", {
+    const orderData = await axios.post("https://www.swasthyapro.com/api/facility/book", {
       tests: cart,
       choose_payment_type: paymentMethod,
       userId: userData.userId,

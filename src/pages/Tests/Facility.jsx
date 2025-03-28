@@ -21,7 +21,7 @@ const Facility = () => {
 
   const fetchFacilities = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/admin/getfacilityheader');
+      const response = await axios.get('https://www.swasthyapro.com/api/admin/getfacilityheader');
       if (response.data && response.data['facility list']) {
         setFacilities(response.data['facility list']);
       }
@@ -32,7 +32,7 @@ const Facility = () => {
 
   const fetchTests = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/admin/getfacility/${id}`);
+      const response = await axios.get(`https://www.swasthyapro.com/api/admin/getfacility/${id}`);
       if (response.data && response.data['facility list']) {
         setTests(response.data['facility list']);
       } else {

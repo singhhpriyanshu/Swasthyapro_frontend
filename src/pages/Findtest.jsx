@@ -42,7 +42,7 @@ const FindTest = () => {
 
   const fetchFacilities = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/admin/getfacilityheader');
+      const response = await axios.get('https://www.swasthyapro.com/api/admin/getfacilityheader');
       if (response.data && response.data['facility list']) {
         setFacilities(response.data['facility list']);
       }
@@ -85,7 +85,7 @@ const FindTest = () => {
       }
 
       // API call
-      const response = await axios.post(`${backendUrl}/bookByprescription/`, submitData, {
+      const response = await axios.post(`${backendUrl}/api/bookByprescription/`, submitData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 

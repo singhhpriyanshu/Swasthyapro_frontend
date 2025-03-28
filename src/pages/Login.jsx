@@ -149,10 +149,17 @@ const Login = () => {
         setOtp('');
         if (data.userId) {
           // Here we call the backend to store the consent
-          const consentResponse = await axios.post(`${backendUrl}/api/checkconsent`, {
-            userId: data.userId,  // Pass userId
-            acceptance: isConsentChecked  // Consent status (if the user checked the consent box)
-          });
+          const consentResponse = await axios.post(
+            `${backendUrl}/api/checkconsent`,
+            {
+              userId: data.userId,  // Pass userId
+              acceptance: isConsentChecked  // Consent status (if the user checked the consent box)
+            },
+            {
+              withCredentials: true  // Send cookies/credentials with the request
+            }
+          );
+
           if (consentResponse.status === 200) {
             toast.success("Consent granted and saved successfully!");
           } else {
