@@ -10,12 +10,19 @@ const DoctorLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { profileData, setProfileData } = useContext(DoctorContext);
-    const { backendUrl } = useContext(AppContext);
+    const { getCookie,isTokenExpired,refreshAccessToken,backendUrl } = useContext(AppContext);
     const navigate = useNavigate();
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
         try {
+            const accessToken = getCookie('access_token');
+            console.log(accessToken);
+            
+            if (!accessToken || isTokenExpired(accessToken)) {
+              console.log("Access token expired. Refreshing...");
+              await refreshAccessToken(); // Refresh the token
+            }
             const response = await axios.post(`${backendUrl}/api/auth/doctorlogin`, { email, password });
 
             const data = response.data;

@@ -28,7 +28,7 @@ const DoctorAppointments = () => {
         formData.append('report', reportFile);
       }
 
-      const response = await axios.put(`${backendUrl}/api/appointments/update/${appointment_id}`, formData);
+      const response = await axios.put(`${backendUrl}/api/appointments/update/status/${appointment_id}`, formData);
 
       if (response.data) {
         toast('Status Updated Successfully');

@@ -31,7 +31,7 @@ const Login = () => {
 
 
   const navigate = useNavigate();
-  const { backendUrl, token, setToken, userData, setUserData } = useContext(AppContext);
+  const { getCookie,isTokenExpired,refreshAccessToken,backendUrl, token, setToken, userData, setUserData } = useContext(AppContext);
   const { profileData, setProfileData } = useContext(DoctorContext);
 
   const sendOtp = async () => {
@@ -47,6 +47,13 @@ const Login = () => {
       }
     } else if (state === 'Loginwithcontact') {
       try {
+        const accessToken = getCookie('access_token');
+        console.log(accessToken);
+        
+        if (!accessToken || isTokenExpired(accessToken)) {
+          console.log("Access token expired. Refreshing...");
+          await refreshAccessToken(); // Refresh the token
+        }
         const response = await axios.post(`${backendUrl}/api/whatsappOtp/${contact}`);
         if (response) {
           setIsOtpSent(true);
@@ -102,22 +109,32 @@ const Login = () => {
       toast.error(error.response?.data?.error || "OTP verification failed");
     }
   };
-
+ 
   const loginuser = async () => {
     try {
-      const response = await axios.post(`${backendUrl}/api/auth/user/login`, { id, password });
-      const data = response.data;
+      const response = await axios.post(
+        `${backendUrl}/api/auth/user/usertoken`,
+        { id, password },
+        { withCredentials: true }  // Make sure cookies are sent along with the request
+      );
+  
+      const data = response;
+      const refreshToken = getCookie('refresh_token');
 
-      if (data) {
-        if (!data.error) {
-          sessionStorage.setItem("userType", "user");
-          sessionStorage.setItem("userData", JSON.stringify(data));
-          setUserData(data);
-          console.log(userData);
-        }
+// Correctly store the refresh token in localStorage
+const storedRefreshToken = localStorage.getItem('refresh_token');
+console.log(storedRefreshToken); // This will log the stored refresh token
+
+
+      // Since the backend is setting cookies, you don't need to access them directly.
+      // Instead, you can call user_login() or proceed as required.
+      if (data && !data.error) {
+        // You can proceed with any next steps after login
+        await user_login(); // This will use the access token from the cookies automatically
+  
         toast.success("Login successful!");
-        setid("");
-        setPassword("");
+        setid(""); // Clear input fields
+        setPassword(""); // Clear input fields
       } else {
         toast.error(data.message || "Login failed. Please try again.");
       }
@@ -125,6 +142,37 @@ const Login = () => {
       toast.error(error.response?.data?.error || "An error occurred during login.");
     }
   };
+  
+  const user_login = async () => {
+    try {
+      const response = await axios.get(
+        `${backendUrl}/api/auth/user/login`, 
+        { withCredentials: true } // Ensure cookies are sent with the request
+      );
+      
+      const data = response.data;
+      if (data) {
+
+        const userData = response.data;
+  
+      // Handle the user data (e.g., storing it in sessionStorage or in the component state)
+      sessionStorage.setItem("userType", "user");
+      sessionStorage.setItem("userData", JSON.stringify(userData));
+  
+      // Optionally update the state
+      setUserData(userData);
+        console.log("User Data:", data); // Handle the user data as needed
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(error.response?.data?.error || "An error occurred during user login.");
+    }
+  };
+  
+  
+  
+
+  
 
   const registerUser = async () => {
     const requestBody = {
@@ -149,15 +197,20 @@ const Login = () => {
         setOtp('');
         if (data.userId) {
           // Here we call the backend to store the consent
+          const accessToken = getCookie('access_token');
+          console.log(accessToken);
+          
+          if (!accessToken || isTokenExpired(accessToken)) {
+            console.log("Access token expired. Refreshing...");
+            await refreshAccessToken(); // Refresh the token
+          }
           const consentResponse = await axios.post(
             `${backendUrl}/api/checkconsent`,
             {
               userId: data.userId,  // Pass userId
               acceptance: isConsentChecked  // Consent status (if the user checked the consent box)
             },
-            {
-              withCredentials: true  // Send cookies/credentials with the request
-            }
+            
           );
 
           if (consentResponse.status === 200) {

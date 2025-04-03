@@ -8,7 +8,7 @@ const MyTest = () => {
   const [testDetails, setTestDetails] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { backendUrl ,userData} = useContext(AppContext);
+  const { getCookie,isTokenExpired,refreshAccessToken,backendUrl ,userData} = useContext(AppContext);
   const [appointmentToDelete, setAppointmentToDelete] = useState(null);
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const [booking_status, setBookingStatus] = useState("");
@@ -33,6 +33,7 @@ const MyTest = () => {
       cancellation_reason // cancellation_reason value
     };
     try {
+     
       const response = await axios.delete(
         `${backendUrl}/api/cancelTest/${appointmentToDelete}`, {
           headers: {
@@ -57,6 +58,13 @@ const MyTest = () => {
 
   const fetchBookingIds = async () => {
     try {
+      const accessToken = getCookie('access_token');
+      console.log(accessToken);
+      
+      if (!accessToken || isTokenExpired(accessToken)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
+      }
       const email = userData.email
       
       if (!userData) {
@@ -73,6 +81,13 @@ const MyTest = () => {
 
   const fetchTestDetails = async () => {
     try {
+      const accessToken = getCookie('access_token');
+      console.log(accessToken);
+      
+      if (!accessToken || isTokenExpired(accessToken)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
+      }
       const details = {};
       for (const bookingId of bookingIds) {
         const response = await axios.get(`${backendUrl}/api/getfacility/book/${bookingId}`);

@@ -7,7 +7,7 @@ import Sidebar from "../../components/Sidebar";
 
 const DoctorProfile = () => {
   const { profileData, setProfileData } = useContext(DoctorContext);
-  const { backendUrl } = useContext(AppContext);
+  const { getCookie,isTokenExpired,refreshAccessToken,backendUrl } = useContext(AppContext);
 
   const [isEdit, setIsEdit] = useState(false);
   const [formData, setFormData] = useState(profileData || {});
@@ -28,6 +28,13 @@ const DoctorProfile = () => {
 
   const updateProfile = async () => {
     try {
+      const accessToken = getCookie('access_token');
+      console.log(accessToken);
+      
+      if (!accessToken || isTokenExpired(accessToken)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
+      }
       const updateData = {
         firstName: formData.firstName,
         last_name: formData.last_name,

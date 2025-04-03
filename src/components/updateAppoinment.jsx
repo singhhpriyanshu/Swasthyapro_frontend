@@ -12,7 +12,7 @@
 //   onClose, // Callback to close this update UI or refresh
 // }) {
 //   // We can pull backendUrl, userData, etc. from AppContext
-//   const { backendUrl, userData } = useContext(AppContext);
+//   const { getCookie,isTokenExpired,refreshAccessToken,backendUrl, userData } = useContext(AppContext);
 
 //   const [startDate, setStartDate] = useState(new Date());
 //   const [slot_date, setSlotDate] = useState(null);
@@ -31,8 +31,17 @@
 //   // Fetch time slots for a given clinic + date
 //   const fetchAvailability = async (clinicId, slot_date) => {
 //     try {
+
+//         const accessToken = getCookie('access_token');
+//         console.log(accessToken);
+        
+//         if (!accessToken || isTokenExpired(accessToken)) {
+//           console.log("Access token expired. Refreshing...");
+//           await refreshAccessToken(); // Refresh the token
+//         }
 //       const response = await axios.get(`${backendUrl}/doctor/gettime/${clinicId}`, {
 //         params: { slot_date },
+//         withCredentials:true
 //       });
 //       if (response.data) {
 //         setTimeSlots(response.data);
@@ -76,6 +85,14 @@
 //     };
 
 //     try {
+//         const accessToken = getCookie('access_token');
+//         console.log(accessToken);
+        
+//         if (!accessToken || isTokenExpired(accessToken)) {
+//           console.log("Access token expired. Refreshing...");
+//           await refreshAccessToken(); // Refresh the token
+//         }
+
 //       const response = await axios.put(
 //         `${backendUrl}/appointments/update/${itemId}`,
 //         data

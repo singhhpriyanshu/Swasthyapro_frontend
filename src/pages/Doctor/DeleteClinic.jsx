@@ -2,16 +2,27 @@ import React, { useState, useContext } from "react";
 import { DoctorContext } from '../../context/DoctorContext';
 import axios from "axios";
 import './DeleteClinic.css';
+import { AppContext } from '../../context/AppContext';
+
 import Sidebar from '../../components/Sidebar'
 
 const DeleteClinic = () => {
   const [clinics, setClinics] = useState([]);
   const [showClinics, setShowClinics] = useState(false);
   const { profileData } = useContext(DoctorContext);
+  const {getCookie,isTokenExpired,refreshAccessToken, backendUrl,token, setToken, userData, setUserData, cart } = useContext(AppContext);
+   
 
   const fetchClinics = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/doctor/getclinics/${profileData.doctorId}`);
+      const accessToken = getCookie('access_token');
+      console.log(accessToken);
+      
+      if (!accessToken || isTokenExpired(accessToken)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
+      }
+      const response = await axios.get(`${backendUrl}/api/doctor/getclinics/${profileData.doctorId}`);
       if (response.status === 201) {
         setClinics(response.data['clinic list']);
         setShowClinics(true);
@@ -26,7 +37,14 @@ const DeleteClinic = () => {
 
   const deleteClinic = async (clinicId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/doctor/deleteclinics/${clinicId}`);
+      const accessToken = getCookie('access_token');
+      console.log(accessToken);
+      
+      if (!accessToken || isTokenExpired(accessToken)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
+      }
+      await axios.delete(`${backendUrl}/api/doctor/deleteclinics/${clinicId}`);
       setClinics((prevClinics) => prevClinics.filter((clinic) => clinic.clinicId !== clinicId));
       alert("Clinic deleted successfully!");
     } catch (error) {

@@ -1,13 +1,16 @@
-import { createContext, useState } from "react";
+import { createContext, useState ,useContext} from "react";
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { AppContext } from './AppContext';
+
 
 
 export const DoctorContext = createContext()
 
 const DoctorContextProvider = (props) => {
 
-    const backendUrl = import.meta.env.VITE_BACKEND_URL
+    // const backendUrl = import.meta.env.VITE_BACKEND_URL
+    const {getCookie,isTokenExpired,refreshAccessToken, backendUrl } = useContext(AppContext);
 
    // const [dToken, setDToken] = useState(sessionStorage.getItem('dToken') ? sessionStorage.getItem('dToken') : '')
     const [appointments, setAppointments] = useState([])
@@ -17,7 +20,13 @@ const DoctorContextProvider = (props) => {
     // Getting Doctor appointment data from Database using API
     const getAppointments = async () => {
         try {
-
+            const accessToken = getCookie('access_token');
+            console.log(accessToken);
+            
+            if (!accessToken || isTokenExpired(accessToken)) {
+              console.log("Access token expired. Refreshing...");
+              await refreshAccessToken(); // Refresh the token
+            }
             const { data } = await axios.get(`${backendUrl}/api/doctor/appointments/${profileData.doctorId}` )
 
             if (data.success) {
@@ -37,7 +46,13 @@ const DoctorContextProvider = (props) => {
     // Getting Doctor profile data from Database using API
     const getProfileData = async () => {
         try {
-
+            const accessToken = getCookie('access_token');
+            console.log(accessToken);
+            
+            if (!accessToken || isTokenExpired(accessToken)) {
+              console.log("Access token expired. Refreshing...");
+              await refreshAccessToken(); // Refresh the token
+            }
             const { data } = await axios.get(backendUrl + '/api/doctor/profile', { headers: { dToken } })
             console.log(data.profileData)
             setProfileData(data.profileData)
@@ -52,7 +67,13 @@ const DoctorContextProvider = (props) => {
     const cancelAppointment = async (appointmentId) => {
 
         try {
-
+            const accessToken = getCookie('access_token');
+            console.log(accessToken);
+            
+            if (!accessToken || isTokenExpired(accessToken)) {
+              console.log("Access token expired. Refreshing...");
+              await refreshAccessToken(); // Refresh the token
+            }
             const { data } = await axios.post(backendUrl + '/api/doctor/cancel-appointment', { appointmentId }, { headers: { dToken } })
 
             if (data.success) {
@@ -75,7 +96,13 @@ const DoctorContextProvider = (props) => {
     const completeAppointment = async (appointmentId) => {
 
         try {
-
+            const accessToken = getCookie('access_token');
+            console.log(accessToken);
+            
+            if (!accessToken || isTokenExpired(accessToken)) {
+              console.log("Access token expired. Refreshing...");
+              await refreshAccessToken(); // Refresh the token
+            }
             const { data } = await axios.post(backendUrl + '/api/doctor/complete-appointment', { appointmentId }, { headers: { dToken } })
 
             if (data.success) {

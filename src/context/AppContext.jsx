@@ -38,6 +38,8 @@ const AppContextProvider = (props) => {
 
         try {
 
+            
+
             const { data } = await axios.get(backendUrl + '/api/doctor/list')
             if (data.success) {
                 setDoctors(data.doctors)
@@ -51,6 +53,42 @@ const AppContextProvider = (props) => {
         }
 
     }
+
+
+    const getCookie = (name) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+      };
+    
+      const isTokenExpired = (token) => {
+        if (!token) return true; // If there's no token, consider it expired
+        const payload = JSON.parse(atob(token.split('.')[1])); // Decode JWT to get the payload
+        const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+        return payload.exp < currentTime; // Compare expiration time with current time
+      };
+      const refreshAccessToken = async () => {
+        try {
+          // Make a request to refresh the token
+          const response = await axios.post(
+            `${backendUrl}/api/refreshtoken`,  // Backend endpoint for refreshing tokens
+            {},  // No body needed
+            {
+              withCredentials: true,  // This will ensure cookies are sent with the request (including refresh_token)
+            }
+          );
+      
+          // Log successful token refresh
+          console.log("Tokens refreshed successfully!");
+          return true;  // Successfully refreshed
+        } catch (error) {
+          // Handle error and display message
+          console.error('Error refreshing access token:', error);
+          throw error;  // Propagate error to be handled later
+        }
+      };
+      
 
     // // Getting User Profile using API
     // const loadUserProfileData = async () => {
@@ -92,13 +130,14 @@ const AppContextProvider = (props) => {
     
 
     const value = {
+        
         doctors, 
         currencySymbol,
         backendUrl,
         token, setToken,
         userData,cart,
          setUserData,
-        calculateAge,setcart,
+        calculateAge,setcart,getCookie,isTokenExpired,refreshAccessToken
     }
 
     return (

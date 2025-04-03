@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import axios from "axios";
+import { AppContext } from '../../context/AppContext';
+
 import { FaTimes } from "react-icons/fa";
 
 const AddTimeSlotModal = ({ clinic, onClose }) => {
+    const {getCookie,isTokenExpired,refreshAccessToken, backendUrl,token, setToken, userData, setUserData, cart } = useContext(AppContext);
+  
+
   const [formData, setFormData] = useState({
     slot_date: "",
     end_date: "",
@@ -36,8 +41,15 @@ const AddTimeSlotModal = ({ clinic, onClose }) => {
     }
 
     try {
+      const accessToken = getCookie('access_token');
+      console.log(accessToken);
+      
+      if (!accessToken || isTokenExpired(accessToken)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
+      }
       await axios.post(
-        `https:localhost:5000/api/doctor/addtime/${clinic.clinicId}`,
+        `${backendUrl}/api/doctor/addtime/${clinic.clinicId}`,
         formData
       );
       alert("Time slot added successfully!");

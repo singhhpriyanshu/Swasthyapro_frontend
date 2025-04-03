@@ -13,7 +13,7 @@ import {
 } from "react-icons/md"; // Icons for location, date, and time
 
 const MyAppointments = () => {
-  const { backendUrl, token, userData } = useContext(AppContext);
+  const {getCookie,isTokenExpired,refreshAccessToken, backendUrl, token, userData } = useContext(AppContext);
   const navigate = useNavigate();
 
   const [appointments, setAppointments] = useState([]);
@@ -45,6 +45,14 @@ const MyAppointments = () => {
 
   const fetchAppointments = async () => {
     try {
+
+      const accessToken = getCookie('access_token');
+      console.log(accessToken);
+      
+      if (!accessToken || isTokenExpired(accessToken)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
+      }
       const { data } = await axios.get(
         `${backendUrl}/api/user/appointments/get/${userData.userId}`
       );
@@ -72,6 +80,13 @@ const MyAppointments = () => {
   const cancelAppointment = async () => {
     if (!appointmentToDelete) return;
     try {
+      const accessToken = getCookie('access_token');
+      console.log(accessToken);
+      
+      if (!accessToken || isTokenExpired(accessToken)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
+      }
       const response = await axios.delete(
         `${backendUrl}/api/appointments/delete/${appointmentToDelete}`
       );
@@ -127,6 +142,13 @@ const MyAppointments = () => {
     const formattedDate = date.toISOString().split("T")[0];
 
     try {
+      const accessToken = getCookie('access_token');
+      console.log(accessToken);
+      
+      if (!accessToken || isTokenExpired(accessToken)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
+      }
       const response = await axios.get(
         `${backendUrl}/api/doctor/gettime/${clinicId}`,
         { params: { slot_date: formattedDate } }
@@ -200,6 +222,13 @@ const MyAppointments = () => {
     };
 
     try {
+      const accessToken = getCookie('access_token');
+      console.log(accessToken);
+      
+      if (!accessToken || isTokenExpired(accessToken)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
+      }
       const response = await axios.put(
         `${backendUrl}/api/appointments/update/${appointmentToUpdate.id}`,
         dataToSend

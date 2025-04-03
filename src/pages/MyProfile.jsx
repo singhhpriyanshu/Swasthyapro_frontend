@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 const MyProfile = () => {
   const [isEdit, setIsEdit] = useState(false);
-  const { backendUrl, userData, setUserData } = useContext(AppContext);
+  const { getCookie,isTokenExpired,refreshAccessToken,backendUrl, userData, setUserData } = useContext(AppContext);
   const [formData, setFormData] = useState(userData);
 
   useEffect(() => {
@@ -33,6 +33,14 @@ const MyProfile = () => {
   // Function to update user profile data using API
   const updateUserProfileData = async () => {
     try {
+
+      const accessToken = getCookie('access_token');
+      console.log(accessToken);
+      
+      if (!accessToken || isTokenExpired(accessToken)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
+      }
       const updateData = {
         firstName: formData.firstName,
         lastName: formData.lastName,
@@ -71,7 +79,7 @@ const MyProfile = () => {
       {/* Name Section */}
       <div className="flex flex-col sm:flex-row items-center gap-4">
         <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-2xl font-bold">
-          {userData.firstName[0]} {userData.lastName[0]}
+          {userData.firstName} {userData.lastName}
         </div>
         <div className="flex-1">
           {isEdit ? (

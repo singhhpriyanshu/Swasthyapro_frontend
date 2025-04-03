@@ -1,29 +1,57 @@
 import React, { useContext, useState } from 'react';
+import axios from 'axios';
 import { assets } from '../assets/assets';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
 import { DoctorContext } from '../context/DoctorContext';
 import logo from '../assets/logo.png';
 import './Navbar.css';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false); // Mobile hamburger
   const [showUserDropdown, setShowUserDropdown] = useState(false); // Desktop user dropdown
 
-  const { token, setToken, userData, setUserData, cart } = useContext(AppContext);
+  const {getCookie,isTokenExpired,refreshAccessToken, backendUrl,token, setToken, userData, setUserData, cart } = useContext(AppContext);
   const { profileData, setProfileData } = useContext(DoctorContext);
 
   // Dynamically calculate cart count based on cart items
   // If your cart items have a "qty", sum them up. Otherwise, use cart.length
   const cartCount = cart?.reduce((acc, item) => acc + (item.qty || 1), 0) || 0;
 
+ 
+
   // For patient user
-  const logout = () => {
-    sessionStorage.removeItem('userData');
-    setToken(false);
-    setUserData(false);
-    navigate('/login');
+  const logout = async () => {
+    try {
+      // Send POST request to logout API
+      const accessToken = getCookie('access_token');
+      console.log(accessToken);
+      
+      if (!accessToken || isTokenExpired(accessToken)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
+      }
+
+      const response=await axios.post(`${backendUrl}/api/auth/logout`, {}, { withCredentials: true });
+      
+      const data=response.data;
+      toast("Logged Out Successfully")
+      // Clear session storage and state after logout
+      sessionStorage.removeItem('userData');
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      
+      setToken(false); // Reset token state
+      setUserData(false); // Reset user data state
+  
+      // Navigate to the login page after logout
+      navigate('/login');
+    } catch (error) {
+      console.error("Logout failed:", error);
+      toast.error("An error occurred while logging out. Please try again.");
+    }
   };
 
   // For doctor user

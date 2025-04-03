@@ -8,11 +8,13 @@ import DoctorContextProvider, { DoctorContext } from './context/DoctorContext.js
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-  <DoctorContextProvider>
+  
   <AppContextProvider>
+  <DoctorContextProvider>
       <App />
+      </DoctorContextProvider>
+
     </AppContextProvider>
-  </DoctorContextProvider>
     
   </BrowserRouter>,
 )

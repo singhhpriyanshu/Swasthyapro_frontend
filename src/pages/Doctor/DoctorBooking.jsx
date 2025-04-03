@@ -10,14 +10,21 @@ const DoctorBooking = ({ docId }) => {
     const [timeSlots, setTimeSlots] = useState([]);
     const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
     const [days, setDays] = useState([]);
-    const { userData ,appoint_doctor,setappoint_doctor} = useContext(AppContext);
+    const {getCookie,isTokenExpired,refreshAccessToken, userData ,appoint_doctor,setappoint_doctor} = useContext(AppContext);
     const [startDate, setStartDate] = useState(new Date());
 
     // Fetch availability from backend (replace with your API endpoint)
     useEffect(() => {
         const fetchAvailability = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/doctor/available/${docId}`);
+                const accessToken = getCookie('access_token');
+                console.log(accessToken);
+                
+                if (!accessToken || isTokenExpired(accessToken)) {
+                  console.log("Access token expired. Refreshing...");
+                  await refreshAccessToken(); // Refresh the token
+                }
+                const response = await axios.get(`${backendUrl}/api/doctor/available/${docId}`);
                 if (response.data.success) {
                     setAvailability(response.data.availability);
                     setDays(getDaysOfWeek());
@@ -118,7 +125,14 @@ const DoctorBooking = ({ docId }) => {
             
 
         try {
-            const response = await axios.post("http://localhost:5000/api/appointments/book", data);
+            const accessToken = getCookie('access_token');
+            console.log(accessToken);
+            
+            if (!accessToken || isTokenExpired(accessToken)) {
+              console.log("Access token expired. Refreshing...");
+              await refreshAccessToken(); // Refresh the token
+            }
+            const response = await axios.post(`${backendUrl}/api/appointments/book`, data);
             if (response.data.success) {
                 alert("Booking successful!");
             } else {

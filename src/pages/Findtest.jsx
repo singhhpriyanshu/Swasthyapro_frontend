@@ -19,7 +19,7 @@ import Routine_Health_Check_ups from '../assets/Routine_Health_Check_ups.png';
 
 const FindTest = () => {
   const [facilities, setFacilities] = useState([]);
-  const { backendUrl } = useContext(AppContext);
+  const {getCookie,isTokenExpired,refreshAccessToken, backendUrl } = useContext(AppContext);
   const navigate = useNavigate();
 
   // State to control modal visibility
@@ -68,6 +68,12 @@ const FindTest = () => {
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
+  
+  
+  
+
+
+
 
   // Form submission handler
   const handleSubmit = async (e) => {
@@ -76,29 +82,39 @@ const FindTest = () => {
 
     try {
       // Create FormData object
-      const submitData = new FormData();
-      Object.keys(formData).forEach((key) => {
-        submitData.append(key, formData[key]);
-      });
-      if (file) {
-        submitData.append('prescription', file);
+      const accessToken = getCookie('access_token');
+
+      if (!accessToken || isTokenExpired(accessToken)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
       }
-
-      // API call
-      const response = await axios.post(`${backendUrl}/api/bookByprescription/`, submitData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
-
-      if (response.data) {
-        toast.success('Prescription submitted successfully!');
-        // Reset form data
-        setFormData({
-          name: '',
-          contact: '',
-          address: ''
+        const submitData = new FormData();
+        Object.keys(formData).forEach((key) => {
+          submitData.append(key, formData[key]);
         });
-        setFile(null);
-      }
+        if (file) {
+          submitData.append('prescription', file);
+        }
+  
+        // API call
+        const response = await axios.post(`${backendUrl}/api/bookByprescription/`, submitData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+          withCredentials:true
+        });
+  
+        if (response.data) {
+          toast.success('Prescription submitted successfully!');
+          // Reset form data
+          setFormData({
+            name: '',
+            contact: '',
+            address: ''
+          });
+          setFile(null);
+        }
+
+      
+      
     } catch (error) {
       toast.error(error.response?.data?.message || 'Error submitting form');
     } finally {

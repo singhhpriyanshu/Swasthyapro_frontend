@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Sidebar from "../../components/Sidebar";
+import { AppContext } from '../../context/AppContext';
+
 import { DoctorContext } from "../../context/DoctorContext";
 import AddTimeSlotModal from "../Doctor/AddTimeSlot";
 import UpdateClinicModal from "../Doctor/UpdataClinic"; // <-- New modal for updating a clinic
@@ -8,6 +10,7 @@ import { FaTrash, FaEdit, FaPlus, FaClock } from "react-icons/fa";
 
 const DoctorAvailability = () => {
   const { profileData } = useContext(DoctorContext);
+  const {getCookie,isTokenExpired,refreshAccessToken, backendUrl,token, setToken, userData, setUserData, cart } = useContext(AppContext);
 
   // List of clinics
   const [clinics, setClinics] = useState([]);
@@ -43,8 +46,15 @@ const DoctorAvailability = () => {
   // Get all clinics
   const fetchClinics = async () => {
     try {
+      const accessToken = getCookie('access_token');
+      console.log(accessToken);
+      
+      if (!accessToken || isTokenExpired(accessToken)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
+      }
       const response = await axios.get(
-        `http://localhost:5000/api/doctor/getclinics/${profileData.doctorId}`
+        `${backendUrl}/api/doctor/getclinics/${profileData.doctorId}`
       );
       if (response.status === 201) {
         setClinics(response.data["clinic list"]);
@@ -87,8 +97,15 @@ const DoctorAvailability = () => {
   const handleAddClinicSubmit = async (e) => {
     e.preventDefault();
     try {
+      const accessToken = getCookie('access_token');
+      console.log(accessToken);
+      
+      if (!accessToken || isTokenExpired(accessToken)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
+      }
       const response = await axios.post(
-        `http://localhost:5000/api/doctor/addclinics/${profileData.doctorId}`,
+        `${backendUrl}/api/doctor/addclinics/${profileData.doctorId}`,
         clinicForm,
         { headers: { "Content-Type": "application/json" } }
       );
@@ -113,7 +130,14 @@ const DoctorAvailability = () => {
     if (!window.confirm("Are you sure you want to delete this clinic?")) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/doctor/deleteclinics/${clinicId}`);
+      const accessToken = getCookie('access_token');
+      console.log(accessToken);
+      
+      if (!accessToken || isTokenExpired(accessToken)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
+      }
+      await axios.delete(`${backendUrl}/api/doctor/deleteclinics/${clinicId}`);
       setClinics((prev) => prev.filter((c) => c.clinicId !== clinicId));
       alert("Clinic deleted successfully!");
     } catch (error) {
