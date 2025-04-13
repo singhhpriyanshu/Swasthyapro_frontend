@@ -82,11 +82,12 @@ const FindTest = () => {
 
     try {
       // Create FormData object
-      const accessToken = getCookie('access_token');
-
-      if (!accessToken || isTokenExpired(accessToken)) {
+      let access_token = localStorage.getItem('access_token');
+  
+      if (!access_token || isTokenExpired(access_token)) {
         console.log("Access token expired. Refreshing...");
         await refreshAccessToken(); // Refresh the token
+        access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
         const submitData = new FormData();
         Object.keys(formData).forEach((key) => {
@@ -98,8 +99,10 @@ const FindTest = () => {
   
         // API call
         const response = await axios.post(`${backendUrl}/api/bookByprescription/`, submitData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-          withCredentials:true
+          headers: { 'Content-Type': 'multipart/form-data',
+                      Authorization: `Bearer ${access_token}`
+           },
+          
         });
   
         if (response.data) {

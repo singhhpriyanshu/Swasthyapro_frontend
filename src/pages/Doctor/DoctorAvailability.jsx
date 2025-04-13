@@ -46,15 +46,20 @@ const DoctorAvailability = () => {
   // Get all clinics
   const fetchClinics = async () => {
     try {
-      const accessToken = getCookie('access_token');
-      console.log(accessToken);
-      
-      if (!accessToken || isTokenExpired(accessToken)) {
+      let access_token = localStorage.getItem('access_token');
+  
+      if (!access_token || isTokenExpired(access_token)) {
         console.log("Access token expired. Refreshing...");
         await refreshAccessToken(); // Refresh the token
+        access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
       const response = await axios.get(
-        `${backendUrl}/api/doctor/getclinics/${profileData.doctorId}`
+        `${backendUrl}/api/doctor/getclinics/${profileData.doctorId}`, {}, // body
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
       );
       if (response.status === 201) {
         setClinics(response.data["clinic list"]);
@@ -97,17 +102,22 @@ const DoctorAvailability = () => {
   const handleAddClinicSubmit = async (e) => {
     e.preventDefault();
     try {
-      const accessToken = getCookie('access_token');
-      console.log(accessToken);
-      
-      if (!accessToken || isTokenExpired(accessToken)) {
+      let access_token = localStorage.getItem('access_token');
+  
+      if (!access_token || isTokenExpired(access_token)) {
         console.log("Access token expired. Refreshing...");
         await refreshAccessToken(); // Refresh the token
+        access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
       const response = await axios.post(
         `${backendUrl}/api/doctor/addclinics/${profileData.doctorId}`,
         clinicForm,
-        { headers: { "Content-Type": "application/json" } }
+         // body
+        {
+          headers: { "Content-Type": "application/json",
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
       );
 
       if (response.status === 201) {
@@ -130,14 +140,19 @@ const DoctorAvailability = () => {
     if (!window.confirm("Are you sure you want to delete this clinic?")) return;
 
     try {
-      const accessToken = getCookie('access_token');
-      console.log(accessToken);
-      
-      if (!accessToken || isTokenExpired(accessToken)) {
+      let access_token = localStorage.getItem('access_token');
+  
+      if (!access_token || isTokenExpired(access_token)) {
         console.log("Access token expired. Refreshing...");
         await refreshAccessToken(); // Refresh the token
+        access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
-      await axios.delete(`${backendUrl}/api/doctor/deleteclinics/${clinicId}`);
+      await axios.delete(`${backendUrl}/api/doctor/deleteclinics/${clinicId}`, {}, // body
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        });
       setClinics((prev) => prev.filter((c) => c.clinicId !== clinicId));
       alert("Clinic deleted successfully!");
     } catch (error) {

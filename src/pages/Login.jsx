@@ -47,14 +47,19 @@ const Login = () => {
       }
     } else if (state === 'Loginwithcontact') {
       try {
-        const accessToken = getCookie('access_token');
-        console.log(accessToken);
-        
-        if (!accessToken || isTokenExpired(accessToken)) {
+        let access_token = localStorage.getItem('access_token');
+  
+        if (!access_token || isTokenExpired(access_token)) {
           console.log("Access token expired. Refreshing...");
           await refreshAccessToken(); // Refresh the token
+          access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
         }
-        const response = await axios.post(`${backendUrl}/api/whatsappOtp/${contact}`);
+        const response = await axios.post(`${backendUrl}/api/whatsappOtp/${contact}`, {}, // body
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          });
         if (response) {
           setIsOtpSent(true);
           toast.success("OTP sent to your contact!");
@@ -114,27 +119,28 @@ const Login = () => {
     try {
       const response = await axios.post(
         `${backendUrl}/api/auth/user/usertoken`,
-        { id, password },
-        { withCredentials: true }  // Make sure cookies are sent along with the request
+        { id, password }
       );
   
-      const data = response;
-      const refreshToken = getCookie('refresh_token');
-
-// Correctly store the refresh token in localStorage
-const storedRefreshToken = localStorage.getItem('refresh_token');
-console.log(storedRefreshToken); // This will log the stored refresh token
-
-
-      // Since the backend is setting cookies, you don't need to access them directly.
-      // Instead, you can call user_login() or proceed as required.
+      const data = response.data;
+  
       if (data && !data.error) {
-        // You can proceed with any next steps after login
-        await user_login(); // This will use the access token from the cookies automatically
+        const { access_token, refresh_token } = data;
+  
+        // ✅ Store tokens in localStorage
+        localStorage.setItem('access_token', access_token);
+        localStorage.setItem('refresh_token', refresh_token);
+  
+        // Optional: Log stored tokens for debugging
+        console.log("Access Token:", access_token);
+        console.log("Refresh Token:", refresh_token);
+  
+        // Proceed with user login logic
+        await user_login(); // You can pass the token if needed
   
         toast.success("Login successful!");
         setid(""); // Clear input fields
-        setPassword(""); // Clear input fields
+        setPassword("");
       } else {
         toast.error(data.message || "Login failed. Please try again.");
       }
@@ -143,11 +149,17 @@ console.log(storedRefreshToken); // This will log the stored refresh token
     }
   };
   
+  
   const user_login = async () => {
     try {
+      const access_token = localStorage.getItem('access_token');
+
       const response = await axios.get(
-        `${backendUrl}/api/auth/user/login`, 
-        { withCredentials: true } // Ensure cookies are sent with the request
+        `${backendUrl}/api/auth/user/login`, {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
       );
       
       const data = response.data;
@@ -197,12 +209,12 @@ console.log(storedRefreshToken); // This will log the stored refresh token
         setOtp('');
         if (data.userId) {
           // Here we call the backend to store the consent
-          const accessToken = getCookie('access_token');
-          console.log(accessToken);
-          
-          if (!accessToken || isTokenExpired(accessToken)) {
+          let access_token = localStorage.getItem('access_token');
+  
+          if (!access_token || isTokenExpired(access_token)) {
             console.log("Access token expired. Refreshing...");
             await refreshAccessToken(); // Refresh the token
+            access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
           }
           const consentResponse = await axios.post(
             `${backendUrl}/api/checkconsent`,

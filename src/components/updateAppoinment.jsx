@@ -32,16 +32,21 @@
 //   const fetchAvailability = async (clinicId, slot_date) => {
 //     try {
 
-//         const accessToken = getCookie('access_token');
-//         console.log(accessToken);
-        
-//         if (!accessToken || isTokenExpired(accessToken)) {
-//           console.log("Access token expired. Refreshing...");
-//           await refreshAccessToken(); // Refresh the token
-//         }
+//         let access_token = localStorage.getItem('access_token');
+  
+//       if (!access_token || isTokenExpired(access_token)) {
+//         console.log("Access token expired. Refreshing...");
+//         await refreshAccessToken(); // Refresh the token
+//         access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
+//       }
 //       const response = await axios.get(`${backendUrl}/doctor/gettime/${clinicId}`, {
 //         params: { slot_date },
-//         withCredentials:true
+//         // body
+        
+//         headers: {
+//             Authorization: `Bearer ${access_token}`,
+          
+//         }
 //       });
 //       if (response.data) {
 //         setTimeSlots(response.data);

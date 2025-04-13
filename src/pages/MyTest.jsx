@@ -58,12 +58,12 @@ const MyTest = () => {
 
   const fetchBookingIds = async () => {
     try {
-      const accessToken = getCookie('access_token');
-      console.log(accessToken);
-      
-      if (!accessToken || isTokenExpired(accessToken)) {
+      let access_token = localStorage.getItem('access_token');
+  
+      if (!access_token || isTokenExpired(access_token)) {
         console.log("Access token expired. Refreshing...");
         await refreshAccessToken(); // Refresh the token
+        access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
       const email = userData.email
       
@@ -71,7 +71,12 @@ const MyTest = () => {
         throw new Error('User not logged in');
       }
 
-      const response = await axios.get(`${backendUrl}/api/get_booking_id/${email}`);
+      const response = await axios.get(`${backendUrl}/api/get_booking_id/${email}`, {}, // body
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        });
       setBookingIds(response.data.bookingIds);
     } catch (err) {
       setError(err.message);
@@ -81,16 +86,21 @@ const MyTest = () => {
 
   const fetchTestDetails = async () => {
     try {
-      const accessToken = getCookie('access_token');
-      console.log(accessToken);
-      
-      if (!accessToken || isTokenExpired(accessToken)) {
+      let access_token = localStorage.getItem('access_token');
+  
+      if (!access_token || isTokenExpired(access_token)) {
         console.log("Access token expired. Refreshing...");
         await refreshAccessToken(); // Refresh the token
+        access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
       const details = {};
       for (const bookingId of bookingIds) {
-        const response = await axios.get(`${backendUrl}/api/getfacility/book/${bookingId}`);
+        const response = await axios.get(`${backendUrl}/api/getfacility/book/${bookingId}`, {}, // body
+          {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          });
         details[bookingId] = response.data.Tests;
       }
       setTestDetails(details);

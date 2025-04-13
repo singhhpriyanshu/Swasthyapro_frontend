@@ -94,14 +94,19 @@ const DML = () => {
 
     const sendOtp = async () => {
         try {
-            const accessToken = getCookie('access_token');
-            console.log(accessToken);
-            
-            if (!accessToken || isTokenExpired(accessToken)) {
-              console.log("Access token expired. Refreshing...");
-              await refreshAccessToken(); // Refresh the token
-            }
-            const response = await axios.post(`${backendUrl}/send_dml_otp/${email}`);
+            let access_token = localStorage.getItem('access_token');
+  
+      if (!access_token || isTokenExpired(access_token)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
+        access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
+      }
+            const response = await axios.post(`${backendUrl}/send_dml_otp/${email}`, {}, // body
+                {
+                  headers: {
+                    Authorization: `Bearer ${access_token}`,
+                  },
+                });
             if (response) {
                 setOtpSent(true);
 
@@ -115,14 +120,19 @@ const DML = () => {
     const verifyOtp = async () => {
         try {
 
-            const accessToken = getCookie('access_token');
-            console.log(accessToken);
-            
-            if (!accessToken || isTokenExpired(accessToken)) {
-              console.log("Access token expired. Refreshing...");
-              await refreshAccessToken(); // Refresh the token
-            }
-            const response = await axios.post(`${backendUrl}/auth/otpVerification/${email}`, { email, otp });
+            let access_token = localStorage.getItem('access_token');
+  
+      if (!access_token || isTokenExpired(access_token)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
+        access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
+      }
+            const response = await axios.post(`${backendUrl}/auth/otpVerification/${email}`, { email, otp },  // body
+                {
+                  headers: {
+                    Authorization: `Bearer ${access_token}`,
+                  },
+                });
             if (response.data) {
                 setVerified(true);
                 fetchBookingIds();
@@ -138,14 +148,19 @@ const DML = () => {
 
     const fetchBookingIds = async () => {
         try {
-            const accessToken = getCookie('access_token');
-            console.log(accessToken);
-            
-            if (!accessToken || isTokenExpired(accessToken)) {
-              console.log("Access token expired. Refreshing...");
-              await refreshAccessToken(); // Refresh the token
-            }
-            const response = await axios.get(`${backendUrl}/get_booking_id/${email}`);
+            let access_token = localStorage.getItem('access_token');
+  
+      if (!access_token || isTokenExpired(access_token)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
+        access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
+      }
+            const response = await axios.get(`${backendUrl}/get_booking_id/${email}`, {}, // body
+                {
+                  headers: {
+                    Authorization: `Bearer ${access_token}`,
+                  },
+                });
             setBookingIds(response.data.bookingIds);
         } catch (err) {
             setError(err.message);
@@ -156,16 +171,21 @@ const DML = () => {
     const fetchTestDetails = async () => {
         try {
 
-            const accessToken = getCookie('access_token');
-            console.log(accessToken);
-            
-            if (!accessToken || isTokenExpired(accessToken)) {
-              console.log("Access token expired. Refreshing...");
-              await refreshAccessToken(); // Refresh the token
-            }
+            let access_token = localStorage.getItem('access_token');
+  
+      if (!access_token || isTokenExpired(access_token)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
+        access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
+      }
             const details = {};
             for (const bookingId of bookingIds) {
-                const response = await axios.get(`${backendUrl}/getfacility/book/${bookingId}`);
+                const response = await axios.get(`${backendUrl}/getfacility/book/${bookingId}`, {}, // body
+                    {
+                      headers: {
+                        Authorization: `Bearer ${access_token}`,
+                      },
+                    });
                 details[bookingId] = {
                     tests: response.data.Tests,
                     balance_due: response.data.balance_due

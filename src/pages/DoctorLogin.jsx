@@ -16,14 +16,19 @@ const DoctorLogin = () => {
     const onSubmitHandler = async (e) => {
         e.preventDefault();
         try {
-            const accessToken = getCookie('access_token');
-            console.log(accessToken);
-            
-            if (!accessToken || isTokenExpired(accessToken)) {
+            let access_token = localStorage.getItem('access_token');
+  
+            if (!access_token || isTokenExpired(access_token)) {
               console.log("Access token expired. Refreshing...");
               await refreshAccessToken(); // Refresh the token
+              access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
             }
-            const response = await axios.post(`${backendUrl}/api/auth/doctorlogin`, { email, password });
+            const response = await axios.post(`${backendUrl}/api/auth/doctorlogin`, { email, password },  // body
+                {
+                  headers: {
+                    Authorization: `Bearer ${access_token}`,
+                  },
+                });
 
             const data = response.data;
 

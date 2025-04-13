@@ -34,12 +34,12 @@ const MyProfile = () => {
   const updateUserProfileData = async () => {
     try {
 
-      const accessToken = getCookie('access_token');
-      console.log(accessToken);
-      
-      if (!accessToken || isTokenExpired(accessToken)) {
+      let access_token = localStorage.getItem('access_token');
+  
+      if (!access_token || isTokenExpired(access_token)) {
         console.log("Access token expired. Refreshing...");
         await refreshAccessToken(); // Refresh the token
+        access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
       const updateData = {
         firstName: formData.firstName,
@@ -52,9 +52,11 @@ const MyProfile = () => {
       const { data } = await axios.put(
         `${backendUrl}/api/user/update-profile/${userData.userId}`,
         updateData,
+        // body
         {
           headers: {
-            "Content-Type": "application/json",
+             "Content-Type": "application/json",
+            Authorization: `Bearer ${access_token}`,
           },
         }
       );

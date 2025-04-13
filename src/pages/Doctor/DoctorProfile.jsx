@@ -28,12 +28,12 @@ const DoctorProfile = () => {
 
   const updateProfile = async () => {
     try {
-      const accessToken = getCookie('access_token');
-      console.log(accessToken);
-      
-      if (!accessToken || isTokenExpired(accessToken)) {
+      let access_token = localStorage.getItem('access_token');
+  
+      if (!access_token || isTokenExpired(access_token)) {
         console.log("Access token expired. Refreshing...");
         await refreshAccessToken(); // Refresh the token
+        access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
       const updateData = {
         firstName: formData.firstName,
@@ -53,7 +53,9 @@ const DoctorProfile = () => {
         `${backendUrl}/api/doctor/update-profile/${profileData.doctorId}`,
         updateData,
         {
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json",
+            Authorization: `Bearer ${access_token}`,
+          },
         }
       );
 

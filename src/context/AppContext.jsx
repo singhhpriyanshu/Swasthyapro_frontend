@@ -70,24 +70,37 @@ const AppContextProvider = (props) => {
       };
       const refreshAccessToken = async () => {
         try {
-          // Make a request to refresh the token
+          const refresh_token = localStorage.getItem('refresh_token');
+      
+          if (!refresh_token) {
+            throw new Error("Refresh token not found in localStorage");
+          }
+      
+          // Send refresh token in Authorization header
           const response = await axios.post(
-            `${backendUrl}/api/refreshtoken`,  // Backend endpoint for refreshing tokens
-            {},  // No body needed
+            `${backendUrl}/api/refreshtoken`,
+            {}, // No body
             {
-              withCredentials: true,  // This will ensure cookies are sent with the request (including refresh_token)
+              headers: {
+                Authorization: `Bearer ${refresh_token}`,
+              },
             }
           );
       
-          // Log successful token refresh
+          const { access_token, refresh_token: new_refresh_token } = response.data;
+      
+          // Store new tokens
+          localStorage.setItem('access_token', access_token);
+          localStorage.setItem('refresh_token', new_refresh_token);
+      
           console.log("Tokens refreshed successfully!");
-          return true;  // Successfully refreshed
+          return true;
         } catch (error) {
-          // Handle error and display message
-          console.error('Error refreshing access token:', error);
-          throw error;  // Propagate error to be handled later
+          console.error('Error refreshing access token:', error?.response?.data || error);
+          return false;
         }
       };
+      
       
 
     // // Getting User Profile using API

@@ -25,35 +25,42 @@ const Navbar = () => {
   // For patient user
   const logout = async () => {
     try {
-      // Send POST request to logout API
-      const accessToken = getCookie('access_token');
-      console.log(accessToken);
-      
-      if (!accessToken || isTokenExpired(accessToken)) {
+      let access_token = localStorage.getItem('access_token');
+  
+      if (!access_token || isTokenExpired(access_token)) {
         console.log("Access token expired. Refreshing...");
         await refreshAccessToken(); // Refresh the token
+        access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
-
-      const response=await axios.post(`${backendUrl}/api/auth/logout`, {}, { withCredentials: true });
-      
-      const data=response.data;
-      toast("Logged Out Successfully")
-      // Clear session storage and state after logout
+  
+      const response = await axios.post(
+        `${backendUrl}/api/auth/logout`,
+        {}, // body
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
+      );
+  
+      const data = response.data;
+      toast("Logged Out Successfully");
+  
+      // Clear local/session storage
       sessionStorage.removeItem('userData');
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
-      
-      setToken(false); // Reset token state
-      setUserData(false); // Reset user data state
   
-      // Navigate to the login page after logout
+      setToken(false);
+      setUserData(false);
+  
       navigate('/login');
     } catch (error) {
       console.error("Logout failed:", error);
       toast.error("An error occurred while logging out. Please try again.");
     }
   };
-
+  
   // For doctor user
   const doctorlogout = () => {
     sessionStorage.removeItem('doctorData');

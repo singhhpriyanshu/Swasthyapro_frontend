@@ -46,15 +46,20 @@ const MyAppointments = () => {
   const fetchAppointments = async () => {
     try {
 
-      const accessToken = getCookie('access_token');
-      console.log(accessToken);
-      
-      if (!accessToken || isTokenExpired(accessToken)) {
+      let access_token = localStorage.getItem('access_token');
+  
+      if (!access_token || isTokenExpired(access_token)) {
         console.log("Access token expired. Refreshing...");
         await refreshAccessToken(); // Refresh the token
+        access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
       const { data } = await axios.get(
-        `${backendUrl}/api/user/appointments/get/${userData.userId}`
+        `${backendUrl}/api/user/appointments/get/${userData.userId}`, {}, // body
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
       );
       if (data && data.appointments) {
         // Sort appointments by date from latest to oldest
@@ -80,15 +85,20 @@ const MyAppointments = () => {
   const cancelAppointment = async () => {
     if (!appointmentToDelete) return;
     try {
-      const accessToken = getCookie('access_token');
-      console.log(accessToken);
-      
-      if (!accessToken || isTokenExpired(accessToken)) {
+      let access_token = localStorage.getItem('access_token');
+  
+      if (!access_token || isTokenExpired(access_token)) {
         console.log("Access token expired. Refreshing...");
         await refreshAccessToken(); // Refresh the token
+        access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
       const response = await axios.delete(
-        `${backendUrl}/api/appointments/delete/${appointmentToDelete}`
+        `${backendUrl}/api/appointments/delete/${appointmentToDelete}`, {}, // body
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
       );
       if (response.data?.Success) {
         toast.success(response.data.Success);
@@ -142,16 +152,19 @@ const MyAppointments = () => {
     const formattedDate = date.toISOString().split("T")[0];
 
     try {
-      const accessToken = getCookie('access_token');
-      console.log(accessToken);
-      
-      if (!accessToken || isTokenExpired(accessToken)) {
+      let access_token = localStorage.getItem('access_token');
+  
+      if (!access_token || isTokenExpired(access_token)) {
         console.log("Access token expired. Refreshing...");
         await refreshAccessToken(); // Refresh the token
+        access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
       const response = await axios.get(
         `${backendUrl}/api/doctor/gettime/${clinicId}`,
-        { params: { slot_date: formattedDate } }
+        { params: { slot_date: formattedDate } ,
+         headers:{Authorization:`Bearer ${access_token}`}
+      }, // body
+        
       );
       if (response.data) {
         // response.data is array of { id, slot_time, status }
@@ -222,16 +235,21 @@ const MyAppointments = () => {
     };
 
     try {
-      const accessToken = getCookie('access_token');
-      console.log(accessToken);
-      
-      if (!accessToken || isTokenExpired(accessToken)) {
+      let access_token = localStorage.getItem('access_token');
+  
+      if (!access_token || isTokenExpired(access_token)) {
         console.log("Access token expired. Refreshing...");
         await refreshAccessToken(); // Refresh the token
+        access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
       const response = await axios.put(
         `${backendUrl}/api/appointments/update/${appointmentToUpdate.id}`,
-        dataToSend
+        dataToSend, // body
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
       );
       if (response) {
         toast.success("Appointment Successfully Updated");

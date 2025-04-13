@@ -17,14 +17,19 @@ const DoctorBooking = ({ docId }) => {
     useEffect(() => {
         const fetchAvailability = async () => {
             try {
-                const accessToken = getCookie('access_token');
-                console.log(accessToken);
-                
-                if (!accessToken || isTokenExpired(accessToken)) {
-                  console.log("Access token expired. Refreshing...");
-                  await refreshAccessToken(); // Refresh the token
-                }
-                const response = await axios.get(`${backendUrl}/api/doctor/available/${docId}`);
+                let access_token = localStorage.getItem('access_token');
+  
+      if (!access_token || isTokenExpired(access_token)) {
+        console.log("Access token expired. Refreshing...");
+        await refreshAccessToken(); // Refresh the token
+        access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
+      }
+                const response = await axios.get(`${backendUrl}/api/doctor/available/${docId}`, {}, // body
+                    {
+                      headers: {
+                        Authorization: `Bearer ${access_token}`,
+                      },
+                    });
                 if (response.data.success) {
                     setAvailability(response.data.availability);
                     setDays(getDaysOfWeek());
@@ -125,14 +130,19 @@ const DoctorBooking = ({ docId }) => {
             
 
         try {
-            const accessToken = getCookie('access_token');
-            console.log(accessToken);
-            
-            if (!accessToken || isTokenExpired(accessToken)) {
+            let access_token = localStorage.getItem('access_token');
+  
+            if (!access_token || isTokenExpired(access_token)) {
               console.log("Access token expired. Refreshing...");
               await refreshAccessToken(); // Refresh the token
+              access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
             }
-            const response = await axios.post(`${backendUrl}/api/appointments/book`, data);
+            const response = await axios.post(`${backendUrl}/api/appointments/book`, data, // body
+                {
+                  headers: {
+                    Authorization: `Bearer ${access_token}`,
+                  },
+                });
             if (response.data.success) {
                 alert("Booking successful!");
             } else {

@@ -15,14 +15,19 @@ const DeleteClinic = () => {
 
   const fetchClinics = async () => {
     try {
-      const accessToken = getCookie('access_token');
-      console.log(accessToken);
-      
-      if (!accessToken || isTokenExpired(accessToken)) {
+      let access_token = localStorage.getItem('access_token');
+  
+      if (!access_token || isTokenExpired(access_token)) {
         console.log("Access token expired. Refreshing...");
         await refreshAccessToken(); // Refresh the token
+        access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
-      const response = await axios.get(`${backendUrl}/api/doctor/getclinics/${profileData.doctorId}`);
+      const response = await axios.get(`${backendUrl}/api/doctor/getclinics/${profileData.doctorId}`, {}, // body
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        });
       if (response.status === 201) {
         setClinics(response.data['clinic list']);
         setShowClinics(true);
@@ -37,14 +42,19 @@ const DeleteClinic = () => {
 
   const deleteClinic = async (clinicId) => {
     try {
-      const accessToken = getCookie('access_token');
-      console.log(accessToken);
-      
-      if (!accessToken || isTokenExpired(accessToken)) {
+      let access_token = localStorage.getItem('access_token');
+  
+      if (!access_token || isTokenExpired(access_token)) {
         console.log("Access token expired. Refreshing...");
         await refreshAccessToken(); // Refresh the token
+        access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
-      await axios.delete(`${backendUrl}/api/doctor/deleteclinics/${clinicId}`);
+      await axios.delete(`${backendUrl}/api/doctor/deleteclinics/${clinicId}`, {}, // body
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        });
       setClinics((prevClinics) => prevClinics.filter((clinic) => clinic.clinicId !== clinicId));
       alert("Clinic deleted successfully!");
     } catch (error) {
