@@ -54,7 +54,7 @@ const Login = () => {
           await refreshAccessToken(); // Refresh the token
           access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
         }
-        const response = await axios.post(`${backendUrl}/api/whatsappOtp/${contact}`, {}, // body
+        const response = await axios.post(`${backendUrl}/api/whatsappOtp/${contact}`, // body
           {
             headers: {
               Authorization: `Bearer ${access_token}`,

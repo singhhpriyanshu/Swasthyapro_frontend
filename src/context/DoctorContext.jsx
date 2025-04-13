@@ -27,7 +27,7 @@ const DoctorContextProvider = (props) => {
         await refreshAccessToken(); // Refresh the token
         access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
-            const { data } = await axios.get(`${backendUrl}/api/doctor/appointments/${profileData.doctorId}`, {}, // body
+            const { data } = await axios.get(`${backendUrl}/api/doctor/appointments/${profileData.doctorId}`,  // body
                 {
                   headers: {
                     Authorization: `Bearer ${access_token}`,
@@ -58,7 +58,7 @@ const DoctorContextProvider = (props) => {
         await refreshAccessToken(); // Refresh the token
         access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
-            const { data } = await axios.get(backendUrl + '/api/doctor/profile',  {}, // body
+            const { data } = await axios.get(backendUrl + '/api/doctor/profile',   // body
                 {
                   headers: {
                     Authorization: `Bearer ${access_token}`,

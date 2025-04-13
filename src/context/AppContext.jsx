@@ -79,7 +79,7 @@ const AppContextProvider = (props) => {
           // Send refresh token in Authorization header
           const response = await axios.post(
             `${backendUrl}/api/refreshtoken`,
-            {}, // No body
+             // No body
             {
               headers: {
                 Authorization: `Bearer ${refresh_token}`,

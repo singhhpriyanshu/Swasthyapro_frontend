@@ -24,7 +24,7 @@ const DoctorBooking = ({ docId }) => {
         await refreshAccessToken(); // Refresh the token
         access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
-                const response = await axios.get(`${backendUrl}/api/doctor/available/${docId}`, {}, // body
+                const response = await axios.get(`${backendUrl}/api/doctor/available/${docId}`,  // body
                     {
                       headers: {
                         Authorization: `Bearer ${access_token}`,

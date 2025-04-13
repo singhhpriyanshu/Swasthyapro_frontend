@@ -101,7 +101,7 @@ const DML = () => {
         await refreshAccessToken(); // Refresh the token
         access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
-            const response = await axios.post(`${backendUrl}/send_dml_otp/${email}`, {}, // body
+            const response = await axios.post(`${backendUrl}/send_dml_otp/${email}`,  // body
                 {
                   headers: {
                     Authorization: `Bearer ${access_token}`,
@@ -155,7 +155,7 @@ const DML = () => {
         await refreshAccessToken(); // Refresh the token
         access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
-            const response = await axios.get(`${backendUrl}/get_booking_id/${email}`, {}, // body
+            const response = await axios.get(`${backendUrl}/get_booking_id/${email}`,  // body
                 {
                   headers: {
                     Authorization: `Bearer ${access_token}`,
@@ -180,7 +180,7 @@ const DML = () => {
       }
             const details = {};
             for (const bookingId of bookingIds) {
-                const response = await axios.get(`${backendUrl}/getfacility/book/${bookingId}`, {}, // body
+                const response = await axios.get(`${backendUrl}/getfacility/book/${bookingId}`,  // body
                     {
                       headers: {
                         Authorization: `Bearer ${access_token}`,

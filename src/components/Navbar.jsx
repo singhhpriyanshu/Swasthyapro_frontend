@@ -35,7 +35,7 @@ const Navbar = () => {
   
       const response = await axios.post(
         `${backendUrl}/api/auth/logout`,
-        {}, // body
+         // body
         {
           headers: {
             Authorization: `Bearer ${access_token}`,

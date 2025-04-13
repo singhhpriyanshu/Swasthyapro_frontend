@@ -54,7 +54,7 @@ const MyAppointments = () => {
         access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
       const { data } = await axios.get(
-        `${backendUrl}/api/user/appointments/get/${userData.userId}`, {}, // body
+        `${backendUrl}/api/user/appointments/get/${userData.userId}`, // body
         {
           headers: {
             Authorization: `Bearer ${access_token}`,
@@ -93,7 +93,7 @@ const MyAppointments = () => {
         access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
       const response = await axios.delete(
-        `${backendUrl}/api/appointments/delete/${appointmentToDelete}`, {}, // body
+        `${backendUrl}/api/appointments/delete/${appointmentToDelete}`,  // body
         {
           headers: {
             Authorization: `Bearer ${access_token}`,

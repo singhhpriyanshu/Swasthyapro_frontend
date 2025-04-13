@@ -71,7 +71,7 @@ const MyTest = () => {
         throw new Error('User not logged in');
       }
 
-      const response = await axios.get(`${backendUrl}/api/get_booking_id/${email}`, {}, // body
+      const response = await axios.get(`${backendUrl}/api/get_booking_id/${email}`,  // body
         {
           headers: {
             Authorization: `Bearer ${access_token}`,
@@ -95,7 +95,7 @@ const MyTest = () => {
       }
       const details = {};
       for (const bookingId of bookingIds) {
-        const response = await axios.get(`${backendUrl}/api/getfacility/book/${bookingId}`, {}, // body
+        const response = await axios.get(`${backendUrl}/api/getfacility/book/${bookingId}`,  // body
           {
             headers: {
               Authorization: `Bearer ${access_token}`,

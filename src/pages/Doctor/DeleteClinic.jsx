@@ -22,7 +22,7 @@ const DeleteClinic = () => {
         await refreshAccessToken(); // Refresh the token
         access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
-      const response = await axios.get(`${backendUrl}/api/doctor/getclinics/${profileData.doctorId}`, {}, // body
+      const response = await axios.get(`${backendUrl}/api/doctor/getclinics/${profileData.doctorId}`, // body
         {
           headers: {
             Authorization: `Bearer ${access_token}`,
@@ -49,7 +49,7 @@ const DeleteClinic = () => {
         await refreshAccessToken(); // Refresh the token
         access_token = localStorage.getItem('access_token'); // 🔁 Get updated token!
       }
-      await axios.delete(`${backendUrl}/api/doctor/deleteclinics/${clinicId}`, {}, // body
+      await axios.delete(`${backendUrl}/api/doctor/deleteclinics/${clinicId}`,  // body
         {
           headers: {
             Authorization: `Bearer ${access_token}`,
